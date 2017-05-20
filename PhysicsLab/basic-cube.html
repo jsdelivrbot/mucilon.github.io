@@ -60,11 +60,8 @@
 				);
 
 				var path = new THREE.Path( curve.getPoints( 50 ) );
-				var pts = path.createPointsGeometry( 50 );
 
-
-
-				var shape = new THREE.Shape( pts );
+				var shape = new THREE.Shape( path );
 
 				var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
 
