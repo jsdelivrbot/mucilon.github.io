@@ -40,7 +40,8 @@
 		0                 // aRotation
 		);
 
-
+		var path = new THREE.Path( curve.getPoints( 50 ) )
+		
 		var extrudeSettings = {
 			steps: 100,
 			amount: 100,
@@ -50,7 +51,7 @@
 			bevelSegments: 1
 		};
 
-		var geometry = new THREE.ExtrudeGeometry( curve, extrudeSettings );
+		var geometry = new THREE.ExtrudeGeometry( path, extrudeSettings );
 		var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 		var mesh = new THREE.Mesh( geometry, material ) ;
 		scene.add( mesh );
