@@ -37,14 +37,14 @@
 
 
 
-        var scala = 10000;
+        var scala = 1000000;
         var sunradius = 695700/scala;
         var earthradius = 6371/scala;
         var afelio = 151200000/scala;
         var perielio = 146080000/scala;
 
         var raiomaior = ((afelio + perielio)/2);
-        var centro = ((2*afelio)/2);
+        var centro = ((2*perielio)/2);
         var raiomenor = Math.sqrt(Math.pow(centro) + Math.pow(raiomaior)); 
 
 
@@ -68,7 +68,7 @@
 
 
 			    // path
-			    var path = new Ellipse(100, raiomaior);
+			    var path = new Ellipse(raiomenor, raiomaior);
 
 
 			    var pathSegments = 64;
@@ -96,9 +96,9 @@
  			sun.position.z = -100;
  			sun.position.y = 0;
 
-		//	orbita.position.x = sum.position.x + centro;
-		//	orbita.position.z = -100;
-		//	orbita.position.y = sum.position.y;
+			orbita.position.x = sum.position.x + centro;
+			orbita.position.z = -100;
+			orbita.position.y = sum.position.y;
 
 			renderer.render(scene);
 		}
