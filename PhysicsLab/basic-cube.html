@@ -12,14 +12,14 @@
 			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 		}
 
-		function Ellipse( xRadius, yRadius ) {
+		function Ellipse( xRadius, yRadius, center ) {
 
 		THREE.Curve.call( this );
 
 		// add radius as a property
 		this.xRadius = xRadius;
 		this.yRadius = yRadius;
-
+		this.center = center;	
 		}
 
 		Ellipse.prototype = Object.create( THREE.Curve.prototype );
@@ -31,7 +31,7 @@
 			var radians = 2 * Math.PI * t;
 
 			return new THREE.Vector3( this.xRadius * Math.cos( radians ),
-									  0,
+									  this.center,
 									  this.yRadius * Math.sin( radians ) );
 
 		};
@@ -50,7 +50,7 @@
 
 
 			    // path
-			    var path = new Ellipse( 200, 400 );
+			    var path = new Ellipse( 200, 400, 300 );
 
 
 			    var pathSegments = 64;
