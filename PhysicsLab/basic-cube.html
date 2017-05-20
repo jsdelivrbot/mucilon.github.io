@@ -53,13 +53,13 @@
 */
 				var curve = new THREE.EllipseCurve(
 				0,  0,            // ax, aY
-				10, 10,           // xRadius, yRadius
+				100, 100,           // xRadius, yRadius
 				0,  2 * Math.PI,  // aStartAngle, aEndAngle
 				false,            // aClockwise
 				0                 // aRotation
 				);
 
-				var path = new THREE.Path( curve.getPoints( 50 ) );
+				var path = new THREE.Path( curve.getPoints( 100 ) );
 
 				var shape = new THREE.Shape( path );
 
