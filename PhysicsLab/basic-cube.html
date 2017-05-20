@@ -32,16 +32,16 @@
 		shape.lineTo( 0, 0 );
 
 		var extrudeSettings = {
-			steps: 6,
+			steps: 10,
 			amount: 20,
 			bevelEnabled: true,
-			bevelThickness: 3,
-			bevelSize: 1,
-			bevelSegments: 1
+			bevelThickness: 5,
+			bevelSize: 5,
+			bevelSegments: 5
 		};
 
 		var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
-		var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+		var material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
 		var mesh = new THREE.Mesh( geometry, material ) ;
 		scene.add( mesh );
 
