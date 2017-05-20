@@ -85,7 +85,7 @@
 			    
 			    // mesh
 			    orbita = new THREE.Mesh( geometry, material );
-			    scene.add( orbita );
+			    scene.add( orbita);
 
 
 		//Update & Rendering
@@ -96,8 +96,8 @@
  			sun.position.z = -200;
  			sun.position.y = 0;
 
-			orbita.position.x = sum.position.x + centro;
-			orbita.position.z = -100;
+			orbita.position.x = sum.position.x + 25;
+			orbita.position.z = -200;
 			orbita.position.y = sum.position.y;
 
 			renderer.render(scene);
