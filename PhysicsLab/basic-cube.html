@@ -21,14 +21,6 @@
 		});
 		var cube = new THREE.Mesh(geometry, material);
 	//	scene.add(cube);
-				var closedSpline = new THREE.CatmullRomCurve3( [
-					new THREE.Vector3( -60, -100,  60 ),
-					new THREE.Vector3( -60,   20,  60 ),
-					new THREE.Vector3( -60,  120,  60 ),
-					new THREE.Vector3(  60,   20, -60 ),
-					new THREE.Vector3(  60, -100, -60 )
-				] );
-
 
 				var curve = new THREE.EllipseCurve(
 				0,  0,            // ax, aY
@@ -38,42 +30,24 @@
 				0                 // aRotation
 				);
 
+				var path = new THREE.Path( curve.getPoints( 50 ) );
 
+			    var pathSegments = 64;
+			    var tubeRadius = 0.5;
+			    var radiusSegments = 16;
+			    var closed = true;
 
+			    var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
+			    
+			    // material
+			    var material = new THREE.MeshPhongMaterial( {
+			        color: 0x0080ff, 
+			    } );
+			    
+			    // mesh
+			    mesh = new THREE.Mesh( geometry, material );
+			    scene.add( mesh );
 
-				curve.type = 'catmullrom';
-				curve.closed = true;
-
-				var extrudeSettings = {
-					steps			: 100,
-					bevelEnabled	: false,
-					extrudePath		: curve
-				};
-
-
-				var pts = [], count = 50;
-
-				for ( var i = 0; i < count; i ++ ) {
-
-					var l = 20;
-
-					var a = 2 * i / count * Math.PI;
-
-					pts.push( new THREE.Vector2 ( Math.cos( a ) * l, Math.sin( a ) * l ) );
-
-				}
-
-				var path = new THREE.Path( curve.getPoints( 100 ) );
-
-				var shape = new THREE.Shape( pts );
-
-				var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
-
-				var material = new THREE.MeshLambertMaterial( { color: 0xb00000, wireframe: false } );
-
-				var mesh = new THREE.Mesh( geometry, material );
-
-				scene.add( mesh );
 
 		//Update & Rendering
 		function render() {
