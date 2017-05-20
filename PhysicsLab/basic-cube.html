@@ -38,7 +38,7 @@
 					extrudePath		: closedSpline
 				};
 
-
+/*
 				var pts = [], count = 3;
 
 				for ( var i = 0; i < count; i ++ ) {
@@ -50,6 +50,19 @@
 					pts.push( new THREE.Vector2 ( Math.cos( a ) * l, Math.sin( a ) * l ) );
 
 				}
+*/
+				var curve = new THREE.EllipseCurve(
+				0,  0,            // ax, aY
+				10, 10,           // xRadius, yRadius
+				0,  2 * Math.PI,  // aStartAngle, aEndAngle
+				false,            // aClockwise
+				0                 // aRotation
+				);
+
+				var path = new THREE.Path( curve.getPoints( 50 ) );
+				var pts = path.createPointsGeometry( 50 );
+
+
 
 				var shape = new THREE.Shape( pts );
 
