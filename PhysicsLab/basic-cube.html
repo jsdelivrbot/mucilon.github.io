@@ -30,7 +30,9 @@
 				0                 // aRotation
 				);
 
-				var path = new THREE.Path( curve.getPoints( 50 ) );
+				var test = new THREE.Path( curve.getPoints( 50 ) );
+
+				var path = test.createPointsGeometry( 50 );
 
 			    var pathSegments = 64;
 			    var tubeRadius = 0.5;
