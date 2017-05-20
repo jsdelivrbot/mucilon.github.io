@@ -22,7 +22,7 @@
 		var cube = new THREE.Mesh(geometry, material);
 	//	scene.add(cube);
 
-		var length = 50, width = 46;
+		var length = 120, width = 114;
 
 		var shape = new THREE.Shape();
 		shape.moveTo( 0,0 );
@@ -32,10 +32,10 @@
 		shape.lineTo( 0, 0 );
 
 		var extrudeSettings = {
-			steps: 2,
-			amount: 16,
+			steps: 6,
+			amount: 20,
 			bevelEnabled: true,
-			bevelThickness: 1,
+			bevelThickness: 3,
 			bevelSize: 1,
 			bevelSegments: 1
 		};
