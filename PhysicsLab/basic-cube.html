@@ -53,7 +53,7 @@
 
 		var geometry = new THREE.ExtrudeGeometry( path, extrudeSettings );
 		var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-		var mesh = new THREE.Mesh( geometry, material ) ;
+		var mesh = new THREE.Mesh( curve, material ) ;
 		scene.add( mesh );
 
 
