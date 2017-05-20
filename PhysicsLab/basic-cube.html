@@ -4,7 +4,7 @@
 		<meta charset=utf-8>
 		<title>My first Three.js app in Altspace</title>
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.js"></script>
-		<script src="../../dist/altspace.js"></script>
+		<script src="/dist/altspace.js"></script>
 	</head>
 	<body>
 		<script>
@@ -19,8 +19,8 @@
 		var material = new THREE.MeshBasicMaterial({
 			color: 0x00ff00
 		});
-	//	var cube = new THREE.Mesh(geometry, material);
-		//scene.add(cube);
+		var cube = new THREE.Mesh(geometry, material);
+		scene.add(cube);
 
 
 		var curve = new THREE.EllipseCurve(
