@@ -45,7 +45,7 @@
 
         var raiomaior = ((afelio + perielio)/2);
         var centro = raiomaior - perielio;
-        var raiomenor = Math.sqrt(Math.pow(raiomaior) - Math.pow(centro) ); 
+        var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) ); 
 
 
 		var scene = new THREE.Scene();
@@ -68,11 +68,11 @@
 
 
 			    // path
-			    var path = new Ellipse(148, raiomaior);
+			    var path = new Ellipse(148, 148);
 
 
 			    var pathSegments = 64;
-			    var tubeRadius = 0.5;
+			    var tubeRadius = 0.1;
 			    var radiusSegments = 16;
 			    var closed = true;
 
