@@ -12,6 +12,32 @@
 			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 		}
 
+		function Ellipse( xRadius, yRadius ) {
+
+		THREE.Curve.call( this );
+
+		// add radius as a property
+		this.xRadius = xRadius;
+		this.yRadius = yRadius;
+
+		}
+
+		Ellipse.prototype = Object.create( THREE.Curve.prototype );
+		Ellipse.prototype.constructor = Ellipse;
+
+		// define the getPoint function for the subClass
+		Ellipse.prototype.getPoint = function ( t ) {
+
+			var radians = 2 * Math.PI * t;
+
+			return new THREE.Vector3( this.xRadius * Math.cos( radians ),
+									  this.yRadius * Math.sin( radians ),
+									  0 );
+
+		};
+
+		
+
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
@@ -22,17 +48,11 @@
 		var cube = new THREE.Mesh(geometry, material);
 	//	scene.add(cube);
 
-				var curve = new THREE.EllipseCurve(
-				0,  0,            // ax, aY
-				100, 100,           // xRadius, yRadius
-				0,  2 * Math.PI,  // aStartAngle, aEndAngle
-				false,            // aClockwise
-				0                 // aRotation
-				);
+			scene.add( new THREE.AxisHelper( 20 ) );
 
-				var test = new THREE.Path( curve.getPoints( 50 ) );
+			    // path
+			    var path = new Ellipse( 5, 10 );
 
-				var path = test.createPointsGeometry( 50 );
 
 			    var pathSegments = 64;
 			    var tubeRadius = 0.5;
