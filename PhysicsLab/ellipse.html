@@ -44,8 +44,8 @@
         var perielio = 146080000/scala;
 
         var raiomaior = ((afelio + perielio)/2);
-        var centro = ((2*perielio)/2);
-        var raiomenor = Math.sqrt(Math.pow(centro) + Math.pow(raiomaior)); 
+        var centro = raiomaior - perielio;
+        var raiomenor = Math.sqrt(Math.pow(raiomaior) - Math.pow(centro)); 
 
 
 		var scene = new THREE.Scene();
@@ -68,7 +68,7 @@
 
 
 			    // path
-			    var path = new Ellipse(100, raiomaior);
+			    var path = new Ellipse(raiomenor, raiomaior);
 
 
 			    var pathSegments = 64;
