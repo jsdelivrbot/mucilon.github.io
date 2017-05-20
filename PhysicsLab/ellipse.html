@@ -43,7 +43,7 @@
         var afelio = 151200000/scala;
         var perielio = 146080000/scala;
 
-        var raiomaior = ((afelio + perielio)/2)
+        var raiomaior = ((afelio + perielio)/2);
         var centro = ((2*afelio)/2);
         var raiomenor = Math.sqrt(Math.pow(centro) + Math.pow(raiomaior)); 
 
@@ -57,11 +57,11 @@
 
 		//configurando as variáveis da esfera
 	
-		var segments = 16,
+		var segments = 16;
 		var rings = 16;
 		 
 		//criando a esfera
-		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
+		var sun = new THREE.Mesh(new THREE.SphereGeometry(70,segments,rings),material);
 		scene.add(sun);
 		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
 		scene.add(earth);
