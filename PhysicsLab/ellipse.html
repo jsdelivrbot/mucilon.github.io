@@ -37,19 +37,38 @@
 
 
 
+        var scala = 10000;
+        var sunradius = 695700/scala;
+        var earthradius = 6371/scala;
+        var afelio = 151200000/scala;
+        var perielio = 146080000/scala;
+
+        var raiomaior = ((afelio + perielio)/2)
+        var centro = ((2*afelio)/2);
+        var raiomenor = Math.sqrt(Math.pow(centro) + Math.pow(raiomaior)); 
+
+
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
-		var geometry = new THREE.BoxGeometry(200, 200, 200);
 		var material = new THREE.MeshBasicMaterial({
 			color: 0x00ff00
 		});
-		var cube = new THREE.Mesh(geometry, material);
-	//	scene.add(cube);
+
+		//configurando as variáveis da esfera
+	
+		var segments = 16,
+		var rings = 16;
+		 
+		//criando a esfera
+		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
+		scene.add(sun);
+		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
+		scene.add(earth);
 
 
 			    // path
-			    var path = new Ellipse( 100, 200);
+			    var path = new Ellipse(raiomaior, raiomenor);
 
 
 			    var pathSegments = 64;
@@ -65,17 +84,21 @@
 			    } );
 			    
 			    // mesh
-			    mesh = new THREE.Mesh( geometry, material );
-			    scene.add( mesh );
+			    orbita = new THREE.Mesh( geometry, material );
+			    scene.add( orbita );
 
 
 		//Update & Rendering
 		function render() {
 			requestAnimationFrame(render);
 
-			mesh.position.x = 0;
-			mesh.position.z = -100;
-			mesh.position.y = 0;
+ 			sun.position.x = 0;
+ 			sun.position.z = -100;
+ 			sun.position.y = 0;
+
+			orbita.position.x = sum.position.x + centro;
+			orbita.position.z = -100;
+			orbita.position.y = sum.position.y;
 
 			renderer.render(scene);
 		}
