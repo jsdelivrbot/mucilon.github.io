@@ -50,7 +50,7 @@
 
 
 			    // path
-			    var path = new Ellipse( 200, 400, 300 );
+			    var path = new Ellipse( 100, 200, -200 );
 
 
 			    var pathSegments = 64;
@@ -67,7 +67,6 @@
 			    
 			    // mesh
 			    mesh = new THREE.Mesh( geometry, material );
-			    mesh.x = 300;
 			    scene.add( mesh );
 
 
@@ -75,8 +74,7 @@
 		function render() {
 			requestAnimationFrame(render);
 
-			cube.rotation.x += 0.01;
-			cube.rotation.y += 0.01;
+			mesh.position.x = 200;
 
 			renderer.render(scene);
 		}
