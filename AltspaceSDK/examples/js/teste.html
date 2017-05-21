@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang=en>
+	<head>
+		<meta charset=utf-8>
+		<title>My first Three.js app in Altspace</title>
+		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.min.js"></script>
+		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/MTLLoader.js"></script>
+		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/OBJLoader.js"></script>
+		<script src="https://sdk.altvr.com/libs/altspace.js/2.4.5/altspace.min.js"></script>
+		<script src="http://sdk.altvr.com/utilities/0.5.5/multiloader.js"></script>
+	</head>
+	<body>
+		<script>
+		if (!window.altspace || !window.altspace.inClient) {
+			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
+		}
+
+
+		var scene = new THREE.Scene();
+		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
+		var multiloader = altspace.utilities.multiloader;
+
+
+
+
+		 function loadTest(){
+
+				       var material = new THREE.MeshBasicMaterial({
+							color: 0x00ff00
+						});
+
+				        var test = new THREE.Mesh(new THREE.SphereGeometry(20,16,16),material);
+						scene.add(test);
+
+		 }
+
+				function loadModels(){// Load up the models
+				multiloader.init({
+					crossOrigin: 'anonymous',
+					baseUrl: 'models/solar-system/'
+				});
+				loadRequest = new multiloader.LoadRequest();
+				loadRequest.mtlUrls.push('/sun.mtl');
+				loadRequest.objUrls.push('/sun.obj');
+				var rtn = multiloader.load(loadRequest, initPlanets);
+		    
+			}
+
+			function initPlanets(){//Callback to be sure all models are loaded.
+		            var obj = loadRequest.objects[0];
+		            obj.scale.x *= 4;
+		            obj.scale.y *= 4;
+		            obj.scale.z *= 4;
+		            obj.position.z += 200;
+		            obj.position.y += 200;
+		            scene.add(obj);
+			    
+			}
+
+
+
+		var manager = new THREE.LoadingManager();
+		var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
+
+
+        loader.load('models/chess/king.obj','models/chess/king.mtl', function (sun) {
+
+					sun.scale.x = 100;
+					sun.scale.y = 100;
+					sun.scale.z = 100;
+
+			scene.add(sun);
+					
+	   )};	
+
+	   
+
+		loadTest();
+		loadModels()
+		renderer.render(scene);		
+
+		</script>
+	</body>
+</html>
+
