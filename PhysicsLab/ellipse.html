@@ -51,8 +51,12 @@
 		var objFilename = "models/cube/cube-colored-faces.obj";
 		var mtlFilename = "models/cube/cube-colored-faces.mtl";
 		loader.load(objFilename, mtlFilename, function ( obj ) {
-			cubeModel = obj;
-			scene.add(cubeModel);
+			cube = obj;
+			cube.scale.multiplyScalar(15);
+			cube.rotation.y += Math.PI / 8;
+			cube.rotation.x += Math.PI / 12;
+
+			scene.add(cube);
 		});
 	}
 
