@@ -35,7 +35,7 @@
 
 		};
 
-
+		var radiusCoeff = 0.022;
        
 		var mtlLoader = new THREE.MTLLoader();
 		mtlLoader.setBaseUrl( 'models/solar-system/' );
@@ -48,10 +48,12 @@
 	    var objLoader = new THREE.OBJLoader();
 	    objLoader.setMaterials( materials );
 	    objLoader.setPath( 'models/solar-system/' );
-	    objLoader.load( 'sun.obj', function ( object ) {
+	    objLoader.load( 'sun.obj', function ( obj ) {
 
-        object.position.y = - 95;
-        scene.add( object );
+        obj.scale.x = 30 * radiusCoeff;
+		obj.scale.y = 30 * radiusCoeff;
+		obj.scale.z = 30 * radiusCoeff;
+        scene.add( obj );
 
 
 
