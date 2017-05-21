@@ -50,6 +50,7 @@
 		var mtlFilename = "/models/cube/cube-colored-faces.mtl";
 		loader.load(objFilename, mtlFilename, function ( obj ) {
 			cube = obj;
+			cube.name = 'cube';
 			cube.scale.multiplyScalar(15);
 			cube.rotation.y += Math.PI / 8;
 			cube.rotation.x += Math.PI / 12;
