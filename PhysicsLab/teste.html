@@ -40,8 +40,8 @@
 					baseUrl: 'models/solar-system/'
 				});
 				loadRequest = new multiloader.LoadRequest();
-				loadRequest.mtlUrls.push(nome+'.mtl');
-				loadRequest.objUrls.push(nome+'.obj');
+				loadRequest.mtlUrls.push(nome.concat('.mtl'));
+				loadRequest.objUrls.push(nome.concat('.obj'));
 				var rtn = multiloader.load(loadRequest, initPlanets);
 		    
 			}
