@@ -14,6 +14,64 @@
 		if (!window.altspace || !window.altspace.inClient) {
 			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 		}
+
+
+		var scene = new THREE.Scene();
+		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
+		var scene = new THREE.Scene();
+		var multiloader = altspace.utilities.multiloader;
+
+
+
+
+		 function loadTest(){
+
+				       var material = new THREE.MeshBasicMaterial({
+							color: 0x00ff00
+						});
+
+				        var test = new THREE.Mesh(new THREE.SphereGeometry(20,16,16),material);
+						scene.add(test);
+
+		 }
+
+				function loadModels(){// Load up the models
+				multiloader.init({
+					crossOrigin: 'anonymous',
+					baseUrl: 'models/solar-system/'
+				});
+				loadRequest = new multiloader.LoadRequest();
+				loadRequest.mtlUrls.push('/sun.mtl');
+				loadRequest.objUrls.push('/sun.obj');
+				var rtn = multiloader.load(loadRequest, initPlanets);
+		    
+			}
+
+			function initPlanets(){//Callback to be sure all models are loaded.
+		            var obj = loadRequest.objects[0];
+		            obj.scale.x *= 4;
+		            obj.scale.y *= 4;
+		            obj.scale.z *= 4;
+		            obj.position.z += 100;
+		            obj.position.y += 100;
+		            scene.add(obj);
+			    
+			}
+
+
+
+		loadModels();
+		renderer.render(scene);		
+		 
+
+
+
+
+
+
+
+
+
 /*
 		function Ellipse(xRadius, yRadius) {
 
@@ -55,9 +113,6 @@
 
 
 
-		var scene = new THREE.Scene();
-		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
-
 /*
 		var geometry, teste;
 		var manager = new THREE.LoadingManager();
@@ -79,47 +134,7 @@
 	   scene.add(teste);
   */
 
-//var ascp = altspace.utilities.codePen;
-var scene = new THREE.Scene();
-//var dualRenderer = altspace.utilities.shims.dualRenderer;
-var multiloader = altspace.utilities.multiloader;
 
-loadModels();
-		
-/*
-
-       var material = new THREE.MeshBasicMaterial({
-			color: 0x00ff00
-		});
-
-        var test = new THREE.Mesh(new THREE.SphereGeometry(20,16,16),material);
-		scene.add(test);
-*/
-		 renderer.render(scene);
-
-
-		function loadModels(){// Load up the models
-		multiloader.init({
-			crossOrigin: 'anonymous',
-			baseUrl: 'models/solar-system/'
-		});
-		loadRequest = new multiloader.LoadRequest();
-		loadRequest.mtlUrls.push('/sun.mtl');
-		loadRequest.objUrls.push('/sun.obj');
-		var rtn = multiloader.load(loadRequest, initPlanets);
-    
-	}
-
-	function initPlanets(){//Callback to be sure all models are loaded.
-            var obj = loadRequest.objects[0];
-            obj.scale.x *= 4;
-            obj.scale.y *= 4;
-            obj.scale.z *= 4;
-            obj.position.z += 100;
-            obj.position.y += 100;
-            scene.add(obj);
-	    
-	}
 
 /*
 		var material = new THREE.MeshBasicMaterial({
