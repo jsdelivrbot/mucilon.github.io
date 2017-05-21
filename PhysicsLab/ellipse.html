@@ -57,11 +57,11 @@
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
 
-        loader.load('models/solar-system/sun.obj', 'models/solar-system/sun.mtl', function (sun) {
+        loader.load('/models/solar-system/sun.obj', '/models/solar-system/sun.mtl', function (sun) {
 
-					sun.scale.x = 1;
-					sun.scale.y = 1;
-					sun.scale.z = 1;
+					sun.scale.x = 10;
+					sun.scale.y = 10;
+					sun.scale.z = 10;
 
 				//	root = sun.clone();
 				//	root.position.x = 0;
@@ -113,7 +113,7 @@
 		//Update & Rendering
 		function render() {
 			requestAnimationFrame(render);
-
+/*
  			sun.position.x = 0;
  			sun.position.y = -300;
  			sun.position.z = 0;
@@ -129,7 +129,7 @@
  			earth2.position.x = sun.position.x - perielio;
  			earth2.position.y = sun.position.y;
  			earth2.position.z = sun.position.z;
-
+*/
 			renderer.render(scene);
 		}
 		render();
