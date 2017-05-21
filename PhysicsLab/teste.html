@@ -34,11 +34,8 @@
 
 		 }
 
-		         var sun;
-		loadTest();
-		loadModels(sun,'sun');
 
-				function loadModels(obj,nome){// Load up the models
+				function loadModels(nome){// Load up the models
 				multiloader.init({
 					crossOrigin: 'anonymous',
 					baseUrl: 'models/solar-system/'
@@ -72,6 +69,10 @@
 		    // 		scene.add(obj);
 			    
 			}
+
+
+		var sun = loadModels('sun');
+		loadTest();
 /*
 		var manager = new THREE.LoadingManager();
 		var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
