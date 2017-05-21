@@ -37,11 +37,12 @@
 
 
 
-        var scala = 1000000;
-        var sunradius = 695700/scala;
-        var earthradius = 6371/scala;
-        var afelio = 151200000/scala;
-        var perielio = 146080000/scala;
+        var scala = 100;
+        var au = 
+        var sunradius = 0.00465046726*scala;
+        var earthradius = 6371*scala;
+        var afelio = 1.01070957289*scala;
+        var perielio = 0.976484486821*scala;
 
         var raiomaior = ((afelio + perielio)/2);
         var centro = raiomaior - perielio;
@@ -93,7 +94,7 @@
 			requestAnimationFrame(render);
 
  			sun.position.x = 0;
- 			sun.position.z = -100;
+ 			sun.position.z = -300;
  			sun.position.y = 0;
 
 			orbita.position.x = sum.position.x + centro;
