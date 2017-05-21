@@ -40,7 +40,7 @@
         var scalaorbita= 500;
         var scalaplaneta = 20000;
         var sunradius = 0.004*scalaplaneta;
-        var earthradius = 0.0000425*scalaplaneta*10;
+        var earthradius = 0.0000425*scalaplaneta*30;
         var afelio = 1.010*scalaorbita;
         var perielio = 0.976*scalaorbita;
 
@@ -98,7 +98,7 @@
  			sun.position.y = -300;
  			sun.position.z = 0;
 
- 			orbita.position.x = sun.position.x - centro;
+ 			orbita.position.x = sun.position.x + centro;
  			orbita.position.y = sun.position.y;
  			orbita.position.z = sun.position.z;
 
