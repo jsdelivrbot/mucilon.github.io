@@ -40,8 +40,6 @@
 		var radiusCoeff = 0.022;
         var solar= new THREE.Object3D();
 
-
-
 				var mtlLoader = new THREE.MTLLoader();
 				mtlLoader.setPath('/models/solar-system/');
 				mtlLoader.load('sun.mtl', function( materials ) {
@@ -59,7 +57,8 @@
 						obj.userData.originalScale.y = obj.scale.y;
 						obj.userData.originalScale.z = obj.scale.z;
 						solar.add(obj);
-						scene.add(solar);
+						var ear = new THREE.Mesh(obj);
+						scene.add(ear);
 					}, onProgress, onError );
 				});
        
