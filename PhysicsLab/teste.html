@@ -34,7 +34,7 @@
 
 		 }
 
-				function loadModels(nome){// Load up the models
+				function loadModels(objeto,nome){// Load up the models
 				multiloader.init({
 					crossOrigin: 'anonymous',
 					baseUrl: 'models/solar-system/'
@@ -70,9 +70,10 @@
 			scene.add(sun);
 					
 	   )};		   
-*/
+*/    
+        var sun;
 		loadTest();
-		loadModels('sun');
+		loadModels(sun,'sun');
 
 			function render() {
 
