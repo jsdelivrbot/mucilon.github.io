@@ -64,6 +64,7 @@
 		//criando a esfera
 		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
 		scene.add(sun);
+		
 		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
 		scene.add(earth);
 
@@ -94,8 +95,8 @@
 			requestAnimationFrame(render);
 
  			sun.position.x = 0;
- 			sun.position.z = 0;
  			sun.position.y = -300;
+ 			sun.position.z = 0;
 
  			earth.position.x = sun.position.x;
  			earth.position.y = sun.position.y;
