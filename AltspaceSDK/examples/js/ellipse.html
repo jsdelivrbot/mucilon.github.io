@@ -55,7 +55,7 @@
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
 
-		var geometry, root;
+		var geometry, teste;
 		var manager = new THREE.LoadingManager();
 		var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
 
@@ -66,12 +66,12 @@
 					sun.scale.y = 10;
 					sun.scale.z = 10;
 
-					root = sun.clone();
-					root.position.x = 0;
-					root.position.z = 100;
+					teste = sun.clone();
+					teste.position.x = 0;
+					teste.position.z = 100;
 					
 	   )};	
-scene.add( root );
+		scene.add(teste);
 /*
 
        var material = new THREE.MeshBasicMaterial({
