@@ -16,17 +16,45 @@
 
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
+
 		var scalaorbita= 500;
         var scalasol = 20000;
         var scalaterra = scalasol*30;
         var sunradius = 0.004*scalasol;
         var earthradius = 0.0000425*scalaterra;
-        var afelio = 1.010*scalaorbita;
-        var perielio = 0.976*scalaorbita;
+        var afelioearth = 1.010*scalaorbita;
+        var perielioearth = 0.976*scalaorbita;
 
-        var raiomaior = ((afelio + perielio)/2);
-        var centro = raiomaior - perielio;
-        var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) ); 
+
+
+        function createOrbit(afelio,perielio){
+
+        	var raiomaior = ((afelio + perielio)/2);
+        	var centro = raiomaior - perielio;
+            var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) );
+
+            var path = new Ellipse(raiomaior,raiomenor);
+
+
+			var pathSegments = 64;
+			var tubeRadius = 0.5;
+			var radiusSegments = 16;
+			var closed = true;
+
+			var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
+			    
+			
+			var material = new THREE.MeshPhongMaterial( {
+			    color: 0xffffff, 
+			} );
+			    
+			    // mesh
+			orbita = new THREE.Mesh( geometry, material );
+			return orbita;
+
+        };
+
+
 
 		function Ellipse(xRadius, yRadius) {
 
@@ -97,25 +125,10 @@
 		var earth2 = CreateEarth(earthradius);
 		scene.add(earth2);
 
-			    // path
-			    var path = new Ellipse(raiomaior,raiomenor);
 
+		orbitaterra = createOrbit(afelioearth,perielioearth);
+	    scene.add( orbitaterra );
 
-			    var pathSegments = 64;
-			    var tubeRadius = 0.5;
-			    var radiusSegments = 16;
-			    var closed = true;
-
-			    var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
-			    
-			    // material
-			    var material = new THREE.MeshPhongMaterial( {
-			        color: 0x0080ff, 
-			    } );
-			    
-			    // mesh
-			    orbita = new THREE.Mesh( geometry, material );
-			    scene.add( orbita );
 
 		//Update & Rendering
 	
