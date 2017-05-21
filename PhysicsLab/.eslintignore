@@ -1,5 +1,0 @@
-# Ignore generated files
-**/living-room.js
-**/Layout.js
-examples/js/steamvr/bundle.js
-node_modules
