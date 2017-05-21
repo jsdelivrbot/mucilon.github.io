@@ -36,44 +36,30 @@
 									  this.yRadius * Math.sin( radians ) );
 
 		};
-var radiusCoeff = 0.022;
-		function initPlanets(){//Callback to be sure all models are loaded.
 
-
-			var obj = loadRequest.objects[i];
-
-			obj.scale.x = radius * radiusCoeff;
-			obj.scale.y = radius * radiusCoeff;
-			obj.scale.z = radius * radiusCoeff;
-			obj.userData.originalScale = {};
-			obj.userData.originalScale.x = obj.scale.x;
-			obj.userData.originalScale.y = obj.scale.y;
-			obj.userData.originalScale.z = obj.scale.z;
-
-			scene.add(obj);
-		
-	}
-
-
-
-
-
-
-		
+		var radiusCoeff = 0.022;
        
+		var mtlLoader = new THREE.MTLLoader();
+		mtlLoader.setBaseUrl( 'models/solar-system/' );
+		mtlLoader.setPath( 'models/solar-system/' );
+		var url = "sun.mtl";
+		mtlLoader.load( url, function( materials ) {
 
-		multiloader.init({
-			crossOrigin: 'anonymous',
-			baseUrl: 'models/solar-system/'
-		});
+    	materials.preload();
 
-		loadRequest = new multiloader.LoadRequest();
+	    var objLoader = new THREE.OBJLoader();
+	    objLoader.setMaterials( materials );
+	    objLoader.setPath( 'models/solar-system/' );
+	    objLoader.load( 'sun.obj', function ( obj ) {
 
-		loadRequest.objUrls.push('sun'+'.obj');
-		loadRequest.mtlUrls.push('sun'+'.mtl');
-		
-		multiloader.load(loadRequest, initPlanets);
-	
+        obj.scale.x = 30 * radiusCoeff;
+		obj.scale.y = 30 * radiusCoeff;
+		obj.scale.z = 30 * radiusCoeff;
+		//obj.userData.originalScale = {};
+		//obj.userData.originalScale.x = obj.scale.x;
+		//obj.userData.originalScale.y = obj.scale.y;
+		//obj.userData.originalScale.z = obj.scale.z;
+        scene.add( obj );
 
 
 
