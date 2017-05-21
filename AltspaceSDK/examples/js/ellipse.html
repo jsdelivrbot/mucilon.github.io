@@ -16,63 +16,6 @@
 		}
 
 
-		var scene = new THREE.Scene();
-		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
-		var multiloader = altspace.utilities.multiloader;
-
-
-
-
-		 function loadTest(){
-
-				       var material = new THREE.MeshBasicMaterial({
-							color: 0x00ff00
-						});
-
-				        var test = new THREE.Mesh(new THREE.SphereGeometry(20,16,16),material);
-						scene.add(test);
-
-		 }
-
-				function loadModels(){// Load up the models
-				multiloader.init({
-					crossOrigin: 'anonymous',
-					baseUrl: 'models/solar-system/'
-				});
-				loadRequest = new multiloader.LoadRequest();
-				loadRequest.mtlUrls.push('/sun.mtl');
-				loadRequest.objUrls.push('/sun.obj');
-				var rtn = multiloader.load(loadRequest, initPlanets);
-		    
-			}
-
-			function initPlanets(){//Callback to be sure all models are loaded.
-		            var obj = loadRequest.objects[0];
-		            obj.scale.x *= 4;
-		            obj.scale.y *= 4;
-		            obj.scale.z *= 4;
-		            obj.position.z += 200;
-		            obj.position.y += 200;
-		            scene.add(obj);
-			    
-			}
-
-
-
-		loadTest();
-		loadModels()
-		renderer.render(scene);		
-		 
-
-
-
-
-
-
-
-
-
-/*
 		function Ellipse(xRadius, yRadius) {
 
 		THREE.Curve.call( this );
@@ -94,9 +37,9 @@
 									  0,
 									  this.yRadius * Math.sin( radians ) );
 
-		};*/
+		};
 
-/*
+
         var scalaorbita= 500;
         var scalasol = 10000;
         var scalaterra = scalasol*30;
@@ -109,34 +52,9 @@
         var centro = raiomaior - perielio;
         var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) ); 
 
-*/
 
 
 
-/*
-		var geometry, teste;
-		var manager = new THREE.LoadingManager();
-		var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
-
-
-        loader.load('models/chess/king.obj','models/chess/king.mtl', function (sun) {
-
-					sun.scale.x = 100;
-					sun.scale.y = 100;
-					sun.scale.z = 100;
-
-					teste = sun.clone();
-					teste.position.x = 100;
-					teste.position.z = 100;
-					
-	   )};	
-
-	   scene.add(teste);
-  */
-
-
-
-/*
 		var material = new THREE.MeshBasicMaterial({
 			color: 0x00ff00
 		});
@@ -147,14 +65,14 @@
 		var rings = 16;
 
 		//criando a esfera
-//		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
-//		scene.add(sun);
+		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
+		scene.add(sun);
 
-	//	var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
-	//	scene.add(earth);
+		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
+		scene.add(earth);
 
-	//	var earth2 = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
-	//	scene.add(earth2);
+		var earth2 = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
+		scene.add(earth2);
 
 			    // path
 			    var path = new Ellipse(raiomaior,raiomenor);
@@ -175,9 +93,9 @@
 			    // mesh
 			    orbita = new THREE.Mesh( geometry, material );
 			    scene.add( orbita );
-*/
+
 		//Update & Rendering
-/*		
+	
 		function render() {
 			requestAnimationFrame(render);
 
@@ -199,7 +117,7 @@
 
 			renderer.render(scene);
 		}
-		render(); */
+		render(); 
 		</script>
 	</body>
 </html>
