@@ -6,7 +6,7 @@
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.min.js"></script>
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/MTLLoader.js"></script>
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/OBJLoader.js"></script>
-		<script src="../../dist/altspace.js"></script>
+		<script src="https://sdk.altvr.com/libs/altspace.js/2.4.5/altspace.min.js"></script>
 	</head>
 	<body>
 		<script>
@@ -60,7 +60,7 @@
 		var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
 
 
-        loader.load('models/solar-system/sun.obj', 'models/solar-system/sun.mtl', function (sun) {
+        loader.load('models/chess/king.obj','models/chess/king.mtl', function (sun) {
 
 					sun.scale.x = 10;
 					sun.scale.y = 10;
