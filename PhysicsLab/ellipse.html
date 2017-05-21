@@ -38,12 +38,16 @@
 		};
 
 		var radiusCoeff = 0.022;
+		var cubeModel;
 
 		var loader = new altspace.utilities.shims.OBJMTLLoader();
 		var objFilename = "/models/solar-system/sun.obj";
 		var mtlFilename = "/models/solar-system/sun.mtl";
 		loader.load(objFilename, mtlFilename, function ( obj ) {
 			cubeModel = obj;
+			cubeModel.position.x = 0;
+			cubeModel.position.y = 0;
+			cubeModel.position.z = 0;
 			cubeModel.scale.x = 30 * radiusCoeff;
 			cubeModel.scale.y = 30 * radiusCoeff;
 			cubeModel.scale.z = 30 * radiusCoeff;
