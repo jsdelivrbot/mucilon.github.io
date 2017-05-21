@@ -45,13 +45,6 @@
 		};
 
 
-	function onModelReady() {
-		sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, {
-			instantiators: {'Cube': createCube },
-			ready: ready
-		});
-		scene.addBehavior(sceneSync);
-	}
 
 	function loadCubeModel() {
 		var loader = new altspace.utilities.shims.OBJMTLLoader();
@@ -59,27 +52,9 @@
 		var mtlFilename = "models/cube/cube-colored-faces.mtl";
 		loader.load(objFilename, mtlFilename, function ( obj ) {
 			cubeModel = obj;
-			onModelReady();
+			scene.add(cubeModel);
 		});
 	}
-
-
-
-		function createCube(initData) {
-
-		cube = cubeModel.clone();
-		cube.scale.multiplyScalar(15);
-		cube.addBehaviors(
-			new altspace.utilities.behaviors.Object3DSync({position: true, rotation: true, scale: true}),
-			new altspace.utilities.behaviors.GamepadControls()
-		);
-		cube.name = 'cube';
-		cube.rotation.y += Math.PI / 8;
-		cube.rotation.x += Math.PI / 12;
-		scene.add(cube);
-		return cube;
-	}
-
 
 
 
