@@ -50,6 +50,7 @@
 			    
 			    // mesh
 			orbita = new THREE.Mesh( geometry, material );
+
 			return orbita;
 
         };
@@ -127,7 +128,7 @@
 
 
 		orbitaterra = createOrbit(afelioearth,perielioearth);
-	    scene.add( orbitaterra );
+	    scene.add(orbitaterra);
 
 
 		//Update & Rendering
@@ -139,9 +140,9 @@
  			sun.position.y = -300;
  			sun.position.z = 0;
 
- 			orbita.position.x = sun.position.x + centro;
- 			orbita.position.y = sun.position.y;
- 			orbita.position.z = sun.position.z;
+ 			orbitaterra.position.x = sun.position.x + centro;
+ 			orbitaterra.position.y = sun.position.y;
+ 			orbitaterra.position.z = sun.position.z;
 
  			earth.position.x = sun.position.x + afelio;
  			earth.position.y = sun.position.y;
