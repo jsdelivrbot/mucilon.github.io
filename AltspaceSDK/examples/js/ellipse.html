@@ -13,7 +13,7 @@
 		if (!window.altspace || !window.altspace.inClient) {
 			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 		}
-
+/*
 		function Ellipse(xRadius, yRadius) {
 
 		THREE.Curve.call( this );
@@ -35,10 +35,9 @@
 									  0,
 									  this.yRadius * Math.sin( radians ) );
 
-		};
-			var manager = new THREE.LoadingManager();
-			var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
+		};*/
 
+/*
         var scalaorbita= 500;
         var scalasol = 10000;
         var scalaterra = scalasol*30;
@@ -54,6 +53,11 @@
 
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
+*/
+
+		var geometry, root;
+		var manager = new THREE.LoadingManager();
+		var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
 
 
         loader.load('models/solar-system/sun.obj', 'models/solar-system/sun.mtl', function (sun) {
@@ -62,13 +66,13 @@
 					sun.scale.y = 10;
 					sun.scale.z = 10;
 
-				//	root = sun.clone();
-				//	root.position.x = 0;
-				//	root.position.z = 100;
-					scene.add( sun );
+					root = sun.clone();
+					root.position.x = 0;
+					root.position.z = 100;
+					scene.add( root );
 	   )};	
 
-
+/*
 		var material = new THREE.MeshBasicMaterial({
 			color: 0x00ff00
 		});
@@ -107,7 +111,7 @@
 			    // mesh
 			    orbita = new THREE.Mesh( geometry, material );
 			    scene.add( orbita );
-
+*/
 		//Update & Rendering
 		function render() {
 			requestAnimationFrame(render);
