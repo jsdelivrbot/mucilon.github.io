@@ -36,74 +36,9 @@
 									  this.yRadius * Math.sin( radians ) );
 
 		};
-
-			var CONFIG = [
-		// name, radius, distance, orbitalPeriod
-		['sun',	     30,   0,   1],
-		['earth',    6.3,  4,   1],
-	];
-		var radiusCoeff = 0.022;
-	var distanceCoeff = 9;
-	var velocityCoeff = 0.005;
-
-	var sim;
-	var planets = [];
-	var planetsByName = {};
-	var compactMode;
-	var selectedPlanetName = 'earth';
-	var solarSystem = new THREE.Object3D();
-	var multiloader = altspace.utilities.multiloader;
-	var loadRequest;
-
-
-		function loadModels(){// Load up the models
-		multiloader.init({
-			crossOrigin: 'anonymous',
-			baseUrl: 'models/solar-system/'
-		});
-		loadRequest = new multiloader.LoadRequest();
-		for (var i=0; i < CONFIG.length; i++) {
-			var name = CONFIG[i][0];
-			var planetElement = $("#planet-list").append('<li><span>' + name + '</span></li>')[0];
-			$(planetElement).click(function(el){
-				selectedPlanetName = el.target.innerHTML;
-			});
-			loadRequest.objUrls.push(name+'.obj');
-			loadRequest.mtlUrls.push(name+'.mtl');
-		}
-		multiloader.load(loadRequest, initPlanets);
-	}
-
-
-		function initPlanets(){//Callback to be sure all models are loaded.
-		for (var i=0; i < loadRequest.objects.length; i++) {
-
-			var p = CONFIG[i];//guaranteed to be in same order
-			var name = p[0];
-			var radius = p[1];
-			var distance = p[2];
-			var orbitalPeriod = p[3];
-
-			var obj = loadRequest.objects[i];
-
-			planetsByName[name] = obj;
-			obj.solarDistance = distance * distanceCoeff;
-			obj.position.y = 10;
-			obj.orbitalPosition = Math.random() * 3.14;
-			obj.orbitalVelocity = (1 / orbitalPeriod) * velocityCoeff;
-			obj.name = name;
-			obj.scale.x = radius * radiusCoeff;
-			obj.scale.y = radius * radiusCoeff;
-			obj.scale.z = radius * radiusCoeff;
-			obj.userData.originalScale = {};
-			obj.userData.originalScale.x = obj.scale.x;
-			obj.userData.originalScale.y = obj.scale.y;
-			obj.userData.originalScale.z = obj.scale.z;
-
-			scene.add(obj);
-		}
-	}
-
+			var geometry, root;
+			var manager = new THREE.LoadingManager();
+			var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
 
         var scalaorbita= 500;
         var scalasol = 10000;
@@ -120,6 +55,22 @@
 
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
+
+
+loader.load('models/solar-system/sun.obj', 'models/solar-system/sun.mtl', function (sun) {
+
+					sun.scale.x = 1;
+					sun.scale.y = 1;
+					sun.scale.z = 1;
+
+					scene = new THREE.Scene();
+
+					root = sun.clone();
+					root.position.x = 0;
+					root.position.z = 100;
+					scene.add( root );
+				)};	
+
 
 		var material = new THREE.MeshBasicMaterial({
 			color: 0x00ff00
