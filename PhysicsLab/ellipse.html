@@ -83,8 +83,8 @@
 		var rings = 16;
 		 
 		//criando a esfera
-		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
-//		scene.add(sun);
+		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),materials);
+		scene.add(sun);
 
 		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
 //		scene.add(earth);
