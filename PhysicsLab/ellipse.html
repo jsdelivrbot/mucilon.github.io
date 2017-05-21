@@ -38,7 +38,7 @@
 
 
         var scalaorbita= 500;
-        var scalaplaneta = 10000;
+        var scalaplaneta = 20000;
         var sunradius = 0.004*scalaplaneta;
         var earthradius = 0.0000425*scalaplaneta;
         var afelio = 1.010*scalaorbita;
@@ -99,7 +99,7 @@
 
  			earth.position.x = 0;
  			earth.position.z = -300;
- 			earth.position.y = -afelio;
+ 			earth.position.y = +afelio;
 
 			renderer.render(scene);
 		}
