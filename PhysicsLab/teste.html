@@ -10,7 +10,7 @@
 		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 	</head>
 	<body>
-		<script>
+	<script>
 		if (!window.altspace || !window.altspace.inClient) {
 			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 		}
@@ -40,9 +40,9 @@
 					baseUrl: 'models/solar-system/'
 				});
 				loadRequest = new multiloader.LoadRequest();
-				loadRequest.mtlUrls.push('sun.mtl'); //name.concate(
+				loadRequest.mtlUrls.push('sun.mtl');
 				loadRequest.objUrls.push('sun.obj');
-				var rtn = multiloader.load(loadRequest, initPlanets());
+				var rtn = multiloader.load(loadRequest, initPlanets);
 		    
 			}
 
@@ -54,14 +54,25 @@
 		            obj.position.z += 200;
 		            obj.position.y += 200;
 		            scene.add(obj);
-		       //     object = obj.clone();   
+			    
 			}
-	   
+/*
+		var manager = new THREE.LoadingManager();
+		var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
 
-	loadTest();
-	//var sun;
-	loadModels();
-//	scene.add(sun);
+
+        loader.load('models/chess/king.obj','models/chess/king.mtl', function (sun) {
+
+					sun.scale.x = 100;
+					sun.scale.y = 100;
+					sun.scale.z = 100;
+
+			scene.add(sun);
+					
+	   )};		   
+*/
+		loadTest();
+		loadModels();
 
 			function render() {
 
