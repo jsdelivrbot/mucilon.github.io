@@ -49,9 +49,16 @@
 					var objLoader = new THREE.OBJLoader();
 					objLoader.setMaterials( materials );
 					objLoader.setPath( 'models/solar-system/' );
-					objLoader.load( 'sun.obj', function ( object ) {
-						object.position.y = - 95;
-						scene.add( object );
+					objLoader.load( 'sun.obj', function ( obj ) {
+						obj.position.y = - 95;
+						obj.scale.x = radius * radiusCoeff;
+						obj.scale.y = radius * radiusCoeff;
+						obj.scale.z = radius * radiusCoeff;
+						obj.userData.originalScale = {};
+						obj.userData.originalScale.x = obj.scale.x;
+						obj.userData.originalScale.y = obj.scale.y;
+						obj.userData.originalScale.z = obj.scale.z;
+						scene.add( obj );
 					}, onProgress, onError );
 				});
        
