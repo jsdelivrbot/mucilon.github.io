@@ -52,17 +52,15 @@
 		            obj.scale.z *= 50;
 		            obj.position.z += 200;
 		            obj.position.y += 200;
-		      //      objeto = obj.clone();
-//		     		scene.add(obj);
-
 				});
-
+                scene.add(obj)
 				return obj;		    
 			}
 
-
 			var sun = loadModels('sun');
-		    scene.add(sun)
+		//    scene.add(sun)
+
+
 
 			function initPlanets(){//Callback to be sure all models are loaded.
 		            var obj = loadRequest.objects[0];
