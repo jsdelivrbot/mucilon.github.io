@@ -38,19 +38,15 @@
 		};
 
 		var radiusCoeff = 0.022;
-		var cube;
-			var loader = new THREE.AltOBJMTLLoader();
 
-			// loader assumes .mtl file has same basename as .obj file
-			loader.load("/models/solar-system/sun.obj", function ( loadedObject ) {
 
-			    cube = loadedObject;
-			    cube.scale.x = 20*radiusCoeff;
-				cube.scale.y = 20*radiusCoeff;
-				cube.scale.z = 20*radiusCoeff;
-			    scene.add( cube );
-
-			});
+			var loader = new altspace.utilities.shims.OBJMTLLoader();
+		var objFilename = "models/solar-system/sun.obj";
+		var mtlFilename = "models/solar-system/sun.mtl";
+		loader.load(objFilename, mtlFilename, function ( obj ) {
+			cubeModel = obj;
+			scene.add( cubeModel );
+		});	
 
         var scalaorbita= 500;
         var scalasol = 10000;
