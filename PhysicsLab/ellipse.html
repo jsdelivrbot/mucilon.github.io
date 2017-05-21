@@ -16,7 +16,7 @@
 
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
-		        var scalaorbita= 500;
+		var scalaorbita= 500;
         var scalasol = 10000;
         var scalaterra = scalasol*30;
         var sunradius = 0.004*scalasol;
@@ -51,35 +51,18 @@
 
 		};
 
+		function CreateSun(radius){
+			var geometry	= new THREE.SphereGeometry(radius, 32, 32)
+			var texture	= THREE.ImageUtils.loadTexture(THREEx.Planets.baseURL+'images/sunmap.jpg')
+			var material	= new THREE.MeshPhongMaterial({
+				map	: texture,
+				bumpMap	: texture,
+				bumpScale: 0.05,
+			})
+			var mesh	= new THREE.Mesh(geometry, material)
+			return mesh	
+		}
 
-				function loadModels(obj,nome){// Load up the models
-				multiloader.init({
-					crossOrigin: 'anonymous',
-					baseUrl: 'models/solar-system/'
-				});
-				loadRequest = new multiloader.LoadRequest();
-				loadRequest.mtlUrls.push(nome.concat('.mtl'));
-				loadRequest.objUrls.push(nome.concat('.obj'));
-				var rtn = multiloader.load(loadRequest, function(){
-
-					obj = loadRequest.objects[0];
-			        obj.scale.x *= 5;
-		            obj.scale.y *= 5;
-		            obj.scale.z *= 5;
-		            obj.position.z += 200;
-		            obj.position.y += 200;
-		      //      objeto = obj.clone();
-		     		scene.add(obj);
-
-
-				});
-
-
-
-
-		var material = new THREE.MeshBasicMaterial({
-			color: 0x00ff00
-		});
 
 		//configurando as variáveis da esfera
 	
@@ -87,7 +70,9 @@
 		var rings = 16;
 
 		//criando a esfera
-		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
+	//	var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
+
+		var sun = CreateSun(sunradius);
 		scene.add(sun);
 
 		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
