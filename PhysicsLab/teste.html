@@ -34,6 +34,10 @@
 
 		 }
 
+		         var sun;
+		loadTest();
+		loadModels(sun,'sun');
+
 				function loadModels(obj,nome){// Load up the models
 				multiloader.init({
 					crossOrigin: 'anonymous',
@@ -52,8 +56,6 @@
 		            obj.position.y += 200;
 		      //      objeto = obj.clone();
 //		     		scene.add(obj);
-
-
 				});
 		    
 			}
@@ -84,9 +86,7 @@
 					
 	   )};		   
 */    
-        var sun;
-		loadTest();
-		loadModels(sun,'sun');
+
 		scene.add(sun);
 		//scene.add(objeto);
 
