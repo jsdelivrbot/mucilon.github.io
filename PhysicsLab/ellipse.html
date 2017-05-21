@@ -54,6 +54,7 @@
 			cube.scale.multiplyScalar(15);
 			cube.rotation.y += Math.PI / 8;
 			cube.rotation.x += Math.PI / 12;
+		//	scene.add(cube);
 		});
 	}
 
@@ -85,7 +86,8 @@
 		var rings = 16;
 
 
-	 //	loadCubeModel();
+	 	loadCubeModel();
+	 	scene.add(cube);
 		//criando a esfera
 		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
 		scene.add(sun);
@@ -117,7 +119,6 @@
 			    orbita = new THREE.Mesh( geometry, material );
 			    scene.add( orbita );
 
-				scene.add(cube);
 		//Update & Rendering
 		function render() {
 			requestAnimationFrame(render);
