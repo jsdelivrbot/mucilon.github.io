@@ -3,7 +3,7 @@
 	<head>
 		<meta charset=utf-8>
 		<title>My first Three.js app in Altspace</title>
-		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.js"></script>
+		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.min.js"></script>
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/MTLLoader.js"></script>
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/OBJLoader.js"></script>
 		<script src="../../dist/altspace.js"></script>
@@ -59,7 +59,7 @@
 		var manager = new THREE.LoadingManager();
 		var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
 
-/*
+
         loader.load('models/solar-system/sun.obj', 'models/solar-system/sun.mtl', function (sun) {
 
 					sun.scale.x = 10;
@@ -71,8 +71,8 @@
 					root.position.z = 100;
 					scene.add( root );
 	   )};	
-*/
 
+/*
 
        var material = new THREE.MeshBasicMaterial({
 			color: 0x00ff00
@@ -80,7 +80,7 @@
 
         var test = new THREE.Mesh(new THREE.SphereGeometry(20,16,16),material);
 		scene.add(test);
-
+*/
 		 renderer.render(scene);
 
 
