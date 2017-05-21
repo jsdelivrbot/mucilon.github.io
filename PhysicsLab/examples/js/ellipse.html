@@ -54,6 +54,7 @@
 			cube.scale.multiplyScalar(15);
 			cube.rotation.y += Math.PI / 8;
 			cube.rotation.x += Math.PI / 12;
+			scene.add(cube);
 		//	scene.add(cube);
 		});
 	}
@@ -87,7 +88,6 @@
 
 
 	 	loadCubeModel();
-	 	scene.add(cube);
 		//criando a esfera
 		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
 		scene.add(sun);
