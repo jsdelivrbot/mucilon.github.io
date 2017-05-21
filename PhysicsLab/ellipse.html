@@ -37,23 +37,6 @@
 
 		};
 
-		var radiusCoeff = 0.022;
-		var cubeModel;
-
-		var loader = new altspace.utilities.shims.OBJMTLLoader();
-	//	var objFilename = "/models/solar-system/sun.obj";
-	//	var mtlFilename = "/models/solar-system/sun.mtl";
-		var objFilename = "/models/cube/cube-colored-faces.obj";
-		var mtlFilename = "/models/cube/cube-colored-faces.mtl";
-		loader.load(objFilename, mtlFilename, function ( obj ) {
-			cubeModel = obj;
-	//		cubeModel.position.x = 0;
-	//		cubeModel.position.y = 0;
-	//		cubeModel.position.z = 0;
-	//		cubeModel.scale.x = 30 * radiusCoeff;
-	//		cubeModel.scale.y = 30 * radiusCoeff;
-	//		cubeModel.scale.z = 30 * radiusCoeff;
-		});	
 
 
         var scalaorbita= 500;
@@ -80,6 +63,26 @@
 	
 		var segments = 16;
 		var rings = 16;
+
+		var radiusCoeff = 0.022;
+		var cubeModel;
+
+		var loader = new altspace.utilities.shims.OBJMTLLoader();
+	//	var objFilename = "/models/solar-system/sun.obj";
+	//	var mtlFilename = "/models/solar-system/sun.mtl";
+		var objFilename = "/models/cube/cube-colored-faces.obj";
+		var mtlFilename = "/models/cube/cube-colored-faces.mtl";
+		loader.load(objFilename, mtlFilename, function ( obj ) {
+			cubeModel = obj;
+	//		cubeModel.position.x = 0;
+	//		cubeModel.position.y = 0;
+	//		cubeModel.position.z = 0;
+	//		cubeModel.scale.x = 30 * radiusCoeff;
+	//		cubeModel.scale.y = 30 * radiusCoeff;
+	//		cubeModel.scale.z = 30 * radiusCoeff;
+		});	
+
+		
 		 scene.add( cubeModel );
 		//criando a esfera
 		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
