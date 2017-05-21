@@ -68,6 +68,9 @@
 		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
 		scene.add(earth);
 
+		var earth2 = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
+		scene.add(earth2);
+
 
 			    // path
 			    var path = new Ellipse(raiomaior,raiomenor);
@@ -103,6 +106,10 @@
  			orbita.position.z = sun.position.z;
 
  			earth.position.x = sun.position.x + afelio;
+ 			earth.position.y = sun.position.y;
+ 			earth.position.z = sun.position.z;
+
+ 			earth.position.x = sun.position.x - perielio;
  			earth.position.y = sun.position.y;
  			earth.position.z = sun.position.z;
 
