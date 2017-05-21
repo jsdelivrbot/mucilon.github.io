@@ -36,7 +36,6 @@
 									  this.yRadius * Math.sin( radians ) );
 
 		};
-			var geometry, root;
 			var manager = new THREE.LoadingManager();
 			var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
 
@@ -57,7 +56,7 @@
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
 
-        loader.load('/models/solar-system/sun.obj', '/models/solar-system/sun.mtl', function (sun) {
+        loader.load('models/solar-system/sun.obj', 'models/solar-system/sun.mtl', function (sun) {
 
 					sun.scale.x = 10;
 					sun.scale.y = 10;
@@ -83,12 +82,11 @@
 //		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
 //		scene.add(sun);
 
-		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
-		scene.add(earth);
+	//	var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
+	//	scene.add(earth);
 
-		var earth2 = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
-		scene.add(earth2);
-			loadModels();
+	//	var earth2 = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
+	//	scene.add(earth2);
 
 			    // path
 			    var path = new Ellipse(raiomaior,raiomenor);
