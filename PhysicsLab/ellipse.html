@@ -37,7 +37,7 @@
 
 		};
 
-	/*	var radiusCoeff = 0.022;
+		var radiusCoeff = 0.022;
         var solar= new THREE.Object3D();
 
 				var mtlLoader = new THREE.MTLLoader();
@@ -57,25 +57,11 @@
 						obj.userData.originalScale.y = obj.scale.y;
 						obj.userData.originalScale.z = obj.scale.z;
 						solar.add(obj);
-						var ear = new THREE.Mesh(obj);
-						scene.add(ear);
+						scene.add(solar);
 					}, onProgress, onError );
 				});
-       */
+       
 
-			var cube;
-			var loader = new THREE.AltOBJMTLLoader();
-
-			// loader assumes .mtl file has same basename as .obj file
-			loader.load("/models/solar-system/sun.obj", function ( loadedObject ) {
-
-			    cube = loadedObject;
-			    cube.scale.x = 100;
-				cube.scale.y = 100;
-				cube.scale.z = 100;
-			    scene.add( cube );
-
-			});
 
 
 
