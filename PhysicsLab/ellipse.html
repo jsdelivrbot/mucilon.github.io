@@ -62,7 +62,7 @@
 					}, onProgress, onError );
 				});
        */
-       
+
 			var cube;
 			var loader = new THREE.AltOBJMTLLoader();
 
@@ -70,6 +70,9 @@
 			loader.load("/models/solar-system/sun.obj", function ( loadedObject ) {
 
 			    cube = loadedObject;
+			    cube.scale.x = 100;
+				cube.scale.y = 100;
+				cube.scale.z = 100;
 			    scene.add( cube );
 
 			});
