@@ -47,15 +47,15 @@
 				var rtn = multiloader.load(loadRequest, function(){
 
 					var obj = loadRequest.objects[0];
-			        obj.scale.x *= 5;
-		            obj.scale.y *= 5;
-		            obj.scale.z *= 5;
+			        obj.scale.x *= 1;
+		            obj.scale.y *= 1;
+		            obj.scale.z *= 1;
 		            obj.position.z += 200;
 		            obj.position.y += 200;
 		            obj2 = obj.clone();
-		            scene.add(obj2);
+		          //  scene.add(obj2);
 				});
-            //    scene.add(obj);
+                scene.add(obj2);
 			//	return obj;		    
 			}
 
