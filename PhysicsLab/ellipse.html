@@ -72,7 +72,7 @@
 			    		    // mesh
 			var mesh = new THREE.Mesh( geometry, material );
 
-			mesh.position.x = 0 + centro;
+			mesh.position.x = centro;
 
 			return mesh
 
@@ -127,8 +127,8 @@
 		scene.add(earth2);
 
 
-	//	orbitaterra = createOrbit(afelioearth,perielioearth);
-	//    scene.add(orbitaterra);
+		var orbitaterra = createOrbit(afelioearth,perielioearth);
+	    scene.add(orbitaterra);
 
 
 		//Update & Rendering
