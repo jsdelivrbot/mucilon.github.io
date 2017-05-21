@@ -52,8 +52,20 @@
 
 		};
 
+	 function createOrbitPath(afelio,perielio){
 
-		function createOrbitEllipse(afelio,perielio){
+        	var raiomaior = ((afelio + perielio)/2);
+        	var centro = raiomaior - perielio;
+            var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) );
+
+            var path = new Ellipse(raiomaior,raiomenor);
+
+			return path
+
+        };
+
+
+		function createOrbitEllipse(path){
 
 			var pathSegments = 64;
 			var tubeRadius = 0.5;
@@ -72,18 +84,6 @@
 			return mesh
 
 		};
-
-		function createOrbitPath(path){
-
-        	var raiomaior = ((afelio + perielio)/2);
-        	var centro = raiomaior - perielio;
-            var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) );
-
-            var path = new Ellipse(raiomaior,raiomenor);
-
-			return path
-
-        };
 
 
 
