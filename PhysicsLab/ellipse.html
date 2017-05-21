@@ -53,7 +53,7 @@
 
 		function CreateSun(radius){
 			var geometry	= new THREE.SphereGeometry(radius, 32, 32)
-			var texture	= THREE.ImageUtils.loadTexture(THREEx.Planets.baseURL+'images/sunmap.jpg')
+			var texture	= THREE.ImageUtils.loadTexture('images/sunmap.jpg')
 			var material	= new THREE.MeshPhongMaterial({
 				map	: texture,
 				bumpMap	: texture,
