@@ -37,34 +37,6 @@
 
 		};
 
-		var radiusCoeff = 0.022;
-        var solar= new THREE.Object3D();
-
-				var mtlLoader = new THREE.MTLLoader();
-				mtlLoader.setPath('/models/solar-system/');
-				mtlLoader.load('sun.mtl', function( materials ) {
-					materials.preload();
-					var objLoader = new THREE.OBJLoader();
-					objLoader.setMaterials(materials);
-					objLoader.setPath('/models/solar-system/');
-					objLoader.load( 'sun.obj', function ( obj ) {
-						obj.position.y = - 95;
-						obj.scale.x = radius * radiusCoeff;
-						obj.scale.y = radius * radiusCoeff;
-						obj.scale.z = radius * radiusCoeff;
-						obj.userData.originalScale = {};
-						obj.userData.originalScale.x = obj.scale.x;
-						obj.userData.originalScale.y = obj.scale.y;
-						obj.userData.originalScale.z = obj.scale.z;
-						solar.add(obj);
-						scene.add(solar);
-					}, onProgress, onError );
-				});
-       
-
-
-
-
         var scalaorbita= 500;
         var scalasol = 10000;
         var scalaterra = scalasol*30;
