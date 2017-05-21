@@ -40,7 +40,7 @@
         var scalaorbita= 500;
         var scalaplaneta = 10000;
         var sunradius = 0.004*scalaplaneta;
-        var earthradius = 6371*scalaplaneta;
+        var earthradius = 0.0000425*scalaplaneta;
         var afelio = 1.010*scalaorbita;
         var perielio = 0.976*scalaorbita;
 
@@ -64,8 +64,8 @@
 		//criando a esfera
 		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
 		scene.add(sun);
-//		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
-//		scene.add(earth);
+		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
+		scene.add(earth);
 
 
 			    // path
@@ -94,6 +94,10 @@
 			requestAnimationFrame(render);
 
  			sun.position.x = 0;
+ 			sun.position.z = -300;
+ 			sun.position.y = 0;
+
+ 			sun.position.x = -afelio;
  			sun.position.z = -300;
  			sun.position.y = 0;
 
