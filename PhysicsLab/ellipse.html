@@ -53,6 +53,10 @@
         obj.scale.x = 30 * radiusCoeff;
 		obj.scale.y = 30 * radiusCoeff;
 		obj.scale.z = 30 * radiusCoeff;
+		obj.userData.originalScale = {};
+		obj.userData.originalScale.x = obj.scale.x;
+		obj.userData.originalScale.y = obj.scale.y;
+		obj.userData.originalScale.z = obj.scale.z;
         scene.add( obj );
 
 
