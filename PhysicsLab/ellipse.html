@@ -35,10 +35,25 @@
 
 		};
 
-		var objectLoader = new THREE.ObjectLoader();
-		objectLoader.load("models/solar-system/sun.obj", function ( obj ) {
-		scene.add( obj );
-		} );
+
+
+		var mtlLoader = new THREE.MTLLoader();
+		mtlLoader.setBaseUrl( 'models/solar-system/' );
+		mtlLoader.setPath( 'models/solar-system/' );
+		var url = "sun.mtl";
+		mtlLoader.load( url, function( materials ) {
+
+    	materials.preload();
+
+	    var objLoader = new THREE.OBJLoader();
+	    objLoader.setMaterials( materials );
+	    objLoader.setPath( 'models/solar-system/' );
+	    objLoader.load( 'sun.obj', function ( object ) {
+
+        object.position.y = - 95;
+        scene.add( object );
+
+
 
 
 
@@ -69,13 +84,13 @@
 		 
 		//criando a esfera
 		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
-		scene.add(sun);
+//		scene.add(sun);
 
 		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
-		scene.add(earth);
+//		scene.add(earth);
 
 		var earth2 = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
-		scene.add(earth2);
+//		scene.add(earth2);
 
 
 			    // path
@@ -96,7 +111,7 @@
 			    
 			    // mesh
 			    orbita = new THREE.Mesh( geometry, material );
-			    scene.add( orbita );
+		//	    scene.add( orbita );
 
 
 		//Update & Rendering
