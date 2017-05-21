@@ -14,11 +14,6 @@
 			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 		}
 
-
-	var cube;
-
-
-
 		function Ellipse(xRadius, yRadius) {
 
 		THREE.Curve.call( this );
@@ -42,22 +37,72 @@
 
 		};
 
+			var CONFIG = [
+		// name, radius, distance, orbitalPeriod
+		['sun',	     30,   0,   1],
+		['earth',    6.3,  4,   1],
+	];
+		var radiusCoeff = 0.022;
+	var distanceCoeff = 9;
+	var velocityCoeff = 0.005;
+
+	var sim;
+	var planets = [];
+	var planetsByName = {};
+	var compactMode;
+	var selectedPlanetName = 'earth';
+	var solarSystem = new THREE.Object3D();
+	var multiloader = altspace.utilities.multiloader;
+	var loadRequest;
 
 
-	function loadCubeModel() {
-		var loader = new altspace.utilities.shims.OBJMTLLoader();
-		var objFilename = "/models/cube/cube-colored-faces.obj";
-		var mtlFilename = "/models/cube/cube-colored-faces.mtl";
-		loader.load(objFilename, mtlFilename, function ( obj ) {
-			cube = obj;
-			cube.name = 'cube';
-			cube.scale.multiplyScalar(15);
-			cube.rotation.y += Math.PI / 8;
-			cube.rotation.x += Math.PI / 12;
-		//	scene.add(cube);
+		function loadModels(){// Load up the models
+		multiloader.init({
+			crossOrigin: 'anonymous',
+			baseUrl: 'models/solar-system/'
 		});
+		loadRequest = new multiloader.LoadRequest();
+		for (var i=0; i < CONFIG.length; i++) {
+			var name = CONFIG[i][0];
+			var planetElement = $("#planet-list").append('<li><span>' + name + '</span></li>')[0];
+			$(planetElement).click(function(el){
+				selectedPlanetName = el.target.innerHTML;
+			});
+			loadRequest.objUrls.push(name+'.obj');
+			loadRequest.mtlUrls.push(name+'.mtl');
+		}
+		multiloader.load(loadRequest, initPlanets);
 	}
 
+
+		function initPlanets(){//Callback to be sure all models are loaded.
+		for (var i=0; i < loadRequest.objects.length; i++) {
+
+			var p = CONFIG[i];//guaranteed to be in same order
+			var name = p[0];
+			var radius = p[1];
+			var distance = p[2];
+			var orbitalPeriod = p[3];
+
+			var obj = loadRequest.objects[i];
+
+			planetsByName[name] = obj;
+			obj.solarDistance = distance * distanceCoeff;
+			obj.position.y = 10;
+			obj.orbitalPosition = Math.random() * 3.14;
+			obj.orbitalVelocity = (1 / orbitalPeriod) * velocityCoeff;
+			obj.name = name;
+			obj.scale.x = radius * radiusCoeff;
+			obj.scale.y = radius * radiusCoeff;
+			obj.scale.z = radius * radiusCoeff;
+			obj.userData.originalScale = {};
+			obj.userData.originalScale.x = obj.scale.x;
+			obj.userData.originalScale.y = obj.scale.y;
+			obj.userData.originalScale.z = obj.scale.z;
+
+			scene.add(obj);
+		}
+	}
 
 
         var scalaorbita= 500;
@@ -85,9 +130,6 @@
 		var segments = 16;
 		var rings = 16;
 
-
-//	 	loadCubeModel();
-	 	scene.add(cube);
 		//criando a esfera
 		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
 		scene.add(sun);
@@ -97,7 +139,7 @@
 
 		var earth2 = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
 		scene.add(earth2);
-
+			loadModels();
 
 			    // path
 			    var path = new Ellipse(raiomaior,raiomenor);
