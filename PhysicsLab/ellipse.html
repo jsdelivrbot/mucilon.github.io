@@ -18,6 +18,7 @@
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
+	
 		var scalaorbita= 500;
         var scalasol = 20000;
         var scalaterra = scalasol*30;
@@ -67,9 +68,7 @@
 
 			var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
 			    			
-			var material = new THREE.MeshPhongMaterial( {
-			    color: 0xffffff, 
-			} );
+			var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
 			    		    // mesh
 			var mesh = new THREE.Mesh( geometry, material );
 
@@ -143,11 +142,11 @@
  	//		orbitaterra.position.y = sun.position.y;
  	//		orbitaterra.position.z = sun.position.z;
 
- 			earth.position.x = sun.position.x + afelio;
+ 			earth.position.x = sun.position.x + afelioearth;
  			earth.position.y = sun.position.y;
  			earth.position.z = sun.position.z;
 
- 			earth2.position.x = sun.position.x - perielio;
+ 			earth2.position.x = sun.position.x - perielioearth;
  			earth2.position.y = sun.position.y;
  			earth2.position.z = sun.position.z;
 
