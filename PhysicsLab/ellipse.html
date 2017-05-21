@@ -97,6 +97,12 @@
  			sun.position.z = -300;
  			sun.position.y = 0;
 
+
+ 			orbita.position.x = sun.position.x;
+ 			orbita.position.z = sun.position;
+ 			orbita.position.y = sun.position.y;
+;
+
 			renderer.render(scene);
 		}
 		render();
