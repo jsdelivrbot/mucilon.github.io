@@ -72,6 +72,17 @@
 					scene.add( root );
 	   )};	
 
+
+       var material = new THREE.MeshBasicMaterial({
+			color: 0x00ff00
+		});
+
+        var test = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
+		scene.add(test);
+
+
+        renderer.render(scene);
+
 /*
 		var material = new THREE.MeshBasicMaterial({
 			color: 0x00ff00
@@ -113,6 +124,7 @@
 			    scene.add( orbita );
 */
 		//Update & Rendering
+	/*	
 		function render() {
 			requestAnimationFrame(render);
 /*
@@ -132,9 +144,9 @@
  			earth2.position.y = sun.position.y;
  			earth2.position.z = sun.position.z;
 */
-			renderer.render(scene);
+		/*	renderer.render(scene);
 		}
-		render();
+		render(); */
 		</script>
 	</body>
 </html>
