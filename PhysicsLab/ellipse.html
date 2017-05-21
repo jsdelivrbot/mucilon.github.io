@@ -37,11 +37,12 @@
 
 
 
-        var scala = 500;
-        var sunradius = 0.004*scala;
+        var scalaorbita= 500;
+        var scalaplaneta = 5000;
+        var sunradius = 0.004*scalaplaneta;
         var earthradius = 6371*scala;
-        var afelio = 1.010*scala;
-        var perielio = 0.976*scala;
+        var afelio = 1.010*scalaorbita;
+        var perielio = 0.976*scalaorbita;
 
         var raiomaior = ((afelio + perielio)/2);
         var centro = raiomaior - perielio;
