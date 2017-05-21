@@ -45,7 +45,7 @@
 		};
 
 
-			function onModelReady() {
+	function onModelReady() {
 		sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, {
 			instantiators: {'Cube': createCube },
 			ready: ready
@@ -76,7 +76,7 @@
 		cube.name = 'cube';
 		cube.rotation.y += Math.PI / 8;
 		cube.rotation.x += Math.PI / 12;
-		sim.scene.add(cube);
+		scene.add(cube);
 		return cube;
 	}
 
