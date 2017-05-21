@@ -98,13 +98,13 @@
  			sun.position.y = -300;
  			sun.position.z = 0;
 
- 			earth.position.x = sun.position.x;
+ 			orbita.position.x = sun.position.x;
+ 			orbita.position.y = sun.position.y;
+ 			orbita.position.z = sun.position.z;
+
+ 			earth.position.x = sun.position.x + afelio;
  			earth.position.y = sun.position.y;
  			earth.position.z = sun.position.z;
-
- 			earth.position.x = sun.position.x;
- 			earth.position.y = sun.position.y;
- 			earth.position.z = sun.position.z + afelio;
 
 			renderer.render(scene);
 		}
