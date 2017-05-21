@@ -14,6 +14,7 @@
 			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 		}
 
+
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
@@ -35,23 +36,20 @@
 
             var path = new Ellipse(raiomaior,raiomenor);
 
-
 			var pathSegments = 64;
 			var tubeRadius = 0.5;
 			var radiusSegments = 16;
 			var closed = true;
 
 			var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
-			    
-			
+			    			
 			var material = new THREE.MeshPhongMaterial( {
 			    color: 0xffffff, 
 			} );
-			    
-			    // mesh
-			orbita = new THREE.Mesh( geometry, material );
+			    		    // mesh
+			var mesh = new THREE.Mesh( geometry, material );
 
-			return orbita;
+			return mesh;
 
         };
 
@@ -127,8 +125,8 @@
 		scene.add(earth2);
 
 
-		orbitaterra = createOrbit(afelioearth,perielioearth);
-	    scene.add(orbitaterra);
+	//	orbitaterra = createOrbit(afelioearth,perielioearth);
+	//    scene.add(orbitaterra);
 
 
 		//Update & Rendering
@@ -140,9 +138,9 @@
  			sun.position.y = -300;
  			sun.position.z = 0;
 
- 			orbitaterra.position.x = sun.position.x + centro;
- 			orbitaterra.position.y = sun.position.y;
- 			orbitaterra.position.z = sun.position.z;
+ 	//		orbitaterra.position.x = sun.position.x + centro;
+ 	//		orbitaterra.position.y = sun.position.y;
+ 	//		orbitaterra.position.z = sun.position.z;
 
  			earth.position.x = sun.position.x + afelio;
  			earth.position.y = sun.position.y;
