@@ -16,6 +16,17 @@
 
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
+		        var scalaorbita= 500;
+        var scalasol = 10000;
+        var scalaterra = scalasol*30;
+        var sunradius = 0.004*scalasol;
+        var earthradius = 0.0000425*scalaterra;
+        var afelio = 1.010*scalaorbita;
+        var perielio = 0.976*scalaorbita;
+
+        var raiomaior = ((afelio + perielio)/2);
+        var centro = raiomaior - perielio;
+        var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) ); 
 
 		function Ellipse(xRadius, yRadius) {
 
@@ -41,17 +52,27 @@
 		};
 
 
-        var scalaorbita= 500;
-        var scalasol = 10000;
-        var scalaterra = scalasol*30;
-        var sunradius = 0.004*scalasol;
-        var earthradius = 0.0000425*scalaterra;
-        var afelio = 1.010*scalaorbita;
-        var perielio = 0.976*scalaorbita;
+				function loadModels(obj,nome){// Load up the models
+				multiloader.init({
+					crossOrigin: 'anonymous',
+					baseUrl: 'models/solar-system/'
+				});
+				loadRequest = new multiloader.LoadRequest();
+				loadRequest.mtlUrls.push(nome.concat('.mtl'));
+				loadRequest.objUrls.push(nome.concat('.obj'));
+				var rtn = multiloader.load(loadRequest, function(){
 
-        var raiomaior = ((afelio + perielio)/2);
-        var centro = raiomaior - perielio;
-        var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) ); 
+					obj = loadRequest.objects[0];
+			        obj.scale.x *= 5;
+		            obj.scale.y *= 5;
+		            obj.scale.z *= 5;
+		            obj.position.z += 200;
+		            obj.position.y += 200;
+		      //      objeto = obj.clone();
+		     		scene.add(obj);
+
+
+				});
 
 
 
