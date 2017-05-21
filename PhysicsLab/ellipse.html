@@ -38,28 +38,23 @@
 		};
 
 		var radiusCoeff = 0.022;
+
+
+
+
+				var mtlLoader = new THREE.MTLLoader();
+				mtlLoader.setPath( 'models/solar-system/' );
+				mtlLoader.load( 'sun.mtl', function( materials ) {
+					materials.preload();
+					var objLoader = new THREE.OBJLoader();
+					objLoader.setMaterials( materials );
+					objLoader.setPath( 'models/solar-system/' );
+					objLoader.load( 'sun.obj', function ( object ) {
+						object.position.y = - 95;
+						scene.add( object );
+					}, onProgress, onError );
+				});
        
-		var mtlLoader = new THREE.MTLLoader();
-		mtlLoader.setBaseUrl( 'models/solar-system/' );
-		mtlLoader.setPath( 'models/solar-system/' );
-		var url = "sun.mtl";
-		mtlLoader.load( url, function( materials ) {
-
-    	materials.preload();
-
-	    var objLoader = new THREE.OBJLoader();
-	    objLoader.setMaterials( materials );
-	    objLoader.setPath( 'models/solar-system/' );
-	    objLoader.load( 'sun.obj', function ( obj ) {
-
-        obj.scale.x = 30 * radiusCoeff;
-		obj.scale.y = 30 * radiusCoeff;
-		obj.scale.z = 30 * radiusCoeff;
-		//obj.userData.originalScale = {};
-		//obj.userData.originalScale.x = obj.scale.x;
-		//obj.userData.originalScale.y = obj.scale.y;
-		//obj.userData.originalScale.z = obj.scale.z;
-        scene.add( obj );
 
 
 
