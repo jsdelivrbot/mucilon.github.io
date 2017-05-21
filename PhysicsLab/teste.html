@@ -45,7 +45,7 @@
 				loadRequest.objUrls.push(nome.concat('.obj'));
 				var rtn = multiloader.load(loadRequest, function(){
 
-					obj = loadRequest.objects[0];
+					var obj = loadRequest.objects[0];
 			        obj.scale.x *= 50;
 		            obj.scale.y *= 50;
 		            obj.scale.z *= 50;
