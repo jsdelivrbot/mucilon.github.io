@@ -34,8 +34,8 @@
 
 		 }
 
-
-				function loadModels(obj2,nome){// Load up the models
+var obj2;
+				function loadModels(nome){// Load up the models
 				multiloader.init({
 					crossOrigin: 'anonymous',
 					baseUrl: 'models/solar-system/'
@@ -51,23 +51,17 @@
 		            obj.scale.z *= 1;
 		            obj.position.z += 200;
 		            obj.position.y += 200;
-		            passObj(obj,obj2);
-		          //  obj2 = obj.clone();
+		            obj2 = obj.clone();
 		          //  scene.add(obj2);
 				});
 	    
 			}
 
 
-			function passObj(obj1,obj2){
-
-			obj2 = obj1.clone();
-			}
-
 
 			var sun;
-			loadModels(sun,'sun');
-		    scene.add(sun);
+			loadModels('sun');
+		    scene.add(obj2);
 
 
 
