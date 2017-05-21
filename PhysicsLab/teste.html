@@ -34,7 +34,7 @@
 
 		 }
 
-				function loadModels(objeto,nome){// Load up the models
+				function loadModels(obj,nome){// Load up the models
 				multiloader.init({
 					crossOrigin: 'anonymous',
 					baseUrl: 'models/solar-system/'
@@ -42,7 +42,19 @@
 				loadRequest = new multiloader.LoadRequest();
 				loadRequest.mtlUrls.push(nome.concat('.mtl'));
 				loadRequest.objUrls.push(nome.concat('.obj'));
-				var rtn = multiloader.load(loadRequest, initPlanets);
+				var rtn = multiloader.load(loadRequest, function(){
+
+					obj = loadRequest.objects[0];
+			        obj.scale.x *= 10;
+		            obj.scale.y *= 10;
+		            obj.scale.z *= 10;
+		            obj.position.z += 200;
+		            obj.position.y += 200;
+		      //      objeto = obj.clone();
+		     		scene.add(obj);
+
+
+				});
 		    
 			}
 
