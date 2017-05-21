@@ -57,17 +57,17 @@
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
 
-loader.load('models/solar-system/sun.obj', 'models/solar-system/sun.mtl', function (sun) {
+        loader.load('models/solar-system/sun.obj', 'models/solar-system/sun.mtl', function (sun) {
 
 					sun.scale.x = 1;
 					sun.scale.y = 1;
 					sun.scale.z = 1;
 
-					root = sun.clone();
-					root.position.x = 0;
-					root.position.z = 100;
-					scene.add( root );
-				)};	
+				//	root = sun.clone();
+				//	root.position.x = 0;
+				//	root.position.z = 100;
+					scene.add( sun );
+	   )};	
 
 
 		var material = new THREE.MeshBasicMaterial({
