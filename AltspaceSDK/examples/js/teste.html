@@ -73,20 +73,15 @@
 */
 		loadTest();
 		loadModels();
-		animate();
-
-			function animate() {
-				requestAnimationFrame( animate );
-
-				render();
-
-			}
 
 			function render() {
 
+				requestAnimationFrame(render);
 				renderer.render( scene );
 
 			}
+
+			render();
 		
 		</script>
 	</body>
