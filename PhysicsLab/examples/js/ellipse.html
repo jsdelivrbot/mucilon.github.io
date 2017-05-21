@@ -87,7 +87,18 @@
 		var rings = 16;
 
 
-	 	loadCubeModel();
+	 //	loadCubeModel();
+
+	 var loader = new THREE.AltOBJMTLLoader();
+
+// loader assumes .mtl file has same basename as .obj file
+loader.load("models/cube/cube-colored-faces", function ( loadedObject ) {
+
+    cube = loadedObject;
+    scene.add( cube );
+
+});
+	 
 		//criando a esfera
 		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
 		scene.add(sun);
