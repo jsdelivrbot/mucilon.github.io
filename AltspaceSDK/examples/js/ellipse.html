@@ -101,11 +101,11 @@ loadModels();
 		function loadModels(){// Load up the models
 		multiloader.init({
 			crossOrigin: 'anonymous',
-			baseUrl: 'http://samezi-but.com/theta'
+			baseUrl: 'models/chess/'
 		});
 		loadRequest = new multiloader.LoadRequest();
-		loadRequest.mtlUrls.push('/ball.mtl');
-		loadRequest.objUrls.push('/ball.obj');
+		loadRequest.mtlUrls.push('/king.mtl');
+		loadRequest.objUrls.push('/king.obj');
 		var rtn = multiloader.load(loadRequest, initPlanets);
     
 	}
