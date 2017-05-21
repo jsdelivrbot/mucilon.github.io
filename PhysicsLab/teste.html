@@ -46,7 +46,7 @@ var obj2;
 				loadRequest.mtlUrls.push(nome.concat('.mtl'));
 				loadRequest.objUrls.push(nome.concat('.obj'));
 
-				var rtn = multiloader.load(loadRequest, .then(function()){
+				var rtn = multiloader.load(loadRequest,(function()){
 
 					var obj2 = loadRequest.objects[0];
 			        obj.scale.x *= 1;
