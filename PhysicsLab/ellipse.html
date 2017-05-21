@@ -63,8 +63,6 @@ loader.load('models/solar-system/sun.obj', 'models/solar-system/sun.mtl', functi
 					sun.scale.y = 1;
 					sun.scale.z = 1;
 
-					scene = new THREE.Scene();
-
 					root = sun.clone();
 					root.position.x = 0;
 					root.position.z = 100;
@@ -82,8 +80,8 @@ loader.load('models/solar-system/sun.obj', 'models/solar-system/sun.mtl', functi
 		var rings = 16;
 
 		//criando a esfera
-		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
-		scene.add(sun);
+//		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
+//		scene.add(sun);
 
 		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
 		scene.add(earth);
