@@ -3,11 +3,12 @@
 	<head>
 		<meta charset=utf-8>
 		<title>My first Three.js app in Altspace</title>
+		<script src="http://sdk.altvr.com/utilities/0.5.5/multiloader.js"></script>
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.min.js"></script>
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/MTLLoader.js"></script>
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/OBJLoader.js"></script>
-		<script src="https://sdk.altvr.com/libs/altspace.js/2.4.5/altspace.min.js"></script>
-		<script src="http://sdk.altvr.com/utilities/0.5.5/multiloader.js"></script>
+		<script src="../../dist/altspace.js"></script>
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 	</head>
 	<body>
 		<script>
@@ -37,20 +38,20 @@
 				function loadModels(){// Load up the models
 				multiloader.init({
 					crossOrigin: 'anonymous',
-					baseUrl: 'models/solar-system'
+					baseUrl: 'models/solar-system/'
 				});
 				loadRequest = new multiloader.LoadRequest();
-				loadRequest.mtlUrls.push('/sun.mtl');
-				loadRequest.objUrls.push('/sun.obj');
+				loadRequest.mtlUrls.push('sun.mtl');
+				loadRequest.objUrls.push('sun.obj');
 				var rtn = multiloader.load(loadRequest, initPlanets);
 		    
 			}
 
 			function initPlanets(){//Callback to be sure all models are loaded.
 		            var obj = loadRequest.objects[0];
-		            obj.scale.x *= 4;
-		            obj.scale.y *= 4;
-		            obj.scale.z *= 4;
+		            obj.scale.x *= 10;
+		            obj.scale.y *= 10;
+		            obj.scale.z *= 10;
 		            obj.position.z += 200;
 		            obj.position.y += 200;
 		            scene.add(obj);
