@@ -34,7 +34,7 @@
 
 		 }
 
-				function loadModels(){// Load up the models
+				function loadModels(object){// Load up the models
 				multiloader.init({
 					crossOrigin: 'anonymous',
 					baseUrl: 'models/solar-system/'
@@ -42,37 +42,27 @@
 				loadRequest = new multiloader.LoadRequest();
 				loadRequest.mtlUrls.push('sun.mtl');
 				loadRequest.objUrls.push('sun.obj');
-				var rtn = multiloader.load(loadRequest, initPlanets);
+				var rtn = multiloader.load(loadRequest, initPlanets(object));
 		    
 			}
 
-			function initPlanets(){//Callback to be sure all models are loaded.
+			function initPlanets(object){//Callback to be sure all models are loaded.
 		            var obj = loadRequest.objects[0];
 		            obj.scale.x *= 10;
 		            obj.scale.y *= 10;
 		            obj.scale.z *= 10;
 		            obj.position.z += 200;
 		            obj.position.y += 200;
-		            scene.add(obj);
+		            object = obj.clone();
+		            
 			    
 			}
-
-		var manager = new THREE.LoadingManager();
-		var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
-
-
-        loader.load('models/solar-system/sun.obj','models/solar-system/sun.mtl', function (sun) {
-
-					sun.scale.x = 100;
-					sun.scale.y = 100;
-					sun.scale.z = 100;
-
-			scene.add(sun);
-					
-	   )};		   
+	   
 
 	//	loadTest();
-	//	loadModels();
+	var sun;
+	loadModels(sun);
+	scene.add(sun);
 
 			function render() {
 
