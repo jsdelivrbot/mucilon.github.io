@@ -7,6 +7,7 @@
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/MTLLoader.js"></script>
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/OBJLoader.js"></script>
 		<script src="https://sdk.altvr.com/libs/altspace.js/2.4.5/altspace.min.js"></script>
+		<script src="http://sdk.altvr.com/utilities/0.5.5/multiloader.js"></script>
 	</head>
 	<body>
 		<script>
@@ -51,6 +52,9 @@
         var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) ); 
 
 */
+
+/*
+
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
@@ -71,8 +75,17 @@
 					teste.position.z = 100;
 					
 	   )};	
-        
-		scene.add(teste);
+
+	   scene.add(teste);
+  */
+
+//var ascp = altspace.utilities.codePen;
+var scene = new THREE.Scene();
+//var dualRenderer = altspace.utilities.shims.dualRenderer;
+var multiloader = altspace.utilities.multiloader;
+
+loadModels();
+		
 /*
 
        var material = new THREE.MeshBasicMaterial({
@@ -84,6 +97,29 @@
 */
 		 renderer.render(scene);
 
+
+		function loadModels(){// Load up the models
+		multiloader.init({
+			crossOrigin: 'anonymous',
+			baseUrl: 'http://samezi-but.com/theta'
+		});
+		loadRequest = new multiloader.LoadRequest();
+		loadRequest.mtlUrls.push('/ball.mtl');
+		loadRequest.objUrls.push('/ball.obj');
+		var rtn = multiloader.load(loadRequest, initPlanets);
+    
+	}
+
+	function initPlanets(){//Callback to be sure all models are loaded.
+            var obj = loadRequest.objects[0];
+            obj.scale.x *= 4;
+            obj.scale.y *= 4;
+            obj.scale.z *= 4;
+            obj.position.z += 100;
+            obj.position.y += 100;
+            scene.add(obj);
+	    
+	}
 
 /*
 		var material = new THREE.MeshBasicMaterial({
