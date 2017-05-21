@@ -34,18 +34,21 @@
 
 		 }
 
+
 var obj2;
 				function loadModels(nome){// Load up the models
 				multiloader.init({
 					crossOrigin: 'anonymous',
 					baseUrl: 'models/solar-system/'
 				});
+
 				loadRequest = new multiloader.LoadRequest();
 				loadRequest.mtlUrls.push(nome.concat('.mtl'));
 				loadRequest.objUrls.push(nome.concat('.obj'));
-				var rtn = multiloader.load(loadRequest, function(){
 
-					var obj = loadRequest.objects[0];
+				var rtn = multiloader.load(loadRequest, .then(function()){
+
+					var obj2 = loadRequest.objects[0];
 			        obj.scale.x *= 1;
 		            obj.scale.y *= 1;
 		            obj.scale.z *= 1;
@@ -58,46 +61,10 @@ var obj2;
 			}
 
 
-
-			var sun;
 			loadModels('sun');
 		    scene.add(obj2);
 
-
-
-			function initPlanets(){//Callback to be sure all models are loaded.
-		            var obj = loadRequest.objects[0];
-		            obj.scale.x *= 5;
-		            obj.scale.y *= 5;
-		            obj.scale.z *= 5;
-		            obj.position.z += 200;
-		            obj.position.y += 200;
-		      //      objeto = obj.clone();
-		    // 		scene.add(obj);
-			    
-			}
-
-		
-
 		loadTest();
-/*
-		var manager = new THREE.LoadingManager();
-		var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
-
-
-        loader.load('models/chess/king.obj','models/chess/king.mtl', function (sun) {
-
-					sun.scale.x = 100;
-					sun.scale.y = 100;
-					sun.scale.z = 100;
-
-			scene.add(sun);
-					
-	   )};		   
-*/    
-
-		;
-		//scene.add(objeto);
 
 			function render() {
 
