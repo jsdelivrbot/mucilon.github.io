@@ -35,11 +35,16 @@
 
 		};
 
+		var objectLoader = new THREE.ObjectLoader();
+		objectLoader.load("models/solar-system/sun.obj", function ( obj ) {
+		scene.add( obj );
+		} );
+
 
 
         var scalaorbita= 500;
         var scalasol = 10000;
-        var scalaterra = 30000;
+        var scalaterra = scalasol*30;
         var sunradius = 0.004*scalasol;
         var earthradius = 0.0000425*scalaterra;
         var afelio = 1.010*scalaorbita;
