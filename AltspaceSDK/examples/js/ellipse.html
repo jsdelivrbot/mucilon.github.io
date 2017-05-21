@@ -53,12 +53,12 @@
 
 */
 
-/*
+
 
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
-
+/*
 		var geometry, teste;
 		var manager = new THREE.LoadingManager();
 		var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
@@ -101,11 +101,11 @@ loadModels();
 		function loadModels(){// Load up the models
 		multiloader.init({
 			crossOrigin: 'anonymous',
-			baseUrl: 'models/chess/'
+			baseUrl: 'models/solar-system/'
 		});
 		loadRequest = new multiloader.LoadRequest();
-		loadRequest.mtlUrls.push('/king.mtl');
-		loadRequest.objUrls.push('/king.obj');
+		loadRequest.mtlUrls.push('/sun.mtl');
+		loadRequest.objUrls.push('/sun.obj');
 		var rtn = multiloader.load(loadRequest, initPlanets);
     
 	}
