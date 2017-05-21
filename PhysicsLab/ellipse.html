@@ -37,7 +37,7 @@
 
 
 
-        var scala = 500;
+        var scala = 300;
         var sunradius = 0.004*scala;
         var earthradius = 6371*scala;
         var afelio = 1.010*scala;
@@ -96,9 +96,9 @@
  			sun.position.z = -300;
  			sun.position.y = 0;
 
-		//	orbita.position.x = sum.position.x + centro;
-		//	orbita.position.z = sun.position.z;
-		//	orbita.position.y = sum.position.y;
+			orbita.position.x = sum.position.x + centro;
+			orbita.position.z = sun.position.z;
+			orbita.position.y = sum.position.y;
 
 			renderer.render(scene);
 		}
