@@ -37,7 +37,7 @@
 				function loadModels(){// Load up the models
 				multiloader.init({
 					crossOrigin: 'anonymous',
-					baseUrl: 'models/solar-system/'
+					baseUrl: 'models/solar-system'
 				});
 				loadRequest = new multiloader.LoadRequest();
 				loadRequest.mtlUrls.push('/sun.mtl');
@@ -56,9 +56,7 @@
 		            scene.add(obj);
 			    
 			}
-
 /*
-
 		var manager = new THREE.LoadingManager();
 		var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
 
@@ -71,14 +69,11 @@
 
 			scene.add(sun);
 					
-	   )};	
-
-	   
+	   )};		   
 */
 		loadTest();
 		loadModels()
 		renderer.render(scene);		
-
 		</script>
 	</body>
 </html>
