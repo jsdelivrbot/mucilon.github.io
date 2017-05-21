@@ -38,8 +38,8 @@
 
 
 		var mtlLoader = new THREE.MTLLoader();
-		mtlLoader.setBaseUrl( 'models/solar-system/' );
-		mtlLoader.setPath( 'models/solar-system/' );
+		mtlLoader.setBaseUrl( '/models/solar-system/' );
+		mtlLoader.setPath( '/models/solar-system/' );
 		var url = "sun.mtl";
 		mtlLoader.load( url, function( materials ) {
 
@@ -47,7 +47,7 @@
 
 	    var objLoader = new THREE.OBJLoader();
 	    objLoader.setMaterials( materials );
-	    objLoader.setPath( 'models/solar-system/' );
+	    objLoader.setPath( '/models/solar-system/' );
 	    objLoader.load( 'sun.obj', function ( object ) {
 
         object.position.y = - 95;
