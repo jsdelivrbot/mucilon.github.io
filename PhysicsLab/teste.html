@@ -58,6 +58,10 @@
 				return obj;		    
 			}
 
+
+			var sun = loadModels('sun');
+		    scene.add(sun)
+
 			function initPlanets(){//Callback to be sure all models are loaded.
 		            var obj = loadRequest.objects[0];
 		            obj.scale.x *= 5;
@@ -70,8 +74,8 @@
 			    
 			}
 
+		
 
-		var sun = loadModels('sun');
 		loadTest();
 /*
 		var manager = new THREE.LoadingManager();
@@ -89,7 +93,7 @@
 	   )};		   
 */    
 
-		scene.add(sun);
+		;
 		//scene.add(objeto);
 
 			function render() {
