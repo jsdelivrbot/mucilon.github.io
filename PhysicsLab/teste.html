@@ -36,6 +36,7 @@
 
 
 				function loadModels(nome){// Load up the models
+				var obj;
 				multiloader.init({
 					crossOrigin: 'anonymous',
 					baseUrl: 'models/solar-system/'
@@ -45,7 +46,7 @@
 				loadRequest.objUrls.push(nome.concat('.obj'));
 				var rtn = multiloader.load(loadRequest, function(){
 
-					var obj = loadRequest.objects[0];
+					obj = loadRequest.objects[0];
 			        obj.scale.x *= 50;
 		            obj.scale.y *= 50;
 		            obj.scale.z *= 50;
@@ -53,6 +54,7 @@
 		            obj.position.y += 200;
 		      //      objeto = obj.clone();
 //		     		scene.add(obj);
+
 				});
 
 				return obj;		    
