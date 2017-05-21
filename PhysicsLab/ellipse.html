@@ -43,12 +43,12 @@
 
 
 				var mtlLoader = new THREE.MTLLoader();
-				mtlLoader.setPath( 'models/solar-system/' );
+				mtlLoader.setPath( '/models/solar-system/' );
 				mtlLoader.load( 'sun.mtl', function( materials ) {
 					materials.preload();
 					var objLoader = new THREE.OBJLoader();
 					objLoader.setMaterials( materials );
-					objLoader.setPath( 'models/solar-system/' );
+					objLoader.setPath( '/models/solar-system/' );
 					objLoader.load( 'sun.obj', function ( obj ) {
 						obj.position.y = - 95;
 						obj.scale.x = radius * radiusCoeff;
