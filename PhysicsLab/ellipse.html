@@ -3,16 +3,20 @@
 	<head>
 		<meta charset=utf-8>
 		<title>My first Three.js app in Altspace</title>
-		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.js"></script>
+		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.min.js"></script>
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/MTLLoader.js"></script>
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/OBJLoader.js"></script>
-		<script src="/dist/altspace.js"></script>
+		<script src="https://sdk.altvr.com/libs/altspace.js/2.4.5/altspace.min.js"></script>
+		<script src="http://sdk.altvr.com/utilities/0.5.5/multiloader.js"></script>
 	</head>
 	<body>
 		<script>
 		if (!window.altspace || !window.altspace.inClient) {
 			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 		}
+
+		var scene = new THREE.Scene();
+		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
 		function Ellipse(xRadius, yRadius) {
 
@@ -36,9 +40,7 @@
 									  this.yRadius * Math.sin( radians ) );
 
 		};
-			var geometry, root;
-			var manager = new THREE.LoadingManager();
-			var loader = new altspace.utilities.shims.OBJMTLLoader( manager );
+
 
         var scalaorbita= 500;
         var scalasol = 10000;
@@ -53,21 +55,6 @@
         var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) ); 
 
 
-		var scene = new THREE.Scene();
-		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
-
-
-        loader.load('/models/solar-system/sun.obj', '/models/solar-system/sun.mtl', function (sun) {
-
-					sun.scale.x = 10;
-					sun.scale.y = 10;
-					sun.scale.z = 10;
-
-				//	root = sun.clone();
-				//	root.position.x = 0;
-				//	root.position.z = 100;
-					scene.add( sun );
-	   )};	
 
 
 		var material = new THREE.MeshBasicMaterial({
@@ -80,15 +67,14 @@
 		var rings = 16;
 
 		//criando a esfera
-//		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
-//		scene.add(sun);
+		var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
+		scene.add(sun);
 
 		var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
 		scene.add(earth);
 
 		var earth2 = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
 		scene.add(earth2);
-			loadModels();
 
 			    // path
 			    var path = new Ellipse(raiomaior,raiomenor);
@@ -111,9 +97,10 @@
 			    scene.add( orbita );
 
 		//Update & Rendering
+	
 		function render() {
 			requestAnimationFrame(render);
-/*
+
  			sun.position.x = 0;
  			sun.position.y = -300;
  			sun.position.z = 0;
@@ -129,10 +116,10 @@
  			earth2.position.x = sun.position.x - perielio;
  			earth2.position.y = sun.position.y;
  			earth2.position.z = sun.position.z;
-*/
+
 			renderer.render(scene);
 		}
-		render();
+		render(); 
 		</script>
 	</body>
 </html>
