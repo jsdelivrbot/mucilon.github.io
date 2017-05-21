@@ -14,11 +14,9 @@
 			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 		}
 
-	var sim;
-	var connection;
-	var sceneSync;
+
 	var cube;
-	var cubeModel;
+
 
 
 		function Ellipse(xRadius, yRadius) {
@@ -48,8 +46,8 @@
 
 	function loadCubeModel() {
 		var loader = new altspace.utilities.shims.OBJMTLLoader();
-		var objFilename = "models/cube/cube-colored-faces.obj";
-		var mtlFilename = "models/cube/cube-colored-faces.mtl";
+		var objFilename = "/models/cube/cube-colored-faces.obj";
+		var mtlFilename = "/models/cube/cube-colored-faces.mtl";
 		loader.load(objFilename, mtlFilename, function ( obj ) {
 			cube = obj;
 			cube.scale.multiplyScalar(15);
