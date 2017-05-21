@@ -94,12 +94,12 @@
 			requestAnimationFrame(render);
 
  			sun.position.x = 0;
- 			sun.position.z = -300;
+ 			sun.position.z = -500;
  			sun.position.y = 0;
 
- 			earth.position.x = 0;
- 			earth.position.z = -300;
- 			earth.position.y = +afelio;
+ 			earth.position.x = sun.position.x;
+ 			earth.position.z = sun.position.z;
+ 			earth.position.y = sun.position.y + afelio;
 
 			renderer.render(scene);
 		}
