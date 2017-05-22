@@ -149,7 +149,7 @@
 
 		    var radians = 2 * Math.PI * velocidade;
 
-			earth.position.set( raiomaior2 * Math.cos( 5 * 3.14 ),sun.position.y,raiomenor2 * Math.sin( 5 * 3.14 ) );
+			earth.position.set( raiomaior2 * Math.cos( radians ),sun.position.y,raiomenor2 * Math.sin( radians ) );
 			velocidade += velocidade;
 			renderer.render(scene);
 		}
