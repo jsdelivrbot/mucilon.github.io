@@ -26,6 +26,9 @@
         var earthradius = 0.0000425*scalaterra;
         var afelioearth = 1.010*scalaorbita;
         var perielioearth = 0.976*scalaorbita;
+        var raiomaior2 = ((afelio + perielio)/2);
+        var centro2 = raiomaior - perielio;
+        var raiomenor2 = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) );
 
 
 
@@ -150,12 +153,16 @@
             terraorbita.position.y = sun.position.y;
             terraorbita.position.z = sun.position.z;
 
+		Ellipse.prototype = Object.create( THREE.Curve.prototype );
+		Ellipse.prototype.constructor = Ellipse;
+		// define the getPoint function for the subClass
+		Ellipse.prototype.getPoint = function ( t ) {
 
-    		// set the marker position
-		    pt = terrapath.getPoint( t );
+		var radians = 2 * Math.PI * t;
 
-		    // set the marker position
-		    earth.position.set( pt.x, pt.y, pt.z );
+		earth.position.set( raiomaior2 * Math.cos( radians ),
+							sun.position.y,
+						  raiomenor2 * Math.sin( radians ) );
 
 		    // get the tangent to the curve
 	//	    tangent = path.getTangent( t ).normalize();
