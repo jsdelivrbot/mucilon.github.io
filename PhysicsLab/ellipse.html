@@ -52,16 +52,12 @@
 
 		};
 
-	 function createOrbitPath(afelio,perielio){
-
+	 	function createOrbitPath(afelio,perielio){
         	var raiomaior = ((afelio + perielio)/2);
         	var centro = raiomaior - perielio;
             var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) );
-
             var path = new Ellipse(raiomaior,raiomenor);
-
 			return path
-
         };
 
 
@@ -81,7 +77,6 @@
 			mesh.position.x = centro;
 
 			return mesh
-
 		};
 
 
@@ -133,7 +128,7 @@
 		scene.add(earth2);
 
         var terrapath = createOrbitPath(afelioearth,perielioearth);
-        
+
 		var terraorbita = createOrbitEllipse(terrapath);
 	    scene.add(terraorbita);
 
