@@ -129,8 +129,8 @@
 
 		//var earth2 = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
 
-		var earth2 = CreateEarth(earthradius);
-		scene.add(earth2);
+		//var earth2 = CreateEarth(earthradius);
+		//scene.add(earth2);
 
         var terrapath = createOrbitPath(afelioearth,perielioearth);
 
@@ -150,14 +150,27 @@
             terraorbita.position.y = sun.position.y;
             terraorbita.position.z = sun.position.z;
 
-           
- 			earth.position.x = sun.position.x + afelioearth;
- 			earth.position.y = sun.position.y;
- 			earth.position.z = sun.position.z;
 
- 			earth2.position.x = sun.position.x - perielioearth;
- 			earth2.position.y = sun.position.y;
- 			earth2.position.z = sun.position.z;
+    // set the marker position
+		    pt = terrapath.getPoint( t );
+
+		    // set the marker position
+		    earth.position.set( pt.x, pt.y, pt.z );
+
+		    // get the tangent to the curve
+		    tangent = path.getTangent( t ).normalize();
+
+		    // calculate the axis to rotate around
+		    axis.crossVectors( up, tangent ).normalize();
+
+		    // calcluate the angle between the up vector and the tangent
+		    radians = Math.acos( up.dot( tangent ) );
+
+		    // set the quaternion
+		    earth.quaternion.setFromAxisAngle( axis, radians );
+
+		    t = (t >= 1) ? 0 : t += 0.002;
+
 
 			renderer.render(scene);
 		}
