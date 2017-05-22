@@ -53,15 +53,17 @@
 		};
 
 	 	function createOrbitPath(afelio,perielio){
+
         	var raiomaior = ((afelio + perielio)/2);
         	var centro = raiomaior - perielio;
             var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) );
             var path = new Ellipse(raiomaior,raiomenor);
 			return path
+
         };
 
 
-		function createOrbitEllipse(path){
+		function createOrbitEllipse(path,afelio,perielio){
 
 			var pathSegments = 64;
 			var tubeRadius = 0.5;
@@ -73,6 +75,9 @@
 			var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
 			    		    // mesh
 			var mesh = new THREE.Mesh( geometry, material );
+
+			var raiomaior = ((afelio + perielio)/2);
+        	var centro = raiomaior - perielio;
 
 			mesh.position.x = centro;
 
@@ -89,7 +94,7 @@
 				bumpMap	: texture,
 				bumpScale: 0.05,
 			})
-			var mesh	= new THREE.Mesh(geometry, material)
+			var mesh	= new THREE.Mesh(geometry, material);
 			return mesh	
 		};
 
@@ -103,7 +108,7 @@
 				specularMap	: THREE.ImageUtils.loadTexture('images/earthspec1k.jpg'),
 				specular	: new THREE.Color('grey'),
 			})
-			var mesh	= new THREE.Mesh(geometry, material)
+			var mesh	= new THREE.Mesh(geometry, material);
 			return mesh	
 		};
 
@@ -129,7 +134,7 @@
 
         var terrapath = createOrbitPath(afelioearth,perielioearth);
 
-		var terraorbita = createOrbitEllipse(terrapath);
+		var terraorbita = createOrbitEllipse(terrapath,afelioearth,perielioearth);
 	    scene.add(terraorbita);
 
 
