@@ -26,8 +26,8 @@
         var earthradius = 0.0000425*scalaterra;
         var afelioearth = 1.010*scalaorbita;
         var perielioearth = 0.976*scalaorbita;
-        var raiomaior2 = ((afelio + perielio)/2);
-        var centro2 = raiomaior - perielio;
+        var raiomaior2 = ((afelioearth + perielioearth)/2);
+        var centro2 = raiomaior - perielioearth;
         var raiomenor2 = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) );
 
 
@@ -119,21 +119,11 @@
 		//configurando as variáveis da esfera
 	
 
-		//criando a esfera
-	//	var sun = new THREE.Mesh(new THREE.SphereGeometry(sunradius,segments,rings),material);
-
 		var sun = CreateSun(sunradius);
 		scene.add(sun);
 
-		//var earth = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
-
 		var earth = CreateEarth(earthradius);
 		scene.add(earth);
-
-		//var earth2 = new THREE.Mesh(new THREE.SphereGeometry(earthradius,segments,rings),material);
-
-		//var earth2 = CreateEarth(earthradius);
-		//scene.add(earth2);
 
         var terrapath = createOrbitPath(afelioearth,perielioearth);
 
@@ -160,19 +150,6 @@
 							sun.position.y,
 						  raiomenor2 * Math.sin( radians ) );
 
-		    // get the tangent to the curve
-	//	    tangent = path.getTangent( t ).normalize();
-
-		    // calculate the axis to rotate around
-	//	    axis.crossVectors( up, tangent ).normalize();
-
-		    // calcluate the angle between the up vector and the tangent
-	//	    radians = Math.acos( up.dot( tangent ) );
-
-		    // set the quaternion
-	//	    earth.quaternion.setFromAxisAngle( axis, radians );
-
-		//    t = (t >= 1) ? 0 : t += 0.002;
 
 
 			renderer.render(scene);
