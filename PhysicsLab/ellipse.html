@@ -26,6 +26,7 @@
         var earthradius = 0.0000425*scalaterra;
         var afelioearth = 1.010*scalaorbita;
         var perielioearth = 0.976*scalaorbita;
+
         var raiomaior2 = ((afelioearth + perielioearth)/2);
         var centro2 = raiomaior - perielioearth;
         var raiomenor2 = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) );
@@ -146,9 +147,7 @@
 
 		var radians = 2 * Math.PI * 0.01;
 
-		earth.position.set( raiomaior2 * Math.cos( radians ),
-							sun.position.y,
-						  raiomenor2 * Math.sin( radians ) );
+	//	earth.position.set( raiomaior2 * Math.cos( radians ),sun.position.y,raiomenor2 * Math.sin( radians ) );
 
 
 
