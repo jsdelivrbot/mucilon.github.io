@@ -133,7 +133,7 @@
 
 
 		//Update & Rendering
-	
+	var velocidade = 0.01;
 		function render() {
 			requestAnimationFrame(render);
 
@@ -147,10 +147,10 @@
             terraorbita.position.z = sun.position.z;
 
 
-		//    var radians = 2 * Math.PI * 0.01;
+		    var radians = 2 * Math.PI * velocidade;
 
 			earth.position.set( raiomaior2 * Math.cos( 5 * 3.14 ),sun.position.y,raiomenor2 * Math.sin( 5 * 3.14 ) );
-
+			velocidade += velocidade;
 			renderer.render(scene);
 		}
 		render(); 
