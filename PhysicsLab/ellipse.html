@@ -153,12 +153,8 @@
             terraorbita.position.y = sun.position.y;
             terraorbita.position.z = sun.position.z;
 
-		Ellipse.prototype = Object.create( THREE.Curve.prototype );
-		Ellipse.prototype.constructor = Ellipse;
-		// define the getPoint function for the subClass
-		Ellipse.prototype.getPoint = function ( t ) {
 
-		var radians = 2 * Math.PI * t;
+		var radians = 2 * Math.PI * 0.01;
 
 		earth.position.set( raiomaior2 * Math.cos( radians ),
 							sun.position.y,
