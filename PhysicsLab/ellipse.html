@@ -18,7 +18,10 @@
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
-	
+		var sunpositionx = 0;
+		var sunpositiony = -200;
+		var sunpositionz = 0;
+
 		var scalaorbita= 500;
         var scalasol = 20000;
         var scalaterra = scalasol*30;
@@ -30,6 +33,13 @@
         var raiomaior2 = ((afelioearth + perielioearth)/2);
         var centro2 = raiomaior2 - perielioearth;
         var raiomenor2 = Math.sqrt(Math.pow(raiomaior2,2) - Math.pow(centro2,2) );
+        var phase = 1;
+
+        var velocityCoeff = 0.005;
+		var distanceCoeff = 9;
+		var orbitalPosition = 0 * 3.14;
+		var orbitalVelocity = (1 / 1) * velocityCoeff;
+		var solarDistance = 4 * distanceCoeff;
 
 
 
@@ -50,9 +60,11 @@
 
 			var radians = 2 * Math.PI * t;
 
-			return new THREE.Vector3( this.xRadius * Math.cos( radians ),
+			var teste = new THREE.Vector3( this.xRadius * Math.cos( radians ),
 									  0,
 									  this.yRadius * Math.sin( radians ) );
+
+			return teste
 
 		};
 
@@ -116,44 +128,75 @@
 			return mesh	
 		};
 
-
 		//configurando as variáveis da esfera
 	
+	    var sun = CreateSun(sunradius);
 
-		var sun = CreateSun(sunradius);
-		scene.add(sun);
 
 		var earth = CreateEarth(earthradius);
-		scene.add(earth);
+        
+        earth.position.set(sunpositionx + afelioearth,sunpositiony,sunpositionz);
 
-        var terrapath = createOrbitPath(afelioearth,perielioearth);
-
+        var terrapath = createOrbitPath(afelioearth,perielioearth);	
 		var terraorbita = createOrbitEllipse(terrapath,afelioearth,perielioearth);
+		terraorbita.position.set(sunpositionx + centro2,sunpositiony,sunpositionz);
 	    scene.add(terraorbita);
 
+ 		console.log(terrapath.length);
 
-		//Update & Rendering
-	var velocidade = 0.01;
+
 		function render() {
 			requestAnimationFrame(render);
 
- 			sun.position.x = 0;
- 			sun.position.y = -300;
- 			sun.position.z = 0;
+		if (phase == 1) {
 
- 			sun.rotation.y += 0.0001;
+			phase1();
 
-            terraorbita.position.y = sun.position.y;
-            terraorbita.position.z = sun.position.z;
+		} 
 
+		if (phase == 2) {
 
-		    var radians = 2 * Math.PI * velocidade;
+			phase2();
 
-			earth.position.set( raiomaior2 * Math.cos( radians ),sun.position.y,raiomenor2 * Math.sin( radians ) );
-			velocidade += velocidade;
+		} 
+		 		
 			renderer.render(scene);
 		}
+
 		render(); 
+
+
+		function phase1(){
+
+			sun.position.set(sunpositionx,sunpositiony,sunpositionz);
+    		scene.add(sun);
+
+    		earth.position.set(sunpositionx + afelioearth,sunpositiony,sunpositionz);
+			scene.add(earth);
+
+			phase = 0;
+		}
+
+
+		function phase2(){
+
+			orbitalPosition += orbitalVelocity;
+			
+			var r = solarDistance*20;
+			var rx = Math.abs(earth.position.x - sun.position.x);	
+			var rz = Math.abs(earth.position.z - sun.position.z); 	
+			var x = raiomaior2*Math.sin(orbitalPosition);
+			var z = raiomenor2*Math.cos(orbitalPosition);
+
+			earth.position.set(x+centro2,sunpositiony,z);
+			scene.add(earth);
+
+
+		}
+
+
+
+
 		</script>
 	</body>
 </html>
