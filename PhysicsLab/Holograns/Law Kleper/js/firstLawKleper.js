@@ -9,6 +9,7 @@ var sunpositionx = 0;
 var sunpositiony = -200;
 var sunpositionz = 0;
 var velocityCoeff = 0.005;
+var part = 1;
 
 var scene = new THREE.Scene();
 var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
