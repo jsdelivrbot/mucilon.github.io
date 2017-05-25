@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang=en>
-	<head>
-		<meta charset=utf-8>
-		<title>My first Three.js app in Altspace</title>
-		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.min.js"></script>
-		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/MTLLoader.js"></script>
-		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/OBJLoader.js"></script>
-		<script src="dist/altspace.js"></script>
-	</head>
-	<body>
-		<script>
-		if (!window.altspace || !window.altspace.inClient) {
-			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
-		}
+ <head>
+  <meta charset=utf-8>
+  <title>My first Three.js app in Altspace</title>
+  <script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.min.js"></script>
+  <script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/MTLLoader.js"></script>
+  <script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/OBJLoader.js"></script>
+  <script src="dist/altspace.js"></script>
+ </head>
+ <body>
+  <script>
+  if (!window.altspace || !window.altspace.inClient) {
+   document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
+  }
 
+  var sunpositionx = 0;
+  var sunpositiony = -200;
+  var sunpositionz = 0;
 
-		var scene = new THREE.Scene();
-		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
-
-		var sunpositionx = 0;
-		var sunpositiony = -200;
-		var sunpositionz = 0;
-
-		var scalaorbita= 500;
+  var scalaorbita= 500;
         var scalasol = 20000;
         var scalaterra = scalasol*30;
         var sunradius = 0.004*scalasol;
@@ -33,170 +29,199 @@
         var raiomaior2 = ((afelioearth + perielioearth)/2);
         var centro2 = raiomaior2 - perielioearth;
         var raiomenor2 = Math.sqrt(Math.pow(raiomaior2,2) - Math.pow(centro2,2) );
-        var phase = 1;
+        var phase = 2;
 
         var velocityCoeff = 0.005;
-		var distanceCoeff = 9;
-		var orbitalPosition = 0 * 3.14;
-		var orbitalVelocity = (1 / 1) * velocityCoeff;
-		var solarDistance = 4 * distanceCoeff;
+  var distanceCoeff = 9;
+  var orbitalPosition = 0 * 3.14;
+  var orbitalVelocity = (1 / 1) * velocityCoeff;
+  var solarDistance = 4 * distanceCoeff;
+
+
+     var scene = new THREE.Scene();
+  var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
+
+     var sun = CreateSun(sunradius);
+     sun.position.set(sunpositionx,sunpositiony,sunpositionz);
+     scene.add(sun);
+
+  var earth = CreateEarth(earthradius);
+  scene.add(earth);
+
+      //   var terrapath = createOrbitPath(afelioearth,perielioearth); 
+
+  // var terraorbita = createOrbitEllipse(terrapath,afelioearth,perielioearth);
+
+  // terraorbita.position.set(sunpositionx + centro2,sunpositiony,sunpositionz);
+
+   var geometry = new THREE.CircleGeometry(100, 32);
+  var material = new THREE.MeshBasicMaterial({
+   color: 0xffff00, side: THREE.DoubleSide
+  });
+  var circle = new THREE.Mesh(geometry, material);
 
 
 
-		function Ellipse(xRadius, yRadius) {
+  function Ellipse(xRadius, yRadius) {
 
-		THREE.Curve.call( this );
+  THREE.Curve.call( this );
 
-		// add radius as a property
-		this.xRadius = xRadius;
-		this.yRadius = yRadius;
-		}
+  // add radius as a property
+  this.xRadius = xRadius;
+  this.yRadius = yRadius;
+  }
 
-		Ellipse.prototype = Object.create( THREE.Curve.prototype );
-		Ellipse.prototype.constructor = Ellipse;
+  Ellipse.prototype = Object.create( THREE.Curve.prototype );
+  Ellipse.prototype.constructor = Ellipse;
 
-		// define the getPoint function for the subClass
-		Ellipse.prototype.getPoint = function ( t ) {
+  // define the getPoint function for the subClass
+  Ellipse.prototype.getPoint = function ( t ) {
 
-			var radians = 2 * Math.PI * t;
+   var radians = 2 * Math.PI * t;
 
-			var teste = new THREE.Vector3( this.xRadius * Math.cos( radians ),
-									  0,
-									  this.yRadius * Math.sin( radians ) );
+   var teste = new THREE.Vector3( this.xRadius * Math.cos( radians ),
+           0,
+           this.yRadius * Math.sin( radians ) );
 
-			return teste
+   return teste
 
-		};
+  };
 
-	 	function createOrbitPath(afelio,perielio){
+   function createOrbitPath(afelio,perielio){
 
-        	var raiomaior = ((afelio + perielio)/2);
-        	var centro = raiomaior - perielio;
+         var raiomaior = ((afelio + perielio)/2);
+         var centro = raiomaior - perielio;
             var raiomenor = Math.sqrt(Math.pow(raiomaior,2) - Math.pow(centro,2) );
             var path = new Ellipse(raiomaior,raiomenor);
-			return path
+   return path
 
         };
 
 
-		function createOrbitEllipse(path,afelio,perielio){
+  function createOrbitEllipse(path,afelio,perielio){
 
-			var pathSegments = 64;
-			var tubeRadius = 0.5;
-			var radiusSegments = 16;
-			var closed = true;
+   var pathSegments = 64;
+   var tubeRadius = 0.5;
+   var radiusSegments = 16;
+   var closed = true;
 
-			var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
-			    			
-			var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
-			    		    // mesh
-			var mesh = new THREE.Mesh( geometry, material );
+   var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
 
-			var raiomaior = ((afelio + perielio)/2);
-        	var centro = raiomaior - perielio;
+          
+   var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
+             // mesh
+   var mesh = new THREE.Mesh( geometry, material );
 
-			mesh.position.x = centro;
+   var raiomaior = ((afelio + perielio)/2);
+         var centro = raiomaior - perielio;
 
-			return mesh
-		};
+   mesh.position.x = centro;
 
-
-
-		function CreateSun(radius){
-			var geometry	= new THREE.SphereGeometry(radius, 32, 32)
-			var texture	= THREE.ImageUtils.loadTexture('images/sunmap.jpg')
-			var material	= new THREE.MeshPhongMaterial({
-				map	: texture,
-				bumpMap	: texture,
-				bumpScale: 0.05,
-			})
-			var mesh	= new THREE.Mesh(geometry, material);
-			return mesh	
-		};
-
-
-		function CreateEarth(radius){
-			var geometry	= new THREE.SphereGeometry(radius, 32, 32)
-			var material	= new THREE.MeshPhongMaterial({
-				map		: THREE.ImageUtils.loadTexture('images/earthmap1k.jpg'),
-				bumpMap		: THREE.ImageUtils.loadTexture('images/earthbump1k.jpg'),
-				bumpScale	: 0.05,
-				specularMap	: THREE.ImageUtils.loadTexture('images/earthspec1k.jpg'),
-				specular	: new THREE.Color('grey'),
-			})
-			var mesh	= new THREE.Mesh(geometry, material);
-			return mesh	
-		};
-
-		//configurando as variáveis da esfera
-	
-	    var sun = CreateSun(sunradius);
-
-
-		var earth = CreateEarth(earthradius);
-        
-        earth.position.set(sunpositionx + afelioearth,sunpositiony,sunpositionz);
-
-        var terrapath = createOrbitPath(afelioearth,perielioearth);	
-		var terraorbita = createOrbitEllipse(terrapath,afelioearth,perielioearth);
-		terraorbita.position.set(sunpositionx + centro2,sunpositiony,sunpositionz);
-	    scene.add(terraorbita);
-
- 		console.log(terrapath.length);
-
-
-		function render() {
-			requestAnimationFrame(render);
-
-		if (phase == 1) {
-
-			phase1();
-
-		} 
-
-		if (phase == 2) {
-
-			phase2();
-
-		} 
-		 		
-			renderer.render(scene);
-		}
-
-		render(); 
-
-
-		function phase1(){
-
-			sun.position.set(sunpositionx,sunpositiony,sunpositionz);
-    		scene.add(sun);
-
-    		earth.position.set(sunpositionx + afelioearth,sunpositiony,sunpositionz);
-			scene.add(earth);
-
-			phase = 0;
-		}
-
-
-		function phase2(){
-
-			orbitalPosition += orbitalVelocity;
-			
-			var r = solarDistance*20;
-			var rx = Math.abs(earth.position.x - sun.position.x);	
-			var rz = Math.abs(earth.position.z - sun.position.z); 	
-			var x = raiomaior2*Math.sin(orbitalPosition);
-			var z = raiomenor2*Math.cos(orbitalPosition);
-
-			earth.position.set(x+centro2,sunpositiony,z);
-			scene.add(earth);
-
-
-		}
+   return mesh
+  };
 
 
 
+  function CreateSun(radius){
+   var geometry = new THREE.SphereGeometry(radius, 32, 32)
+   var texture = THREE.ImageUtils.loadTexture('images/sunmap.jpg')
+   var material = new THREE.MeshPhongMaterial({
+    map : texture,
+    bumpMap : texture,
+    bumpScale: 0.05,
+   })
+   var mesh = new THREE.Mesh(geometry, material);
+   return mesh 
+  };
 
-		</script>
-	</body>
+
+  function CreateEarth(radius){
+   var geometry = new THREE.SphereGeometry(radius, 32, 32)
+   var material = new THREE.MeshPhongMaterial({
+    map  : THREE.ImageUtils.loadTexture('images/earthmap1k.jpg'),
+    bumpMap  : THREE.ImageUtils.loadTexture('images/earthbump1k.jpg'),
+    bumpScale : 0.05,
+    specularMap : THREE.ImageUtils.loadTexture('images/earthspec1k.jpg'),
+    specular : new THREE.Color('grey'),
+   })
+   var mesh = new THREE.Mesh(geometry, material);
+   return mesh 
+  };
+
+  var vinicialx,vinicialz;
+
+  function render() {
+   requestAnimationFrame(render);
+
+  if (phase == 1) {
+
+   phase1();
+
+  } 
+
+  if (phase == 2) {
+
+   phase2();
+
+  } 
+     
+   renderer.render(scene);
+  }
+
+
+  function phase1(){
+
+      earth.position.set(sunpositionx + afelioearth,sunpositiony,sunpositionz);
+   scene.add(earth);
+
+   phase = 0;
+  }
+
+  var vectors = new Array();
+  var orbitafase2;
+  function phase2(){
+
+  orbitalPosition += orbitalVelocity; 
+   
+  var x = raiomaior2*Math.sin(orbitalPosition);
+  var z = raiomenor2*Math.cos(orbitalPosition);
+  var v = new THREE.Vector3(x+centro2,sunpositiony,z);
+
+  earth.position.set(x+centro2,sunpositiony,z);
+
+  vectors.push(v);
+
+  if (vectors.length > 1255 ){
+
+  phase = 0;
+
+  }else{
+
+  scene.remove(orbitafase2);
+
+  } 
+
+  if (vectors.length > 1){
+
+   var pathSegments = 32;
+   var tubeRadius = 0.5;
+   var radiusSegments = 8;
+   var closed = false; 
+
+   var path = new THREE.CatmullRomCurve3(vectors);
+
+   var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
+             
+   var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
+                // mesh
+   orbitafase2 = new THREE.Mesh( geometry, material );
+   scene.add(orbitafase2);
+  }
+
+  }
+
+render(); 
+
+  </script>
+ </body>
 </html>

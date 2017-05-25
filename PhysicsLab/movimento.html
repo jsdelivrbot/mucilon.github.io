@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang=en>
+	<head>
+		<meta charset=utf-8>
+		<title>My first Three.js app in Altspace</title>
+		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.min.js"></script>
+		<script src="dist/altspace.js"></script>
+	</head>
+	<body>
+		<script>
+		if (!window.altspace || !window.altspace.inClient) {
+			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
+		}
+
+
+		var scene = new THREE.Scene();
+		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
+		var mesh3;
+		var nEnd = 0, nMax, nStep = 90; // 30 faces * 3 vertices/face
+        var geometry;
+        var material;
+		init();
+		animate();
+
+		function init() {
+
+    // points
+    var points = [];
+    for ( var i = 0; i < 18; i ++ ) {
+
+        points.push( new THREE.Vector3( Math.cos( i * Math.PI / 2 ), i / 9 - 1, Math.sin( i * Math.PI / 2 ) ).multiplyScalar( 3 ) );
+
+	}
+
+    // path
+    var path = new THREE.CatmullRomCurve3( points );
+
+    // params
+    var pathSegments = 512;
+    var tubeRadius = 0.2;
+    var radiusSegments = 8;
+    var closed = false;
+
+    // geometry
+    geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
+
+    // to buffer goemetry
+    geometry = new THREE.BufferGeometry().fromGeometry( geometry );
+    nMax = geometry.attributes.position.count;
+
+    // material
+    material = new THREE.MeshPhongMaterial( {
+        color: 0x00ffff,
+        side: THREE.DoubleSide
+    } );
+    
+    // mesh
+    mesh3 = new THREE.Mesh( geometry, material );
+    scene.add( mesh3 );
+    
+}
+
+function animate() {
+
+    requestAnimationFrame( animate );
+
+    nEnd = ( nEnd + nStep ) % nMax;
+
+    geometry.setDrawRange( 0, nEnd );
+
+    var m = new THREE.Mesh( geometry, material );
+    scene.add( m );
+
+    renderer.render(scene);
+
+}
+
+</script>
+    </body>
+</html>
