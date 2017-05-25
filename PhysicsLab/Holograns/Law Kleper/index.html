@@ -4,8 +4,16 @@
   <meta charset=utf-8>
  </head>
  <body>
+<input type=text required name='link' id="copyTarget" style='width:600px'> <button id="copyButton">Copy</button>
+
+
+<script src="../../dist/copyclipboard.js"></script>
  <script>
-document.write(document.URL + 'firstlawkleper.html');
+
+ document.getElementsByName('link')[0].value = document.URL + 'firstlawkleper.html';
+
+ //document.write(document.URL + 'firstlawkleper.html');
 </script>
+
  </body>
 </html>
