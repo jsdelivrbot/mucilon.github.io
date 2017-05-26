@@ -3,10 +3,11 @@ if (!window.altspace || !window.altspace.inClient) {
 }
 
 var scaleOrbit = 500;
-var scaleSun = 20000;
+var scaleSun = 1000;
 var scalePlanet = scaleSun*30;
+var sunradius = 0.004;
 var sunpositionx = 0;
-var sunpositiony = -200;
+var sunpositiony = -350;
 var sunpositionz = 0;
 var velocityCoeff = 0.005;
 var part = 1;
@@ -16,7 +17,7 @@ var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
 function newSun(){
 
-	var mesh =CreateSun(sunradius);
+	var mesh =CreateSun(sunradius*scaleSun);
     mesh.position.set(sunpositionx,sunpositiony,sunpositionz);
     return mesh;
 }
@@ -27,11 +28,11 @@ function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod) {
     this.aphelion = aphelion*scaleOrbit;
     this.radius = radius*scalePlanet;
     this.speedRotation = speedRotation;
-    this.speedTranslation = ( 1 / orbitalPeriod) * velocityCoeff;; 
+    this.speedTranslation = ( 1 / orbitalPeriod) * velocityCoeff;;
 	this.largerRadius = ((this.aphelion + this.perihelion)/2);
-    this.center = this.lageradius - this.perihelion;
+    this.center = this.largerRadius - this.perihelion;
     this.orbitalPosition = 0;
-    this.minorRadius = Math.sqrt(Math.pow(this.lageradius,2) - Math.pow(this.center,2));
+    this.minorRadius = Math.sqrt(Math.pow(this.largerRadius,2) - Math.pow(this.center,2));
     this.meshPlanet =  eval("Create"+name+"(this.radius)");//  CreateEarth(this.radius);
     this.meshEllipse = PlanetEllipseMesh(this.largerRadius,this.minorRadius,this.center);  
 }
@@ -44,7 +45,7 @@ function calculateRealTimeOrbit(planet){
 	var z = planet.minorRadius*Math.cos(planet.orbitalPosition);
 	var v = new THREE.Vector3(x+planet.center,sunpositiony,z);
 
-	planet.mesh.position.set(x+planet.center,sunpositiony,z);
+	planet.meshPlanet.position.set(x+planet.center,sunpositiony,z);
 
 	return v;
 }
@@ -69,7 +70,7 @@ function PlanetEllipseMesh(largerRadius,minorRadius,center){
 	   return value;
   	};
 
-	 var path = new Ellipse(raiomaior,raiomenor);
+	 var path = new Ellipse(largerRadius,minorRadius);
 
 	 var pathSegments = 64;
 	 var tubeRadius = 0.5;
@@ -82,7 +83,7 @@ function PlanetEllipseMesh(largerRadius,minorRadius,center){
 	             // mesh
 	 var mesh = new THREE.Mesh( geometry, material );
 
-	 mesh.position.set(sunpositionx + centro, sunpositiony, sunpositionz);
+	 mesh.position.set(sunpositionx + center, sunpositiony, sunpositionz);
 
 	 return mesh;
 }
@@ -90,7 +91,6 @@ function PlanetEllipseMesh(largerRadius,minorRadius,center){
 
 
 function part1(planet){
-
    planet.meshPlanet.position.set(sunpositionx + planet.aphelion,sunpositiony,sunpositionz);
    scene.add(planet.meshPlanet);
    part = 0;
@@ -103,18 +103,18 @@ var orbitpart2;
 function part2(planet){
 
 		
-	if (vectors.length <= 1255 ){
+	if (vectors.length <= 1258 ){
 		vectors.push(calculateRealTimeOrbit(planet));
 	}
 
-	if (vectors.length > 1255 ){
+	if (vectors.length > 1258 ){
 		calculateRealTimeOrbit(planet);
 	}else{
-		scene.remove(orbitpart2);
+	//	scene.remove(orbitpart2);
 	} 
 
-	if (vectors.length > 1 && vectors.length <= 1255 ){
-
+	if (vectors.length > 1 && vectors.length <= 1258 ){
+       scene.remove(orbitpart2);
 		var pathSegments = 32;
 		var tubeRadius = 0.5;
 		var radiusSegments = 8;
@@ -133,19 +133,56 @@ function part2(planet){
 }
 
 
+function part3(){
+
+
+var earth2 = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
+var earth3 = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
+
+earth2.meshPlanet.position.set(sunpositionx + earth2.aphelion,sunpositiony,sunpositionz);
+scene.add(earth2.meshPlanet);
+
+earth3.meshPlanet.position.set(sunpositionx - earth3.perihelion,sunpositiony,sunpositionz);
+scene.add(earth3.meshPlanet);
+
+scene.add(earth3.meshEllipse);
+
+var geometry = new THREE.SphereGeometry(2, 32, 32);
+var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
+var mesh = new THREE.Mesh(geometry, material);
+mesh.position.set(earth3.center,sunpositiony,sunpositionz);
+scene.add(mesh);	
+
+
+
+
+
+
+
+}
+
+
 var sun = newSun();
 //Planets(name,perihelion,aphelion,radius,speedRotation,speedTranslation) Au values
 //
-var earth = Planets('Earth',0.976,1.010,0.0000425,0.01,1);
+var earth = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
+
+
 
 scene.add(sun);
 
-part1();
+part1(earth);
+
+scene.remove(orbitpart2);
+scene.remove(earth);
+part3();
 
 render();
 
   function render() {
    requestAnimationFrame(render);
+
+ //  part2(earth);
 /*
   if (part == 1) {
 
@@ -159,6 +196,8 @@ render();
 
   } 
  */
+ earth.meshPlanet.rotation.y += earth.speedRotation;
+ sun.rotation.y += 0.01; 
 
    renderer.render(scene);
   }
