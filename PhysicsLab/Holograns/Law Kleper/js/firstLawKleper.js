@@ -1,19 +1,50 @@
 if (!window.altspace || !window.altspace.inClient) {
    document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 }
+	
 
 var scaleOrbit = 500;
-var scaleSun = 1000;
+var scaleSun = 20000;
 var scalePlanet = scaleSun*30;
 var sunradius = 0.004;
 var sunpositionx = 0;
-var sunpositiony = -350;
+var sunpositiony = -200;
 var sunpositionz = 0;
 var velocityCoeff = 0.005;
 var part = 1;
+var oldpart = 0;
+var globalSun;
+var globalEarth;
+var globalFont;
+var button1,button2,button3;
 
 var scene = new THREE.Scene();
 var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
+
+
+new THREE.FontLoader().load(
+			'https://cdn.rawgit.com/mrdoob/three.js/r74/examples/fonts/helvetiker_regular.typeface.js',
+			setGlobalFont
+);
+
+function setGlobalFont(font){
+
+
+globalFont = font;
+
+start();
+
+}
+
+
+function sceneClear(){
+
+	while(scene.children.length > 0){ 
+    scene.remove(scene.children[0]); 
+}
+
+}
+
 
 function newSun(){
 
@@ -88,29 +119,67 @@ function PlanetEllipseMesh(largerRadius,minorRadius,center){
 	 return mesh;
 }
 
+function createText(text,size,height,color,transparent,opacity) {
+			//Text
+	var geometry = new THREE.TextGeometry(text, {font: globalFont,size: size,height: height });
+	var material = new THREE.MeshBasicMaterial({color: color,transparent: transparent, opacity: opacity});
+	var mesh = new THREE.Mesh(geometry, material);
+	return mesh;
+
+}
+
+function createButton(text,funct){
+
+var cube = new THREE.Mesh(
+new THREE.BoxGeometry( 50, 50, 1 ),
+new THREE.MeshBasicMaterial({color: 0xffffff, transparent: true, opacity: 0.5})
+);
+
+buttontext = createText(text,10,3,0x00000,true,0.9 );
+buttontext.position.x = -22;
+var button = new THREE.Group();
+button.add(cube);
+button.add(buttontext);
+
+button.addBehavior(new altspace.utilities.behaviors.HoverScale({ scale: 1.2, duration: 150 }));
+button.addBehavior(new altspace.utilities.behaviors.HoverColor({ event: 'cursordown', color: new THREE.Color(0x33ff33) }));
+
+		// Assign button event handlers
+button.addEventListener('cursordown', function(event) {
+eval(funct);
+console.log(funct);
+});
+
+return button;
+
+} 
 
 
-function part1(planet){
+
+
+
+
+
+function part1(sun,planet){	
+   scene.add(sun);	
    planet.meshPlanet.position.set(sunpositionx + planet.aphelion,sunpositiony,sunpositionz);
    scene.add(planet.meshPlanet);
-   part = 0;
 }
 
 
 var vectors = new Array();
 var orbitpart2;
 
-function part2(planet){
-
+function part2(planet){	
 		
 	if (vectors.length <= 1258 ){
 		vectors.push(calculateRealTimeOrbit(planet));
 	}
 
-	if (vectors.length > 1258 ){
+	if (vectors.length > 1258 ){ Q
 		calculateRealTimeOrbit(planet);
 	}else{
-	//	scene.remove(orbitpart2);
+		scene.remove(orbitpart2);
 	} 
 
 	if (vectors.length > 1 && vectors.length <= 1258 ){
@@ -136,68 +205,198 @@ function part2(planet){
 function part3(){
 
 
-var earth2 = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
-var earth3 = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
+var oldScaleSun = scaleSun;
+var oldScalePlanet = scalePlanet;
+var oldSunPositiony = sunpositiony;
 
-earth2.meshPlanet.position.set(sunpositionx + earth2.aphelion,sunpositiony,sunpositionz);
-scene.add(earth2.meshPlanet);
+sunpositiony = -50;
+scaleSun = 1000;
+scalePlanet = scaleSun*50;
 
-earth3.meshPlanet.position.set(sunpositionx - earth3.perihelion,sunpositiony,sunpositionz);
-scene.add(earth3.meshPlanet);
+var sun = newSun();
+scene.add(sun);
 
-scene.add(earth3.meshEllipse);
+// add center line for name
+var start = new THREE.Vector3(sunpositionx,sunpositiony,sunpositionz);
+var end = new THREE.Vector3(sunpositionx - 50,sunpositiony + 50,sunpositionz);
+var path = new THREE.LineCurve3(start,end);
 
+var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
+		             
+var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
+		                // mesh
+var mesh = new THREE.Mesh( geometry, material );
+scene.add(mesh);
+
+
+//add center name
+var centertext = createText('Sol/Foco 1',10,3,0x00000,true,0.9 );
+centertext.position.set(sunpositionx - 75,sunpositiony + 50,sunpositionz);
+scene.add(centertext);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var earth = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
+
+var newEarthMesh = earth.meshPlanet.clone();
+
+earth.meshPlanet.position.set(sunpositionx + earth.aphelion,sunpositiony,sunpositionz);
+scene.add(earth.meshPlanet);
+
+newEarthMesh .position.set(sunpositionx - earth.perihelion,sunpositiony,sunpositionz);
+scene.add(newEarthMesh);
+
+scene.add(earth.meshEllipse);
+
+
+
+
+// add center
 var geometry = new THREE.SphereGeometry(2, 32, 32);
 var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
 var mesh = new THREE.Mesh(geometry, material);
-mesh.position.set(earth3.center,sunpositiony,sunpositionz);
-scene.add(mesh);	
+mesh.position.set(earth.center,sunpositiony,sunpositionz);
+scene.add(mesh);
+
+
+// add center line for name
+var start = new THREE.Vector3(earth.center,sunpositiony,sunpositionz);
+var end = new THREE.Vector3(earth.center,sunpositiony + 50,sunpositionz);
+var path = new THREE.LineCurve3(start,end);
+
+var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
+		             
+var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
+		                // mesh
+var mesh = new THREE.Mesh( geometry, material );
+scene.add(mesh);
+
+
+//add center name
+var centertext = createText('Centro',10,3,0x00000,true,0.9 );
+centertext.position.set(earth.center - 15,sunpositiony + 50,sunpositionz);
+scene.add(centertext);
 
 
 
 
 
+var geometry = new THREE.SphereGeometry(4, 32, 32);
+var material = new THREE.MeshPhongMaterial( {color: 0x00000, } );
+var mesh = new THREE.Mesh(geometry, material);
+mesh.position.set(2*earth.center,sunpositiony,sunpositionz);
+scene.add(mesh);
 
+
+var pathSegments = 32;
+var tubeRadius = 0.5;
+var radiusSegments = 8;
+var closed = false; 
+
+var start = new THREE.Vector3(-earth.perihelion,sunpositiony,sunpositionz);
+var end = new THREE.Vector3(earth.aphelion,sunpositiony,sunpositionz);
+var path = new THREE.LineCurve3(start,end);
+
+var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
+		             
+var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
+		                // mesh
+var mesh = new THREE.Mesh( geometry, material );
+scene.add(mesh);
+
+sunpositiony = oldSunPositiony;
+scaleSun = oldScaleSun;
+scalePlanet = oldScalePlanet;
 
 }
 
 
-var sun = newSun();
-//Planets(name,perihelion,aphelion,radius,speedRotation,speedTranslation) Au values
-//
-var earth = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
+function start(){
+globalSun = newSun();
+globalEarth = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
+
+scene.add(globalEarth.meshPlanet);
 
 
+button1 = createButton('Parte 1','part = 1');
+button1.position.set(-500, -200, -500);
+button2 = createButton('Parte 2','part = 2');
+button2.position.set(-425, -200, -500);
+button3 = createButton('Parte 3','part = 3');
+button3.position.set(-350, -200, -500);
 
-scene.add(sun);
-
-part1(earth);
-
-scene.remove(orbitpart2);
-scene.remove(earth);
-part3();
+scene.add(button1);
+scene.add(button2);
+scene.add(button3); 
 
 render();
+}
+
+
 
   function render() {
    requestAnimationFrame(render);
+   scene.updateAllBehaviors();
 
- //  part2(earth);
-/*
+  if (part != oldpart){
+  	sceneClear();
+   scene.add(button1);
+   scene.add(button2);
+   scene.add(button3);
+  // scene.clear()
+   if (part == 1) {
+   globalSun = newSun();
+   globalEarth = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
+   scene.add(globalSun);
+   scene.add(globalEarth.meshPlanet);
+   oldpart = part;
+  }
+
+   if (part == 2) {
+   globalSun = newSun();
+   globalEarth = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
+   scene.add(globalSun);
+   scene.add(globalEarth.meshPlanet);
+   vectors = new Array();
+   oldpart = part;
+  }
+
+  if (part == 3) {
+   oldpart = part;
+  }	
+
+  }	
+
+
   if (part == 1) {
-
-   part1();
-
+   part1(globalSun,globalEarth);
   } 
-
   if (part == 2) {
+   part2(globalEarth);
+  }
+   if (part == 3) {
+   part3();
+  }  
 
-   part2();
 
-  } 
- */
- earth.meshPlanet.rotation.y += earth.speedRotation;
- sun.rotation.y += 0.01; 
+ globalEarth.meshPlanet.rotation.y += globalEarth.speedRotation;
+ globalSun.rotation.y += 0.01; 
+  
 
    renderer.render(scene);
   }

@@ -5,6 +5,7 @@
 		<title>Hello World</title>
 		<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.js"></script>
 		<script src="../../dist/altspace.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
 
 	</head>
 	<body>
@@ -12,18 +13,17 @@
 		if (!window.altspace || !window.altspace.inClient) {
 			document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 		}
-
 		var text = "Hello World";
-
 		//Setup
 		var scene = new THREE.Scene();
 		var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
+		var mesh2;
+
 
 		new THREE.FontLoader().load(
 			'https://cdn.rawgit.com/mrdoob/three.js/r74/examples/fonts/helvetiker_regular.typeface.js',
 			createTextAndAddToScene
 		);
-
 		function createTextAndAddToScene(font) {
 			//Text
 			var geometry = new THREE.TextGeometry(text, {font: font});
@@ -32,17 +32,18 @@
 			mesh.position.x = -400;
 			mesh.scale.z = 0.3;
 			mesh.scale.multiplyScalar(1);
-			scene.add(mesh);
+			mesh2 = mesh.clone();
 		}
+
 
 		//Update & Rendering
 		function animate() {
 			requestAnimationFrame(animate);
 			renderer.render(scene);
+			scene.add(mesh2);
 			//mesh.rotation.x += 0.05;
 		}
 		animate();
-
 		</script>
 	</body>
 </html>

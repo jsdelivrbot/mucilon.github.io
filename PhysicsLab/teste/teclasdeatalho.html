@@ -1,0 +1,29 @@
+<html>
+<input type="button" id="btnSearch" value="Search" onclick="GetValue();" />
+<p id="message" ></p><br>
+<button onclick="copyToClipboard('message')">Copy</button>
+
+<script>
+function GetValue()
+{
+    var myarray= new Array("item1","item2","item3");
+    var random = myarray[Math.floor(Math.random() * myarray.length)];
+    //alert(random);
+    document.getElementById("message").innerHTML=random;
+}
+
+function copyToClipboard(elementId) {
+
+
+  var aux = document.createElement("input");
+  aux.setAttribute("value", document.getElementById(elementId).innerHTML);
+  document.body.appendChild(aux);
+  aux.select();
+  document.execCommand("copy");
+
+  document.body.removeChild(aux);
+
+}
+</script>
+
+</html>
