@@ -164,6 +164,7 @@ function part1(sun,planet){
    scene.add(sun);	
    planet.meshPlanet.position.set(sunpositionx + planet.aphelion,sunpositiony,sunpositionz);
    scene.add(planet.meshPlanet);
+ //  part = 0;
 }
 
 
@@ -204,6 +205,10 @@ function part2(planet){
 
 function part3(){
 
+var pathSegments = 32;
+var tubeRadius = 0.5;
+var radiusSegments = 8;
+var closed = false; 
 
 var oldScaleSun = scaleSun;
 var oldScalePlanet = scalePlanet;
@@ -213,12 +218,16 @@ sunpositiony = -50;
 scaleSun = 1000;
 scalePlanet = scaleSun*50;
 
+//##########################################################################################################
+//##########################################################################################################
+//##########################################################################################################
+//##########################################################################################################
 var sun = newSun();
 scene.add(sun);
 
-// add center line for name
+// add center sun for name
 var start = new THREE.Vector3(sunpositionx,sunpositiony,sunpositionz);
-var end = new THREE.Vector3(sunpositionx - 50,sunpositiony + 50,sunpositionz);
+var end = new THREE.Vector3(sunpositionx - 60,sunpositiony + 50,sunpositionz);
 var path = new THREE.LineCurve3(start,end);
 
 var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
@@ -229,27 +238,14 @@ var mesh = new THREE.Mesh( geometry, material );
 scene.add(mesh);
 
 
-//add center name
+//add sun name
 var centertext = createText('Sol/Foco 1',10,3,0x00000,true,0.9 );
-centertext.position.set(sunpositionx - 75,sunpositiony + 50,sunpositionz);
+centertext.position.set(sunpositionx - 85,sunpositiony + 50,sunpositionz);
 scene.add(centertext);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//##########################################################################################################
+//##########################################################################################################
+//##########################################################################################################
 
 var earth = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
 
@@ -258,12 +254,61 @@ var newEarthMesh = earth.meshPlanet.clone();
 earth.meshPlanet.position.set(sunpositionx + earth.aphelion,sunpositiony,sunpositionz);
 scene.add(earth.meshPlanet);
 
-newEarthMesh .position.set(sunpositionx - earth.perihelion,sunpositiony,sunpositionz);
+
+// add aohelion sun for name
+var start = new THREE.Vector3(sunpositionx + earth.aphelion,sunpositiony,sunpositionz);
+var end = new THREE.Vector3(sunpositionx + earth.aphelion,sunpositiony + 50,sunpositionz);
+var path = new THREE.LineCurve3(start,end);
+
+var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
+		             
+var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
+		                // mesh
+var mesh = new THREE.Mesh( geometry, material );
+scene.add(mesh);
+
+
+//add aphelion name
+var centertext = createText('Afelio',10,3,0x00000,true,0.9 );
+centertext.position.set(sunpositionx + earth.aphelion - 15,sunpositiony +50,sunpositionz);
+scene.add(centertext);
+
+//##########################################################################################################
+//##########################################################################################################
+//##########################################################################################################
+
+newEarthMesh.position.set(sunpositionx - earth.perihelion,sunpositiony,sunpositionz);
 scene.add(newEarthMesh);
+
+
+// add aohelion sun for name
+var start = new THREE.Vector3(sunpositionx - earth.perihelion,sunpositiony,sunpositionz);
+var end = new THREE.Vector3(sunpositionx - earth.perihelion,sunpositiony + 50,sunpositionz);
+var path = new THREE.LineCurve3(start,end);
+
+var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
+		             
+var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
+		                // mesh
+var mesh = new THREE.Mesh( geometry, material );
+scene.add(mesh);
+
+
+//add aphelion name
+var centertext = createText('Perielio',10,3,0x00000,true,0.9 );
+centertext.position.set(sunpositionx - earth.perihelion - 15,sunpositiony + 50,sunpositionz);
+scene.add(centertext);
+
+//##########################################################################################################
+//##########################################################################################################
+//##########################################################################################################
+
 
 scene.add(earth.meshEllipse);
 
-
+//##########################################################################################################
+//##########################################################################################################
+//##########################################################################################################
 
 
 // add center
@@ -292,9 +337,9 @@ var centertext = createText('Centro',10,3,0x00000,true,0.9 );
 centertext.position.set(earth.center - 15,sunpositiony + 50,sunpositionz);
 scene.add(centertext);
 
-
-
-
+//##########################################################################################################
+//##########################################################################################################
+//##########################################################################################################
 
 var geometry = new THREE.SphereGeometry(4, 32, 32);
 var material = new THREE.MeshPhongMaterial( {color: 0x00000, } );
@@ -302,11 +347,23 @@ var mesh = new THREE.Mesh(geometry, material);
 mesh.position.set(2*earth.center,sunpositiony,sunpositionz);
 scene.add(mesh);
 
+var start = new THREE.Vector3(2*earth.center,sunpositiony,sunpositionz);
+var end = new THREE.Vector3(2*earth.center + 60,sunpositiony+50,sunpositionz);
+var path = new THREE.LineCurve3(start,end);
 
-var pathSegments = 32;
-var tubeRadius = 0.5;
-var radiusSegments = 8;
-var closed = false; 
+var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
+		             
+var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
+		                // mesh
+var mesh = new THREE.Mesh( geometry, material );
+scene.add(mesh);
+
+
+//add center name
+var centertext = createText('Foco 2',10,3,0x00000,true,0.9 );
+centertext.position.set(2*earth.center+35,sunpositiony+50,sunpositionz);
+scene.add(centertext);
+
 
 var start = new THREE.Vector3(-earth.perihelion,sunpositiony,sunpositionz);
 var end = new THREE.Vector3(earth.aphelion,sunpositiony,sunpositionz);
@@ -322,6 +379,7 @@ scene.add(mesh);
 sunpositiony = oldSunPositiony;
 scaleSun = oldScaleSun;
 scalePlanet = oldScalePlanet;
+
 
 }
 
@@ -365,6 +423,7 @@ render();
    scene.add(globalSun);
    scene.add(globalEarth.meshPlanet);
    oldpart = part;
+   part1(globalSun,globalEarth);
   }
 
    if (part == 2) {
@@ -378,20 +437,15 @@ render();
 
   if (part == 3) {
    oldpart = part;
+   part3();
   }	
 
   }	
 
 
-  if (part == 1) {
-   part1(globalSun,globalEarth);
-  } 
   if (part == 2) {
    part2(globalEarth);
   }
-   if (part == 3) {
-   part3();
-  }  
 
 
  globalEarth.meshPlanet.rotation.y += globalEarth.speedRotation;
