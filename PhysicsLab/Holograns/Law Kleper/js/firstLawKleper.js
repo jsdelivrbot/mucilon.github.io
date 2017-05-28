@@ -441,7 +441,7 @@ render();
 
 
   function render() {
-   requestAnimationFrame(render);
+ //  requestAnimationFrame(render);
    sim.scene.updateAllBehaviors();
 
   if (part != oldpart){
@@ -491,10 +491,10 @@ render();
 function ready(firstInstance) {
 	if (firstInstance) {
 		sceneSync.instantiate('Start');
-	//	sceneSync.instantiate('Render');
-	//	sceneSync.instantiate('Part1');
-	//	sceneSync.instantiate('Part2');
-	//	sceneSync.instantiate('Part3');
+		sceneSync.instantiate('Render');
+		sceneSync.instantiate('Part1');
+		sceneSync.instantiate('Part2');
+		sceneSync.instantiate('Part3');
 		}
 }
 
