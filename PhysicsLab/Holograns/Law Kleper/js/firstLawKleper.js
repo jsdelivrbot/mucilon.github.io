@@ -177,7 +177,7 @@ function part2(planet){
 		vectors.push(calculateRealTimeOrbit(planet));
 	}
 
-	if (vectors.length > 1258 ){ Q
+	if (vectors.length > 1258 ){
 		calculateRealTimeOrbit(planet);
 	}else{
 		scene.remove(orbitpart2);
