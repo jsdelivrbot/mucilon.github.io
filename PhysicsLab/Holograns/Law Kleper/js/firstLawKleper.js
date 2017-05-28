@@ -1,8 +1,11 @@
 if (!window.altspace || !window.altspace.inClient) {
    document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 }
-	
 
+
+var sim;
+var connection;
+var sceneSync;
 var scaleOrbit = 500;
 var scaleSun = 20000;
 var scalePlanet = scaleSun*30;
@@ -21,11 +24,21 @@ var button1,button2,button3;
 var scene = new THREE.Scene();
 var renderer = altspace.getThreeJSRenderer({version:'0.2.0'});
 
+function main(_connection) {
+	connection = _connection
+	sim = new altspace.utilities.Simulation();
+	loadFont();//must load model before creating synced cube
+}
 
+
+
+function loadFont(){
 new THREE.FontLoader().load(
 			'https://cdn.rawgit.com/mrdoob/three.js/r74/examples/fonts/helvetiker_regular.typeface.js',
 			setGlobalFont
 );
+}
+
 
 function setGlobalFont(font){
 
@@ -39,8 +52,8 @@ start();
 
 function sceneClear(){
 
-	while(scene.children.length > 0){ 
-    scene.remove(scene.children[0]); 
+	while(sim.scene.children.length > 0){ 
+    sim.scene.remove(sim.scene.children[0]); 
 }
 
 }
@@ -161,9 +174,9 @@ return button;
 
 
 function part1(sun,planet){	
-   scene.add(sun);	
+   sim.scene.add(sun);	
    planet.meshPlanet.position.set(sunpositionx + planet.aphelion,sunpositiony,sunpositionz);
-   scene.add(planet.meshPlanet);
+   sim.scene.add(planet.meshPlanet);
  //  part = 0;
 }
 
@@ -388,7 +401,7 @@ function start(){
 globalSun = newSun();
 globalEarth = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
 
-scene.add(globalEarth.meshPlanet);
+sim.scene.add(globalEarth.meshPlanet);
 
 
 button1 = createButton('Parte 1','part = 1');
@@ -398,9 +411,9 @@ button2.position.set(-425, -200, -500);
 button3 = createButton('Parte 3','part = 3');
 button3.position.set(-350, -200, -500);
 
-scene.add(button1);
-scene.add(button2);
-scene.add(button3); 
+sim.scene.add(button1);
+sim.scene.add(button2);
+sim.scene.add(button3); 
 
 render();
 }
@@ -409,19 +422,19 @@ render();
 
   function render() {
    requestAnimationFrame(render);
-   scene.updateAllBehaviors();
+   sim.scene.updateAllBehaviors();
 
   if (part != oldpart){
   	sceneClear();
-   scene.add(button1);
-   scene.add(button2);
-   scene.add(button3);
+   sim.scene.add(button1);
+   sim.scene.add(button2);
+   sim.scene.add(button3);
   // scene.clear()
    if (part == 1) {
    globalSun = newSun();
    globalEarth = new Planets('Earth',0.976,1.010,0.0000425,0.01,1);
-   scene.add(globalSun);
-   scene.add(globalEarth.meshPlanet);
+   sim.scene.add(globalSun);
+   sim.scene.add(globalEarth.meshPlanet);
    oldpart = part;
    part1(globalSun,globalEarth);
   }
@@ -452,5 +465,12 @@ render();
  globalSun.rotation.y += 0.01; 
   
 
-   renderer.render(scene);
+   renderer.render(sim.scene);
   }
+
+
+
+  var config = { authorId: 'Mucilon', appId: 'FirstLawKleper' };
+altspace.utilities.sync.connect(config).then(function(connection) {
+	main(connection);
+});
