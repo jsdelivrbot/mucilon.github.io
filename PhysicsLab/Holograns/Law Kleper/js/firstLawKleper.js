@@ -53,7 +53,7 @@ function createInstace(){
 
 sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, {
 	instantiators: {
-	'Start': star,
+	'Start': start,
 	'Render': render,
 	'Part1': part1,
 	'Part2': part2,
@@ -491,10 +491,10 @@ render();
 function ready(firstInstance) {
 	if (firstInstance) {
 		sceneSync.instantiate('Start');
-		sceneSync.instantiate('Render');
-		sceneSync.instantiate('Part1');
-		sceneSync.instantiate('Part2');
-		sceneSync.instantiate('Part3');
+	//	sceneSync.instantiate('Render');
+	//	sceneSync.instantiate('Part1');
+	//	sceneSync.instantiate('Part2');
+	//	sceneSync.instantiate('Part3');
 		}
 }
 
