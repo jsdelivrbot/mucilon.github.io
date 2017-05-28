@@ -490,7 +490,7 @@ sim.scene.updateAllBehaviors();
 
 function ready(firstInstance) {
 	if (firstInstance) {
-		sceneSync.instantiate('Part2');
+		sceneSync.instantiate('Start');
 		}
 }
 
