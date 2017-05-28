@@ -435,14 +435,14 @@ sim.scene.add(button1);
 sim.scene.add(button2);
 sim.scene.add(button3); 
 
-render();
+//render();
 }
 
 
 
   function render() {
- //  requestAnimationFrame(render);
-   sim.scene.updateAllBehaviors();
+   requestAnimationFrame(render);
+
 
   if (part != oldpart){
   	sceneClear();
@@ -484,17 +484,13 @@ render();
  globalEarth.meshPlanet.rotation.y += globalEarth.speedRotation;
  globalSun.rotation.y += 0.01; 
   
-
+sim.scene.updateAllBehaviors();
 //   renderer.render(sim.scene);
   }
 
 function ready(firstInstance) {
 	if (firstInstance) {
-		sceneSync.instantiate('Start');
-		sceneSync.instantiate('Render');
-		sceneSync.instantiate('Part1');
 		sceneSync.instantiate('Part2');
-		sceneSync.instantiate('Part3');
 		}
 }
 
