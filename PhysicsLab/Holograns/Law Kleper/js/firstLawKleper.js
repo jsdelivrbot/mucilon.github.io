@@ -432,8 +432,8 @@ button3 = createButton('Parte 3','part = 3');
 button3.position.set(-350, -200, -500);
 
 sim.scene.add(button1);
-//sim.scene.add(button2);
-//sim.scene.add(button3); 
+sim.scene.add(button2);
+sim.scene.add(button3); 
 
 //render();
 }
