@@ -45,7 +45,7 @@ function setGlobalFont(font){
 
 globalFont = font;
 
-start();
+createInstace();
 
 }
 
