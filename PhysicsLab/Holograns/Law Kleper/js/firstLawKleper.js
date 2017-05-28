@@ -491,6 +491,10 @@ render();
 function ready(firstInstance) {
 	if (firstInstance) {
 		sceneSync.instantiate('Start');
+		sceneSync.instantiate('Render');
+		sceneSync.instantiate('Part1');
+		sceneSync.instantiate('Part2');
+		sceneSync.instantiate('Part3');
 		}
 }
 
