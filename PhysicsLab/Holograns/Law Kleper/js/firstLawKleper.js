@@ -491,6 +491,7 @@ sim.scene.updateAllBehaviors();
 function ready(firstInstance) {
 	if (firstInstance) {
 		sceneSync.instantiate('Start');
+		sceneSync.instantiate('Render');
 		}
 }
 
