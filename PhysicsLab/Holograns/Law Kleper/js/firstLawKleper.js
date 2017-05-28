@@ -49,6 +49,26 @@ start();
 
 }
 
+function createInstace(){
+
+sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, {
+	instantiators: {
+	'Start': star,
+	'Render': render,
+	'Part1': part1,
+	'Part2': part2,
+	'Part3': part3
+	},
+
+	ready: ready
+	});
+sim.scene.addBehavior(sceneSync);
+
+
+
+}
+
+
 
 function sceneClear(){
 
@@ -465,8 +485,14 @@ render();
  globalSun.rotation.y += 0.01; 
   
 
-   renderer.render(sim.scene);
+//   renderer.render(sim.scene);
   }
+
+function ready(firstInstance) {
+	if (firstInstance) {
+		sceneSync.instantiate('Start');
+		}
+}
 
 
 
