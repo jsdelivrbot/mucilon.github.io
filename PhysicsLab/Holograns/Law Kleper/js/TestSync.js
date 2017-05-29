@@ -8,12 +8,30 @@ var connection;
 var sceneSync;
 var globalEarth;
 var part = 1;
+var font;
 var config = { authorId: 'Mucilon', appId: 'TestSync' };
 
 
+new THREE.FontLoader().load(
+      'https://cdn.rawgit.com/mrdoob/three.js/r74/examples/fonts/helvetiker_regular.typeface.js',
+      setGlobalFont
+);
+
+function setGlobalFont(e){
+
+font = e;
+connectSync();
+
+}
+
+
+function connectSync(){
+
 altspace.utilities.sync.connect(config).then(function(connection) {
-	main(connection);
+  main(connection);
 });
+
+}
 
 
 function main(_connection) {
@@ -32,13 +50,12 @@ globalEarth = new Planets('Earth',0.976,1.010,0.0000425,0.01,1,0,0,0,600000,500,
 
 sim.scene.add(globalEarth.meshPlanet);
 
+//function Button(text,font,funct,width,height,color,transparent,opacity,x,y,z)
 
-button1 = new Button('Parte 1','part = 1');
-button1.position.set(-500, -200, -500);
-button2 = new Button('Parte 2','part = 2');
-button2.position.set(-425, -200, -500);
-
-sim.scene.add(button1);
+button1 = new Button('Parte 1',font,'part = 1',50,50,0xfffff,true,0.3,-500,-200,-500);
+button2 = new Button('Parte 2',font,'part = 2',50,50,0xfffff,true,0.3,-425,-200,-500);
+sim.scene.add(button1.button);
+sim.scene.add(button2.button);
 
 render();
 }
