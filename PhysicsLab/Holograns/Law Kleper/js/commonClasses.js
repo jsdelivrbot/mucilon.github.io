@@ -1,5 +1,5 @@
-function Text(text,font,size,height,color,transparent,opacity,x,y,z) {
-	this.text = text;
+function Text(texto,font,size,height,color,transparent,opacity,x,y,z) {
+	this.texto = texto;
 	this.font = font;
 	this.size = size;
 	this.height = height;
@@ -13,7 +13,7 @@ function Text(text,font,size,height,color,transparent,opacity,x,y,z) {
 
 	function createText(){
 
-	var geometry = new THREE.TextGeometry(this.text, {font: this.font,size: this.size,height: this.height });
+	var geometry = new THREE.TextGeometry(this.texto, {font: this.font,size: this.size,height: this.height });
 	var material = new THREE.MeshBasicMaterial({color: this.color,transparent: this.transparent, opacity: this.opacity});
 	var mesh = new THREE.Mesh(geometry, material);
 	return mesh;
@@ -23,9 +23,9 @@ function Text(text,font,size,height,color,transparent,opacity,x,y,z) {
 
 }
 
-function Button(text,font,funct,width,height,color,transparent,opacity,x,y,z){
+function Button(texto,font,funct,width,height,color,transparent,opacity,x,y,z){
 
-	this.text = text;
+	this.texto = texto;
 	this.funct = funct;
 	this.width = width;
 	this.height = height;
@@ -46,7 +46,7 @@ function Button(text,font,funct,width,height,color,transparent,opacity,x,y,z){
 		);
 
         //function Text(text,font,size,height,color,transparent,opacity,x,y,z)
-		buttontext = new Text(this.text,font,10,3,0x00000,true,0.9,(this.x - (this.width/2)),this.y,this.z);
+		buttontext = new Text(this.texto,font,10,3,0x00000,true,0.9,(this.x - (this.width/2)),this.y,this.z);
 
 		var button = new THREE.Group();
 		button.add(cube);
