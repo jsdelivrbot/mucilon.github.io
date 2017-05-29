@@ -61,6 +61,8 @@ function Button(texto,font,funct,width,height,color,transparent,opacity,x,y,z){
 		console.log(funct);
 		});
 
+		button.position.set(x,y,x);
+		
 		return button;
 	}
 
