@@ -5,13 +5,13 @@ function Sun(radius,scale,speedRotation,x,y,z){
 	this.scale = scale;
 	this.speedRotation = speedRotation;
 	this.mesh = CreateSun(radius*scale);
-	this.mesh.position.set(x,y,z);]
+	this.mesh.position.set(x,y,z);
 
 	this.mesh.addBehaviors(
-    	new altspace.utilities.behaviors.Object3DSync({rotation: true});
-	}
+    	new altspace.utilities.behaviors.Object3DSync({rotation: true})
+	);
 
-	function rotation{
+	function rotation(){
 	this.mesh.rotation += speedRotation;
 	}
 
@@ -36,8 +36,8 @@ function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sun
     this.meshPlanet =  eval("Create"+name+"(this.radius)");//  CreateEarth(this.radius);
     
     this.meshPlanet.addBehaviors(
-    	new altspace.utilities.behaviors.Object3DSync({position: true, rotation: true});
-	}
+    	new altspace.utilities.behaviors.Object3DSync({position: true, rotation: true})
+	);
 
 
 
