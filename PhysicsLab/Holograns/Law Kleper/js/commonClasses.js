@@ -1,4 +1,13 @@
 
+var globalObj;
+function createSyncedObject(initData) {
+   mesh = globalObj.clone();
+   return mesh;  
+}
+
+
+
+
 function Text(texto,font,size,height,color,transparent,opacity,x,y,z) {
 	this.texto = texto;
 	this.font = font;
@@ -24,7 +33,7 @@ function Text(texto,font,size,height,color,transparent,opacity,x,y,z) {
 
 }
 
-function Button(texto,font,funct,width,height,color,transparent,opacity,x,y,z){
+function Button(texto,font,funct,width,height,color,transparent,opacity,x,y,z,initData){
 
 	this.texto = texto;
 	this.funct = funct;
@@ -36,7 +45,9 @@ function Button(texto,font,funct,width,height,color,transparent,opacity,x,y,z){
 	this.x = x;
 	this.y = y;
 	this.z = z;
-	this.button = createButton();
+	var aButton = createButton();
+
+	this.button = createSyncedObject(initData,aButton);
 
 
 	function createButton(){

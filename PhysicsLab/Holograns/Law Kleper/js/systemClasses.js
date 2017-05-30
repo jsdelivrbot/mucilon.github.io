@@ -1,12 +1,3 @@
-function createSyncedObject(initData,obj) {
-   
-   mesh = obj.clone();
-   return mesh;
-   
-}
-
-
-
 
 function Sun(radius,scale,speedRotation,x,y,z,initData){
 
@@ -20,7 +11,7 @@ function Sun(radius,scale,speedRotation,x,y,z,initData){
     	new altspace.utilities.behaviors.Object3DSync({rotation: true})
 	);
 
-   this.mesh = createSyncedObject(initData,mesh);
+  // this.mesh = sceneSync.instantiate('createSyncedPart', initData, true);
 
 
 	function rotation(){
@@ -46,17 +37,16 @@ function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sun
     this.orbitalPosition = 0;
     this.minorRadius = Math.sqrt(Math.pow(this.largerRadius,2) - Math.pow(this.center,2));
 
-    var mesh =  eval("Create"+name+"(this.radius)");//  CreateEarth(this.radius); 
+    this.meshPlanet =  eval("Create"+name+"(this.radius)");//  CreateEarth(this.radius); 
 
-    mesh.addBehaviors(
+    this.meshPlanet.addBehaviors(
     	new altspace.utilities.behaviors.Object3DSync({position: true, rotation: true})
 	);
 
-    this.meshPlanet = createSyncedObject(initData,mesh);
-
     this.meshEllipse = PlanetEllipseMesh();
 
-	function calculateRealTimeOrbit(){
+	this.realTimeOrbit = function calculateRealTimeOrbit(){
+		
 		this.orbitalPosition += this.speedTranslation; 
 		   
 		var x = this.largerRadius*Math.sin(this.orbitalPosition);
@@ -80,7 +70,7 @@ function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sun
 
 		Ellipse.prototype = Object.create( THREE.Curve.prototype );
 		Ellipse.prototype.constructor = Ellipse;
-
+wdss
 		// define the getPoint function for the subClass
 		Ellipse.prototype.getPoint = function ( t ) {
 

@@ -18,6 +18,14 @@ altspace.getUser().then(function(user) {
   loadFont();
 });
 
+
+function syncObj(obj){
+
+globalObj = obj.clone();
+
+
+}
+
 function loadFont(){
 new THREE.FontLoader().load(
       'https://cdn.rawgit.com/mrdoob/three.js/r74/examples/fonts/helvetiker_regular.typeface.js',
@@ -67,8 +75,8 @@ sim.scene.add(globalEarth.meshPlanet);
 
 //function Button(text,font,funct,width,height,color,transparent,opacity,x,y,z)
 
-button1 = new Button('Parte 1',font,'part = 1',50,50,0xfffff,true,0.3,-500,-200,-500);
-button2 = new Button('Parte 2',font,'part = 2',50,50,0xfffff,true,0.3,-425,-200,-500);
+button1 = new Button('Parte 1',font,'part = 1',50,50,0xfffff,true,0.3,-500,-200,-500,initData);
+button2 = new Button('Parte 2',font,'part = 2',50,50,0xfffff,true,0.3,-425,-200,-500,initData);
 sim.scene.add(button1.button);
 sim.scene.add(button2.button);
 
@@ -80,7 +88,6 @@ function render() {
 
    if (part == 1) {
    globalEarth.meshPlanet.rotation.y += globalEarth.speedRotation;
-//   globalEarth.calculateRealTimeOrbit();
   }
 
   sim.scene.updateAllBehaviors();

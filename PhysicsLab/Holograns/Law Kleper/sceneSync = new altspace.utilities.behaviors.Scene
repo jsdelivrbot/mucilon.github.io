@@ -1,0 +1,18 @@
+sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, { instantiators: { 'createSyncedObject': createSyncedObject }, ready: onSyncReady });
+scene.addBehavior(sceneSync);
+
+function createSyncedObject(initData) {
+    return new THREE.Object3D();
+}
+
+// Para criar um objeto sincronizado e adicioná-lo à cena para todos
+var initData = { ownerUserId: user.userId };
+var mySyncedObj = sceneSync.instantiate('createSyncedPart', initData, true /* removes the object from the scene for everyone when you disconnect */);
+
+// To remove the synced object from the scene for everyone
+// Para remover o objeto sincronizado da cena para todos
+sceneSync.destroy(mySyncedObj);
+
+
+
+
