@@ -46,7 +46,7 @@ function Button(texto,font,funct,width,height,color,transparent,opacity,x,y,z){
 		);
 
         //function Text(text,font,size,height,color,transparent,opacity,x,y,z)
-		buttontext = new Text(texto,font,10,3,0x00000,true,0.9,(x - (width/2)),y,z);
+		buttontext = new Text(texto,font,10,3,0x00000,true,0.9,(x - (width + 2)),y,z);
 
 		var button = new THREE.Group();
 		button.add(cube);
