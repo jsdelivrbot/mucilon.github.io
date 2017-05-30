@@ -10,12 +10,20 @@ var globalEarth;
 var part = 1;
 var font;
 var config = { authorId: 'Mucilon', appId: 'TestSync' };
+var initData;
 
 
+altspace.getUser().then(function(user) {
+  initData = { ownerUserId: user.userId };
+  loadFont();
+});
+
+function loadFont(){
 new THREE.FontLoader().load(
       'https://cdn.rawgit.com/mrdoob/three.js/r74/examples/fonts/helvetiker_regular.typeface.js',
       setGlobalFont
 );
+}
 
 function setGlobalFont(e){
 
@@ -23,7 +31,6 @@ font = e;
 connectSync();
 
 }
-
 
 function connectSync(){
 
@@ -33,20 +40,28 @@ altspace.utilities.sync.connect(config).then(function(connection) {
 
 }
 
-
 function main(_connection) {
 	connection = _connection
 	sim = new altspace.utilities.Simulation();
 	sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance);
-    sim.scene.addBehavior(sceneSync);
-    start();
 
+  sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, { instantiators: { 'createSyncedObject': createSyncedObject }, ready: onSyncReady });
+  sim.scene.addBehavior(sceneSync);
+  start();
+
+}
+
+
+function onSyncReady(firstInstance){
+  if (firstInstance) {
+    sceneSync.instantiate('createSyncedObject');
+  }
 }
 
 
 function start(){
 // function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff)	
-globalEarth = new Planets('Earth',0.976,1.010,0.0000425,0.01,1,0,0,0,600000,500,0.005);
+globalEarth = new Planets('Earth',0.976,1.010,0.0000425,0.01,1,0,0,0,600000,500,0.005,initData);
 
 sim.scene.add(globalEarth.meshPlanet);
 
@@ -65,6 +80,7 @@ function render() {
 
    if (part == 1) {
    globalEarth.meshPlanet.rotation.y += globalEarth.speedRotation;
+//   globalEarth.calculateRealTimeOrbit();
   }
 
   sim.scene.updateAllBehaviors();

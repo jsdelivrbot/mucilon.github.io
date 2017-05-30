@@ -1,15 +1,27 @@
+function createSyncedObject(initData,obj) {
+   
+   mesh = obj.clone();
+   return mesh;
+   
+}
 
-function Sun(radius,scale,speedRotation,x,y,z){
+
+
+
+function Sun(radius,scale,speedRotation,x,y,z,initData){
 
 	this.radius = radius;
 	this.scale = scale;
 	this.speedRotation = speedRotation;
-	this.mesh = CreateSun(radius*scale);
-	this.mesh.position.set(x,y,z);
+	var mesh = CreateSun(radius*scale);
+	mesh.position.set(x,y,z);
 
-	this.mesh.addBehaviors(
+	mesh.addBehaviors(
     	new altspace.utilities.behaviors.Object3DSync({rotation: true})
 	);
+
+   this.mesh = createSyncedObject(initData,mesh);
+
 
 	function rotation(){
 	this.mesh.rotation += speedRotation;
@@ -19,7 +31,7 @@ function Sun(radius,scale,speedRotation,x,y,z){
 }
 
 
-function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff) {
+function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff,initData) {
     this.name = name;
     this.perihelion = perihelion*scaleOrbit;
     this.aphelion = aphelion*scaleOrbit;
@@ -33,13 +45,14 @@ function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sun
     this.center = this.largerRadius - this.perihelion;
     this.orbitalPosition = 0;
     this.minorRadius = Math.sqrt(Math.pow(this.largerRadius,2) - Math.pow(this.center,2));
-    this.meshPlanet =  eval("Create"+name+"(this.radius)");//  CreateEarth(this.radius);
-    
-    this.meshPlanet.addBehaviors(
+
+    var mesh =  eval("Create"+name+"(this.radius)");//  CreateEarth(this.radius); 
+
+    mesh.addBehaviors(
     	new altspace.utilities.behaviors.Object3DSync({position: true, rotation: true})
 	);
 
-
+    this.meshPlanet = createSyncedObject(initData,mesh);
 
     this.meshEllipse = PlanetEllipseMesh();
 

@@ -1,3 +1,4 @@
+
 function Text(texto,font,size,height,color,transparent,opacity,x,y,z) {
 	this.texto = texto;
 	this.font = font;
