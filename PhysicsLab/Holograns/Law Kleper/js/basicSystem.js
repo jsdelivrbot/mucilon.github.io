@@ -23,7 +23,7 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 
 }
 
-function main(_connection){	
+function main(_connection,funct){	
 	connection = _connection
 	sim = new altspace.utilities.Simulation();
 	sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance);
