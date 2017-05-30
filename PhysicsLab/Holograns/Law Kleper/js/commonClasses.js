@@ -1,13 +1,3 @@
-
-var globalObj;
-function createSyncedObject(initData) {
-   mesh = globalObj.clone();
-   return mesh;  
-}
-
-
-
-
 function Text(texto,font,size,height,color,transparent,opacity,x,y,z) {
 	this.texto = texto;
 	this.font = font;
@@ -47,7 +37,10 @@ function Button(texto,font,funct,width,height,color,transparent,opacity,x,y,z,in
 	this.z = z;
 	var aButton = createButton();
 
-	this.button = createSyncedObject(initData,aButton);
+	var initData = { ownerUserId: user.userId, name: texto };
+	this.button = sceneSync.instantiate('createSyncedObject', initData, true);
+	this.button.add(aButton);
+
 
 
 	function createButton(){
