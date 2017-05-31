@@ -27,9 +27,11 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 function main(_connection,funct){	
 	connection = _connection
 	sim = new altspace.utilities.Simulation();
-  	sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, { instantiators: { 
-  		'createSyncedObject': createSyncedObject,
-       'createSyncedText': createSyncedText},
+  	sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, { 
+      instantiators: { 
+  		'createSyncedObject': createSyncedObject
+    //  'createSyncedText': createSyncedText
+    },
        ready: onSyncReady });
       sim.scene.addBehavior(sceneSync);
    //   start();
@@ -41,25 +43,27 @@ function main(_connection,funct){
 //mySyncedObj.add(myMesh);
 
 function createSyncedObject(initData) {
- /* 
-   var cubeSize = 10;
+ 
+  var cubeSize = 50;
   var geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
   var material = new THREE.MeshBasicMaterial({color:'green'});
   var cube = new THREE.Mesh(geometry, material);
   cube.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
   sim.scene.add(cube);
   return cube;
-*/
+  
+/* 
     var obj = new THREE.Object3D();
     obj.name = initData.name;
     obj.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
     sim.scene.add(obj);
     return obj;
+    */
 }
 
 function createSyncedText(initData) {
 
-  var geometry = new THREE.TextGeometry(texto, {font: font,size: 50,height: 5 });
+  var geometry = new THREE.TextGeometry('porra', {font: font,size: 50,height: 5 });
   var material = new THREE.MeshBasicMaterial({color: 0xffffff,transparent: true, opacity: 0.5});
   var mesh = new THREE.Mesh(geometry, material);
   mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
@@ -74,8 +78,8 @@ function createSyncedText(initData) {
 
 function onSyncReady(firstInstance){
   if (firstInstance) {
-      var initData = { ownerUserId: user.userId, text: 'porra'};
-      sceneSync.instantiate('createSyncedText', initData, true);
+      var initData = { ownerUserId: user.userId};
+      sceneSync.instantiate('createSyncedObject');
      // start();
 }
 
