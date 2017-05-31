@@ -26,7 +26,7 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 				altspace.utilities.sync.connect(config).then(function(connection) {
 					//Retrieve SceneSync
 					sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, {
-						instantiators: {'Cube': createCube,'Text': createSyncedText  },//Create the cube
+						instantiators: {'Cube': createCube,'Text': createSyncedText, 'Obj': createSyncedObject  },//Create the cube
 						ready: ready//Ready!
 					});
 					//Add SceneSync to the scene
@@ -65,11 +65,21 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 			  var geometry = new THREE.TextGeometry('porra', {font: font,size: 50,height: 5 });
 			  var material = new THREE.MeshBasicMaterial({color: 0xffffff,transparent: true, opacity: 0.5});
 			  var mesh = new THREE.Mesh(geometry, material);
-			  mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
-			  sim.scene.add(mesh);
+			//  mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
+			//  sim.scene.add(mesh);
 			  return mesh;
 
 
+			}
+
+
+			function createSyncedObject() {
+ 
+				    var obj = new THREE.Object3D();
+				    obj.name = initData.name;
+				    obj.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
+				    sim.scene.add(obj);
+				    return obj;
 			}
 
 
@@ -84,7 +94,9 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 				});
 */
 				cube.addEventListener('cursordown', function(event) {
-					texto = sceneSync.instantiate('Text');
+					var mesh = createSyncedText(); 
+					texto = sceneSync.instantiate('Obj');
+					texto.add(mesh);
 					render();	
 				});
 				
