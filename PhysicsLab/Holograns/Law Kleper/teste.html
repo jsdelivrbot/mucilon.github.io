@@ -75,16 +75,19 @@
 				cube.addEventListener('dragstop', function (data) {
 					cube.material.color.setStyle('red');
 				});
-*/
+
 				cube.addEventListener('cursordown', function(event) {
 					var mySyncedObj = sceneSync.instantiate('Text');
 					sim.scene.add(mySyncedObj);
 				});
+				*/
 			}
 
 			function ready(firstInstance) {
 				if (firstInstance) {
 					sceneSync.instantiate('Cube');
+					sceneSync.instantiate('Text');
+					
 				}
 			}
 
