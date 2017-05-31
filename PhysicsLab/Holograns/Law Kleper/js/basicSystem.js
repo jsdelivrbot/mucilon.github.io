@@ -28,7 +28,8 @@ function main(_connection,funct){
 	connection = _connection
 	sim = new altspace.utilities.Simulation();
   	sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, { instantiators: { 
-  		'createSyncedObject': createSyncedObject },
+  		'createSyncedObject': createSyncedObject,
+       'createSyncedText': createSyncedText},
        ready: onSyncReady });
       sim.scene.addBehavior(sceneSync);
    //   start();
@@ -56,14 +57,26 @@ function createSyncedObject(initData) {
     return obj;
 }
 
+function createSyncedText(initData) {
+
+  var geometry = new THREE.TextGeometry(texto, {font: font,size: 50,height: 5 });
+  var material = new THREE.MeshBasicMaterial({color: 0xffffff,transparent: true, opacity: 0.5});
+  var mesh = new THREE.Mesh(geometry, material);
+  mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
+  sim.scene.add(mesh);
+  return mesh;
+
+
+}
+
+
+
 
 function onSyncReady(firstInstance){
   if (firstInstance) {
-      var initData = { ownerUserId: user.userId};
-      sceneSync.instantiate('createSyncedObject', initData, true);
-      start();
-} else{
-start();
+      var initData = { ownerUserId: user.userId, text: 'porra'};
+      sceneSync.instantiate('createSyncedText', initData, true);
+     // start();
 }
 
 }
