@@ -24,7 +24,7 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 				altspace.utilities.sync.connect(config).then(function(connection) {
 					//Retrieve SceneSync
 					sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, {
-						instantiators: {'Cube': createCube,'Text': createSyncedText  },//Create the cube
+						instantiators: {/*'Cube': createCube,*/'Text': createSyncedText  },//Create the cube
 						ready: ready//Ready!
 					});
 					//Add SceneSync to the scene
