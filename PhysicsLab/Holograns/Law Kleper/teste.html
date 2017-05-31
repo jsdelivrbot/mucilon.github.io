@@ -13,7 +13,9 @@
 			var config = { authorId: 'AltspaceVR', appId: 'DragEvents' };
 			var sceneSync;
 			var enclosure;
+new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples/fonts/helvetiker_regular.typeface.js',function(e){
 
+	font = e;
 			//Get the enclosure
 			altspace.getEnclosure().then(function(e) {
 				enclosure = e;
@@ -28,7 +30,7 @@
 					sim.scene.addBehavior(sceneSync);
 				});
 			});
-
+}
 			function createCube() {
 				//Create cube
 				var cubeSize = enclosure.innerWidth / 10;
