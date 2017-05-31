@@ -86,9 +86,12 @@
 				});
 */
 				cube.addEventListener('cursordown', function(event) {
+
+					if (user.isModerator == true){
  					var initData = {ownerUserId: user.userId};
 					texto = sceneSync.instantiate('Text',initData,true);
-					render();	
+					render();
+					}	
 				});
 				
 			}
