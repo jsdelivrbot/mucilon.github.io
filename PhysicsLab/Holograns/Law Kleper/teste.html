@@ -76,7 +76,6 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 			function createSyncedObject() {
  
 				    var obj = new THREE.Object3D();
-				    obj.name = initData.name;
 				    obj.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
 				    sim.scene.add(obj);
 				    return obj;
