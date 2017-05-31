@@ -62,7 +62,7 @@ function onSyncReady(firstInstance){
       sceneSync.instantiate('createSyncedObject', initData, true);
       start();
 } else{
-start();
+//start();
 }
 
 }
