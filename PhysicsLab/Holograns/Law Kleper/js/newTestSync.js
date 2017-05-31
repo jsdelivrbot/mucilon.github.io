@@ -16,7 +16,7 @@ var sun = sceneSync.instantiate('Sun',initData,true);
 
 function part2(){
 
-var initData = {ownerUserId: user.userId,name: Earth,radius: 20}
+var initData = {ownerUserId: user.userId,name: "Earth",radius: 20}
 var earth = sceneSync.instantiate('Planet',initData,true);
 earth.position.set(300,150,0);
 
@@ -25,8 +25,8 @@ earth.position.set(300,150,0);
 
 function part3(){
 
-var initData = {ownerUserId: user.userId,size: 30,height: 5,color: 0x000000,transparent: true,opacity: 0.1};
-var texto = sceneSync.instantiate('teste',initData,true);
+var initData = {ownerUserId: user.userId,text: "teste", size: 20,height: 5,color: 0xffffff,transparent: true,opacity: 0.5};
+texto = sceneSync.instantiate('Text',initData,true);
 texto.position.set(-300,-150,0);	
 	
 }

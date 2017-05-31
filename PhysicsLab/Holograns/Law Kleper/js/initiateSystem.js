@@ -41,23 +41,30 @@
 			function ready(firstInstance) {
 				if (firstInstance) {
 					var initData = {ownerUserId: user.userId};
-					sceneSync.instantiate('Start',initData,true);
+					sceneSync.instantiate('Init',initData,true);
 					
 				}
 			}
 
 			function init(initData) {
 
-					 var obj = new THREE.Object3D();
-				     obj.name = initData.name;
-				     obj.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
-				     sim.scene.add(obj);
-				     return obj;
-				     eval(functStart);
+				var geometry = new THREE.BoxGeometry(50, 50, 1);
+				var material = new THREE.MeshBasicMaterial({color: 0x0000ff,transparent: true, opacity: 0.3});
+				var cube = new THREE.Mesh(geometry, material);
+				cube.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
+				cube.addEventListener('cursordown', function(event) {
+					if (user.isModerator == true){
+						eval(functStart);
+					}
+			    });
+
+				sim.scene.add(cube);	
+				return cube;
+				     
 			}
 
 			
-			//var initData = {ownerUserId: user.userId,size: 20,height: 5,color: 0xffffff,transparent: true,opacity: 0.5};
+			//var initData = {ownerUserId: user.userId,text: "teste", size: 20,height: 5,color: 0xffffff,transparent: true,opacity: 0.5};
 			//sceneSync.instantiate('Text',initData,true);
 			function createSyncedText(initData) {
 
@@ -95,14 +102,14 @@
 				var material = new THREE.MeshBasicMaterial({color: 0x0000ff,transparent: true, opacity: 0.3});
 				var cube = new THREE.Mesh(geometry, material);
                 var text = createText(initData.text,10,3,0x00000,true,0.9);
-                text.position.x(-cube.height);
+              //  text.position.x(-22);
 
 				var button = new THREE.Group();
 				button.add(cube);
 				button.add(text);
 
 				button.addBehaviors(
-					new altspace.utilities.behaviors.Object3DSync({position: true}),
+					new altspace.utilities.behaviors.Object3DSync({position: true})
 				);
 				//Add event listeners
 				button.addEventListener('cursordown', function(event) {
