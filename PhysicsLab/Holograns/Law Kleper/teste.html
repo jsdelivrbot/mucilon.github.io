@@ -14,6 +14,7 @@
 			var sceneSync;
 			var enclosure;
 			var font;
+			var texto;
 
 
 new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples/fonts/helvetiker_regular.typeface.js',function(e){
@@ -64,7 +65,7 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 			  var geometry = new THREE.TextGeometry('porra', {font: font,size: 50,height: 5 });
 			  var material = new THREE.MeshBasicMaterial({color: 0xffffff,transparent: true, opacity: 0.5});
 			  var mesh = new THREE.Mesh(geometry, material);
-			  mesh.addBehaviors(new altspace.utilities.behaviors.Object3DSync({position: true}));
+			  mesh.addBehaviors(new altspace.utilities.behaviors.Object3DSync({position: true, rotation: true}));
 			  mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
 			  sim.scene.add(mesh);
 			  return mesh;
@@ -84,7 +85,8 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 				});
 */
 				cube.addEventListener('cursordown', function(event) {
-					sceneSync.instantiate('Text');	
+					texto = sceneSync.instantiate('Text');
+					render();	
 				});
 				
 			}
@@ -96,6 +98,16 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 					
 				}
 			}
+
+			function render() {
+			   requestAnimationFrame(render);
+
+			//   if (part == 1) {
+			   texto.rotation.y += 0.01;
+			 // }
+
+			  sim.scene.updateAllBehaviors();
+			}  
 
 		</script>
 	</body>
