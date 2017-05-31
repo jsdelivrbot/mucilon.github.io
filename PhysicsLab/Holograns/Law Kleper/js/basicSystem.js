@@ -34,7 +34,7 @@ function main(_connection,funct){
     },
        ready: onSyncReady });
       sim.scene.addBehavior(sceneSync);
-   //   start();
+      start();
 }
 
 
@@ -51,7 +51,7 @@ function createSyncedObject(initData) {
   cube.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
   sim.scene.add(cube);
   return cube;
-  
+
 /* 
     var obj = new THREE.Object3D();
     obj.name = initData.name;
