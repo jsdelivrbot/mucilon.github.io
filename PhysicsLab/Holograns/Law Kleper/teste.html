@@ -21,7 +21,7 @@
 				altspace.utilities.sync.connect(config).then(function(connection) {
 					//Retrieve SceneSync
 					sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, {
-						instantiators: {'Cube': createCube },//Create the cube
+						instantiators: {'Cube': createCube,'Text': createSyncedText  },//Create the cube
 						ready: ready//Ready!
 					});
 					//Add SceneSync to the scene
@@ -53,6 +53,19 @@
 				return cube;
 			}
 
+			function createSyncedText(initData) {
+
+			  var geometry = new THREE.TextGeometry('porra', {font: font,size: 50,height: 5 });
+			  var material = new THREE.MeshBasicMaterial({color: 0xffffff,transparent: true, opacity: 0.5});
+			  var mesh = new THREE.Mesh(geometry, material);
+			  mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
+			  sim.scene.add(mesh);
+			  return mesh;
+
+
+			}
+
+
 			function addCubeListeners(cube){
 				//Add 'Drag Start' event listener
 				cube.addEventListener('dragstart', function (data) {
@@ -61,6 +74,10 @@
 				//Add 'Drag Stop' event listener
 				cube.addEventListener('dragstop', function (data) {
 					cube.material.color.setStyle('red');
+				});
+
+				cube.addEventListener('cursordown', function(event) {
+					sceneSync.instantiate('Text');
 				});
 			}
 
