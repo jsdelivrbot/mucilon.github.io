@@ -62,7 +62,7 @@ function onSyncReady(firstInstance){
       var initData = { ownerUserId: user.userId};
       sceneSync.instantiate('createSyncedObject', initData, true);
 } else{
-//start();
+start();
 }
 
 }
