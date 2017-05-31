@@ -14,8 +14,9 @@
 			var sceneSync;
 			var enclosure;
 			var font;
-new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples/fonts/helvetiker_regular.typeface.js',function(e){
 
+
+new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples/fonts/helvetiker_regular.typeface.js',function(e){
 	font = e;
 			//Get the enclosure
 			altspace.getEnclosure().then(function(e) {
@@ -31,7 +32,9 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 					sim.scene.addBehavior(sceneSync);
 				});
 			});
-}
+});
+
+
 			function createCube() {
 				//Create cube
 				var cubeSize = enclosure.innerWidth / 10;

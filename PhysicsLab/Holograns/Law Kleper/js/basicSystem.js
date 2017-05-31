@@ -22,7 +22,7 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 		});
 	});
 
-}
+});
 
 function main(_connection,funct){	
 	connection = _connection
