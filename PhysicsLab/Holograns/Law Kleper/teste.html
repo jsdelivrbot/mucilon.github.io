@@ -25,7 +25,7 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 				altspace.utilities.sync.connect(config).then(function(connection) {
 					//Retrieve SceneSync
 					sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, {
-						instantiators: {/*'Cube': createCube,*/'Text': createSyncedText  },//Create the cube
+						instantiators: {'Cube': createCube,'Text': createSyncedText  },//Create the cube
 						ready: ready//Ready!
 					});
 					//Add SceneSync to the scene
@@ -82,18 +82,17 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 				cube.addEventListener('dragstop', function (data) {
 					cube.material.color.setStyle('red');
 				});
-
+*/
 				cube.addEventListener('cursordown', function(event) {
-					var mySyncedObj = sceneSync.instantiate('Text');
-					sim.scene.add(mySyncedObj);
+					sceneSync.instantiate('Text');	
 				});
-				*/
+				
 			}
 
 			function ready(firstInstance) {
 				if (firstInstance) {
-				//	sceneSync.instantiate('Cube');
-					sceneSync.instantiate('Text');
+					sceneSync.instantiate('Cube');
+				//	sceneSync.instantiate('Text');
 					
 				}
 			}
