@@ -67,7 +67,7 @@
 
 
 			function addCubeListeners(cube){
-				//Add 'Drag Start' event listener
+			 /*	//Add 'Drag Start' event listener
 				cube.addEventListener('dragstart', function (data) {
 					cube.material.color.setStyle('blue');
 				});
@@ -75,9 +75,10 @@
 				cube.addEventListener('dragstop', function (data) {
 					cube.material.color.setStyle('red');
 				});
-
+*/
 				cube.addEventListener('cursordown', function(event) {
-					sceneSync.instantiate('Text');
+					var mySyncedObj = sceneSync.instantiate('Text');
+					sim.scene.add(mySyncedObj);
 				});
 			}
 
