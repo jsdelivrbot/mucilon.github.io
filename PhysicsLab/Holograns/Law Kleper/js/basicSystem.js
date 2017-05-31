@@ -79,7 +79,7 @@ function createSyncedText(initData) {
 function onSyncReady(firstInstance){
   if (firstInstance) {
       var initData = { ownerUserId: user.userId};
-      sceneSync.instantiate('createSyncedObject');
+      sceneSync.instantiate('createSyncedObject',initData,true);
      // start();
 }
 
