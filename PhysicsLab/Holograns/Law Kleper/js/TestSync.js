@@ -55,14 +55,14 @@ function main(_connection) {
 
   sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, { instantiators: { 'createSyncedObject': createSyncedObject }, ready: onSyncReady });
   sim.scene.addBehavior(sceneSync);
-  start();
-
 }
 
 
 function onSyncReady(firstInstance){
   if (firstInstance) {
-    sceneSync.instantiate('createSyncedObject');
+     var initData = { ownerUserId: user.userId};
+     sceneSync.instantiate('createSyncedObject', initData, true);
+     start();
   }
 }
 

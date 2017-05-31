@@ -3,6 +3,7 @@ var user;
 var sim;
 var connection;
 var sceneSync;
+var config = { authorId: 'Mucilon', appId: 'TestSync' };
 
 
 //funct = your hologram start function example 'start()'
@@ -26,12 +27,10 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 function main(_connection,funct){	
 	connection = _connection
 	sim = new altspace.utilities.Simulation();
-	sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance);
   	sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, { instantiators: { 
-  		'createSyncedObject': createSyncedObject 
-  	}, ready: onSyncReady });
-  	sim.scene.addBehavior(sceneSync);
-  	eval(funct);
+  		'createSyncedObject': createSyncedObject },
+       ready: onSyncReady });
+      sim.scene.addBehavior(sceneSync);
 }
 
 
@@ -40,6 +39,15 @@ function main(_connection,funct){
 //mySyncedObj.add(myMesh);
 
 function createSyncedObject(initData) {
+ /* 
+   var cubeSize = 10;
+  var geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
+  var material = new THREE.MeshBasicMaterial({color:'green'});
+  var cube = new THREE.Mesh(geometry, material);
+  cube.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
+  sim.scene.add(cube);
+  return cube;
+*/
     var obj = new THREE.Object3D();
     obj.name = initData.name;
     obj.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
@@ -50,7 +58,9 @@ function createSyncedObject(initData) {
 
 function onSyncReady(firstInstance){
   if (firstInstance) {
-    sceneSync.instantiate('createSyncedObject');
-  }
+      var initData = { ownerUserId: user.userId};
+      sceneSync.instantiate('createSyncedObject', initData, true);
+      start();
 }
-
+start();
+}
