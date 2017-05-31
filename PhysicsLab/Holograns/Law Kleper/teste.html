@@ -15,28 +15,30 @@
 			var enclosure;
 			var font;
 			var texto;
+			var user;
 
-
-new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples/fonts/helvetiker_regular.typeface.js',function(e){
-	font = e;
-			//Get the enclosure
-			altspace.getEnclosure().then(function(e) {
-				enclosure = e;
-				//Connect to sync server
-				altspace.utilities.sync.connect(config).then(function(connection) {
-					//Retrieve SceneSync
-					sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, {
-						instantiators: {'Cube': createCube,'Text': createSyncedText},//Create the cube
-						ready: ready//Ready!
-					});
-					//Add SceneSync to the scene
-					sim.scene.addBehavior(sceneSync);
+			altspace.getUser().then(function(e) {
+			user = e;
+				new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples/fonts/helvetiker_regular.typeface.js',function(e){
+					font = e;
+							//Get the enclosure
+							altspace.getEnclosure().then(function(e) {
+								enclosure = e;
+								//Connect to sync server
+								altspace.utilities.sync.connect(config).then(function(connection) {
+									//Retrieve SceneSync
+									sceneSync = new altspace.utilities.behaviors.SceneSync(connection.instance, {
+										instantiators: {'Cube': createCube,'Text': createSyncedText},//Create the cube
+										ready: ready//Ready!
+									});
+									//Add SceneSync to the scene
+									sim.scene.addBehavior(sceneSync);
+								});
+							});
 				});
 			});
-});
 
-
-			function createCube() {
+			function createCube(initData) {
 				//Create cube
 				var cubeSize = enclosure.innerWidth / 10;
 				var geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
@@ -60,7 +62,7 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 				return cube;
 			}
 
-			function createSyncedText() {
+			function createSyncedText(initData) {
 
 			  var geometry = new THREE.TextGeometry('porra', {font: font,size: 50,height: 5 });
 			  var material = new THREE.MeshBasicMaterial({color: 0xffffff,transparent: true, opacity: 0.5});
@@ -84,8 +86,8 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 				});
 */
 				cube.addEventListener('cursordown', function(event) {
- 
-					texto = sceneSync.instantiate('Text');
+ 					var initData = {ownerUserId: user.userId};
+					texto = sceneSync.instantiate('Text',initData,true);
 					render();	
 				});
 				
@@ -93,7 +95,8 @@ new THREE.FontLoader().load('https://cdn.rawgit.com/mrdoob/three.js/r74/examples
 
 			function ready(firstInstance) {
 				if (firstInstance) {
-					sceneSync.instantiate('Cube');
+					var initData = {ownerUserId: user.userId};
+					sceneSync.instantiate('Cube',initData,true);
 				//	sceneSync.instantiate('Text');
 					
 				}
