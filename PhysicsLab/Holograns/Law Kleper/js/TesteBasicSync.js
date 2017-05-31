@@ -23,6 +23,7 @@ button2 = new Button('Parte 2',font,'part = 2',50,50,0xfffff,true,0.3,-425,-200,
 function part1(){
 
 text1 = new Text('parte 1',font,50,30,0x00000,true,0.9,0,0,0);
+var initData = { ownerUserId: user.userId};
 var obj = sceneSync.instantiate('createSyncedObject', initData, true);
 obj.add(text1.mesh);
 sim.scene.updateAllBehaviors();

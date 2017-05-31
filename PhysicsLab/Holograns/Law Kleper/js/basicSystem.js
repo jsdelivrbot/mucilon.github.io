@@ -31,7 +31,7 @@ function main(_connection,funct){
   		'createSyncedObject': createSyncedObject },
        ready: onSyncReady });
       sim.scene.addBehavior(sceneSync);
-      start();
+      //start();
 }
 
 
@@ -61,6 +61,7 @@ function onSyncReady(firstInstance){
   if (firstInstance) {
       var initData = { ownerUserId: user.userId};
       sceneSync.instantiate('createSyncedObject', initData, true);
+      start();
 } else{
 start();
 }
