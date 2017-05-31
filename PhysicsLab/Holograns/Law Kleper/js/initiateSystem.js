@@ -63,6 +63,14 @@
 				     
 			}
 
+			function sceneClear(){
+
+				while(sim.scene.children.length > 0){ 
+	    		sim.scene.remove(sim.scene.children[0]); 
+				}
+
+			}
+
 			
 			//var initData = {ownerUserId: user.userId,text: "teste", size: 20,height: 5,color: 0xffffff,transparent: true,opacity: 0.5};
 			//sceneSync.instantiate('Text',initData,true);
