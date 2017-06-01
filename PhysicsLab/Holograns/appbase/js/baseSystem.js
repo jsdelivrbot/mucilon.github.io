@@ -1,5 +1,5 @@
 			var sim = new altspace.utilities.Simulation();
-			var config = { authorId: 'HoloLab', appId: 'newTestSync' };
+			var config = { authorId: 'HoloLab', appId: 'appbase' };
 			var sceneSync;
 			var enclosure;
 			var font;
