@@ -67,7 +67,7 @@
 
 				while(sim.scene.children.length > 0){ 
 	    			//sim.scene.remove
-	    			sceneSync.destroy(sim.scene.children[0]); 
+	    			 sceneSync.destroy(sim.scene.children[0]); 
 				}
 
 			}
