@@ -56,7 +56,8 @@ button3.position.set(-350,-200,-500);
 
 
 function start(){
-
+	
+sceneClear();
 createButtons();
 
 render();
