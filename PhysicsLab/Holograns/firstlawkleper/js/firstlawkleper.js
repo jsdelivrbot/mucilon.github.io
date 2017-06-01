@@ -79,6 +79,8 @@ var initData = {ownerUserId: user.userId,text: "Afélio", size: 10,height: 3,col
 var aphelionText = sceneSync.instantiate('Text',initData,true);
 aphelionText.position.set(endVector.x - 30,endVector.y,endVector.z);
 
+earthAphelion.meshEllipse();
+
 //################################################# PERIHELION #############################################################################
 
 //Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff)

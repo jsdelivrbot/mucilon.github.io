@@ -154,7 +154,7 @@
 
 			}
 
-			//var initData = {ownerUserId: user.userId,largerRadius: 200,minorRadius: 100,x: 0,y: 0,z: 0,center: 0}
+			//var initData = {ownerUserId: user.userId,largerRadius: 200,minorRadius: 100,x: 0,y: 0,z: 0}
 			//sceneSync.instantiate('Ellipse',initData,true);
 			function createSyncedEllipse(initData){
 
@@ -188,7 +188,7 @@
 				             // mesh
 				 var mesh = new THREE.Mesh( geometry, material );
 
-				 mesh.position.set(initData.x + initData.center, initData.y, initData.z);
+				 mesh.position.set(initData.x, initData.y, initData.z);
 
 				 sim.scene.add(mesh);
 

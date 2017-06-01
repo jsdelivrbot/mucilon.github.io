@@ -41,10 +41,9 @@ function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sun
 			ownerUserId: user.userId,
 			largerRadius: this.largerRadius,
 			minorRadius: this.minorRadius,
-			x: this.sunX,
+			x: this.sunX + this.center,
 			y: this.sunY,
-			z: this.sunZ,
-			center: this.center
+			z: this.sunZ
 		};
 
 		return sceneSync.instantiate('Ellipse',initData,true);
