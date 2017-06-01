@@ -3,7 +3,6 @@
 			var sceneSync;
 			var enclosure;
 			var font;
-			var texto;
 			var user;
 			var functStart;
 
@@ -48,26 +47,39 @@
 
 			function init(initData) {
 
-				var geometry = new THREE.BoxGeometry(50, 50, 1);
-				var material = new THREE.MeshBasicMaterial({color: 0x0000ff,transparent: true, opacity: 0.3});
+				var text = createText("HoloLab",60,10,0x0000ff,false,0.7)
+				text.position.set(-125,100,0);
+				var geometry = new THREE.BoxGeometry(100, 50, 1);
+				var material = new THREE.MeshBasicMaterial({color: 0x00ccff,transparent: true, opacity: 0.3});
+				var cubeText = createText("Iniciar",15,5,0x00000,false,0.7);
+				cubeText.position.x = -25;	
 				var cube = new THREE.Mesh(geometry, material);
-				cube.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
-				cube.addEventListener('cursordown', function(event) {
+
+
+				var button = new THREE.Group();
+				button.add(cube);
+				button.add(cubeText);
+
+				button.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
+				button.addEventListener('cursordown', function(event) {
 					if (user.isModerator == true){
 						eval(functStart);
 					}
 			    });
 
-				sim.scene.add(cube);	
-				return cube;
+			    var finalMesh = new THREE.Group();
+				finalMesh.add(text);
+				finalMesh.add(button);
+
+				sim.scene.add(finalMesh);	
+				return finalMesh;
 				     
 			}
 
 			function sceneClear(){
 
 				while(sim.scene.children.length > 0){ 
-	    			//sim.scene.remove
-	    			 sceneSync.destroy(sim.scene.children[0]); 
+	    			sceneSync.destroy(sim.scene.children[0]); 
 				}
 
 			}
@@ -111,7 +123,7 @@
 				var material = new THREE.MeshBasicMaterial({color: 0x0000ff,transparent: true, opacity: 0.3});
 				var cube = new THREE.Mesh(geometry, material);
                 var text = createText(initData.text,10,3,0x00000,true,0.9);
-              //  text.position.x(-22);
+                text.position.x = -22;
 
 				var button = new THREE.Group();
 				button.add(cube);
