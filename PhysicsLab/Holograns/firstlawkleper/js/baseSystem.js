@@ -10,7 +10,7 @@
 				functStart = funct; 	
 				altspace.getUser().then(function(e) {
 				user = e;
-					new THREE.FontLoader().load('../../../../fonts/helvetiker_regular.typeface.js',function(e){
+					new THREE.FontLoader().load('../../fonts/helvetiker_regular.typeface.json',function(e){
 						font = e;
 								//Get the enclosure
 								altspace.getEnclosure().then(function(e) {
@@ -28,7 +28,7 @@
 											'Ellipse': createSyncedEllipse,
 											'DynEllipse': createSyncedDynamicEllipse,
 											'Line': createSyncedLine,
-											'Sphere'createSyncedSphere 
+											'Sphere': createSyncedSphere 
 											},//Create the cube
 											ready: ready//Ready!
 										});
@@ -69,7 +69,7 @@
 				button.add(cube);
 				button.add(cubeText);
 
-				button.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
+			//	button.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
 				button.addEventListener('cursordown', function(event) {
 					if (user.isModerator == true){
 						eval(functStart);
@@ -77,6 +77,7 @@
 			    });
 
 			    var finalMesh = new THREE.Group();
+			    finalMesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
 				finalMesh.add(text);
 				finalMesh.add(textAppName);
 				finalMesh.add(button);
@@ -109,7 +110,7 @@
 			//sceneSync.instantiate('Planet',initData,true);
 			function createSyncedPlanet(initData) {
 
-				  var mesh = eval("Create"+initData.name+"("+initData.radius+")");
+				  var mesh = eval("Create"+ initData.name + "(" + initData.radius + ")");
 				  mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
 				  sim.scene.add(mesh);
 				  return mesh;
@@ -184,9 +185,11 @@
 
 				 var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
 
-				 var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
+				 var material = new THREE.MeshPhongMaterial( {color: 0xffffff } );
 				             // mesh
 				 var mesh = new THREE.Mesh( geometry, material );
+
+				 mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
 
 				 mesh.position.set(initData.x, initData.y, initData.z);
 
@@ -201,17 +204,18 @@
 			function createSyncedDynamicEllipse(initData){
 
 				var pathSegments = 32;
-				var tubeRadius = 0.5;
+				var tubeRadius = 2;
 				var radiusSegments = 8;
-				var closed = false; 
+				var closed = true; 
 
 				var path = new THREE.CatmullRomCurve3(initData.vectors);
 
 				var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
 				             
-				var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
+				var material = new THREE.MeshPhongMaterial({color: 0xff0000});
 				                // mesh
 				var mesh = new THREE.Mesh( geometry, material );
+				mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
 
 				sim.scene.add(mesh);
 
@@ -223,15 +227,22 @@
 			//sceneSync.instantiate('Line',initData,true);
 			function createSyncedLine(initData){
 
-				var start =  initData.startVectors //new THREE.Vector3(earth.center,sunpositiony,sunpositionz);
-				var end =  initData.endVector     //new THREE.Vector3(earth.center,sunpositiony + 50,sunpositionz);
-				var path = new THREE.LineCurve3(start,end);
+				var pathSegments = 32;
+				var tubeRadius = 0.5;
+				var radiusSegments = 8;
+				var closed = true; 
+	
+
+				var startVector =  new THREE.Vector3(initData.x0,initData.y0,initData.z0); //initData.startVector
+				var endVector =  new THREE.Vector3(initData.x1,initData.y1,initData.sz1); //initData.endVector 
+				var path = new THREE.LineCurve3(startVector,endVector);
 
 				var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
 						             
-				var material = new THREE.MeshPhongMaterial( {color: 0xffffff, } );
+				var material = new THREE.MeshPhongMaterial( {color: 0xffffff} );
 						                // mesh
 				var mesh = new THREE.Mesh( geometry, material );
+				mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
 
 				sim.scene.add(mesh);
 
@@ -247,6 +258,7 @@
 				   var geometry = new THREE.SphereGeometry(initData.radius, 32, 32)
 				   var material = new THREE.MeshPhongMaterial({color: initData.color,transparent: initData.transparent,opacity: initData.opacity})
 				   var mesh = new THREE.Mesh(geometry, material);
+				   mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
 				   sim.scene.add(mesh);
 				   return mesh 
 

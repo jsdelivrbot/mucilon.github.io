@@ -1,8 +1,11 @@
 function Sun(radius,scale,speedRotation,x,y,z){
 
 	this.radius = radius*scale;
-
+	this.scale = scale;
 	this.speedRotation = speedRotation;
+	this.x = x;
+	this.y = y;
+	this.z = z;
 
 	var initData = {ownerUserId: user.userId,radius: this.radius};
 
@@ -32,6 +35,7 @@ function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sun
 
     var initData = {ownerUserId: user.userId,name: this.name,radius: this.radius};
     this.meshPlanet = sceneSync.instantiate('Planet',initData,true);
+    this.meshPlanet.position.set(this.aphelion,this.sunY,this.sunZ);
 
 
     
@@ -58,12 +62,13 @@ function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sun
 		var x = this.largerRadius*Math.sin(this.orbitalPosition);
 		var z = this.minorRadius*Math.cos(this.orbitalPosition);
 
-		var v = new THREE.Vector3(x+this.center,this.sunY,z);
+	//	var v = new THREE.Vector3(x+this.center,this.sunY,z);
 
 		this.meshPlanet.position.set(x+this.center,this.sunY,z);
 
-		return v;
+	//	return v;
 	}
+
 
 	this.rotation = function calculateRotation(){
 						this.mesh.rotation += speedRotation;
@@ -87,11 +92,17 @@ this.animate = function animation(){
 	if (this.vectorsArray.length > 1258 ){
 		calculateRealTimeOrbit(this.planet.realTimeOrbit());
 	}
+	//else{
+	//	if(this.vectorsArray.length > 20){
+	//		sceneSync.destroy(this.orbitMesh);
+	//	}
+
+	//}
 
 	if (this.vectorsArray.length > 1 && this.vectorsArray.length <= 1258 ){
-		sceneSync.destroy(this.orbitMesh);
 		var initData = {ownerUserId: user.userId,vectors: this.vectorsArray}
 		this.orbitMesh = sceneSync.instantiate('DynEllipse',initData,true);
+		sceneSync.destroy(this.orbitMesh);
 	}
 }
 

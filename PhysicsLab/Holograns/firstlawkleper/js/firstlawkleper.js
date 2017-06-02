@@ -3,6 +3,7 @@ if (!window.altspace || !window.altspace.inClient) {
 }
 
 var dynamicEllipse;
+var earthPart2;
 var part;
 
 
@@ -33,9 +34,11 @@ createButtons();
 var sun = new Sun(0.004,20000,0.0001,0,0,0);
 
 //Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff)
-var earth = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*50,500,0.005);
+earthPart2 = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*50,500,0.005);
 
-dynamicEllipse = new dynamicEllipseControl(earth);
+
+earthPart2.meshEllipse();
+//dynamicEllipse = new dynamicEllipseControl(earth);
 
 part = 2;
 
@@ -49,35 +52,48 @@ createButtons();
 
 //##################################################### SUN #############################################################################
 //Sun(radius,scale,speedRotation,x,y,z)
-var sun = new Sun(0.004,5000,0.0001,0,0,0);
+var sun = new Sun(0.004,1000,0.0001,0,0,0);
 
-var startVectors = new THREE.Vector3(sun.mesh.position.x,sun.mesh.position.y,sun.mesh.position.z);
 
-var endVector = new THREE.Vector3(sun.mesh.position.x - 60,sun.mesh.position.y + 100,sun.mesh.position.z);
+var x0 = sun.mesh.position.x;
+var y0 = sun.mesh.position.y;
+var z0 = sun.mesh.position.z;
 
-var initData = {ownerUserId: user.userId,start: startVectors,end: endVector};
+var x1 = sun.mesh.position.x - 60;
+var y1 = sun.mesh.position.y + 100;
+var z1 = sun.mesh.position.z;
+
+
+
+var initData = {ownerUserId: user.userId,x0: x0,y0: y0,z0: z0,x1: x1,y1: y1,z1: z1};
 var sunLine = sceneSync.instantiate('Line',initData,true);
 
-var initData = {ownerUserId: user.userId,text: "Sol / Foco 2", size: 10,height: 3,color: 0x000000,transparent: false,opacity: 0.5};
+var initData = {ownerUserId: user.userId,text: "Sol / Foco 1", size: 10,height: 3,color: 0xffffff,transparent: false,opacity: 0.5};
 var sunText = sceneSync.instantiate('Text',initData,true);
-sunText.position.set(endVector.x - 60,endVector.y,endVector.z);
+sunText.position.set(x1 - 60,y1,z1);
 
 //################################################# APHELION #############################################################################
 
 //Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff)
 var earthAphelion = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*30,500,0.005);
-earthAphelion.meshplanet.position.x = earthAphelion.aphelion;
+earthAphelion.meshPlanet.position.x = -earthAphelion.aphelion;
 
-var startVectors = new THREE.Vector3(earthAphelion.meshplanet.position.x,earthAphelion.meshplanet.position.y,earthAphelion.meshplanet.position.z);
 
-var endVector = new THREE.Vector3(earthAphelion.meshplanet.position.x,earthAphelion.meshplanet.position.y + 100,earthAphelion.meshplanet.position.z);
 
-var initData = {ownerUserId: user.userId,start: startVectors,end: endVector};
+var x0 = earthAphelion.meshPlanet.position.x;
+var y0 = earthAphelion.meshPlanet.position.y;
+var z0 = earthAphelion.meshPlanet.position.z;
+
+var x1 = earthAphelion.meshPlanet.position.x;
+var y1 = earthAphelion.meshPlanet.position.y + 100;
+var z1 = earthAphelion.meshPlanet.position.z;
+
+var initData = {ownerUserId: user.userId,x0: x0,y0: y0,z0: z0,x1: x1,y1: y1,z1: z1};
 var aphelionLine = sceneSync.instantiate('Line',initData,true);
 
-var initData = {ownerUserId: user.userId,text: "Afélio", size: 10,height: 3,color: 0x000000,transparent: false,opacity: 0.5};
+var initData = {ownerUserId: user.userId,text: "Afelio", size: 10,height: 3,color: 0xffffff,transparent: false,opacity: 0.5};
 var aphelionText = sceneSync.instantiate('Text',initData,true);
-aphelionText.position.set(endVector.x - 30,endVector.y,endVector.z);
+aphelionText.position.set(x1 - 30,y1,z1);
 
 earthAphelion.meshEllipse();
 
@@ -85,52 +101,85 @@ earthAphelion.meshEllipse();
 
 //Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff)
 var earthPerihelion = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*30,500,0.005);
-earthPerihelion.meshplanet.position.x = -earthPerihelion.perihelion;
 
-var startVectors = new THREE.Vector3(earthPerihelion.meshplanet.position.x,earthPerihelion.meshplanet.position.y,earthPerihelion.meshplanet.position.z);
+earthPerihelion.meshPlanet.position.x = earthPerihelion.perihelion;
 
-var endVector = new THREE.Vector3(earthPerihelion.meshplanet.position.x,earthPerihelion.meshplanet.position.y + 100,earthPerihelion.meshplanet.position.z);
 
-var initData = {ownerUserId: user.userId,start: startVectors,end: endVector};
+var x0 = earthPerihelion.meshPlanet.position.x;
+var y0 = earthPerihelion.meshPlanet.position.y;
+var z0 = earthPerihelion.meshPlanet.position.z;
+
+var x1 = earthPerihelion.meshPlanet.position.x;
+var y1 = earthPerihelion.meshPlanet.position.y + 100;
+var z1 = earthPerihelion.meshPlanet.position.z;
+
+var initData = {ownerUserId: user.userId,x0: x0,y0: y0,z0: z0,x1: x1,y1: y1,z1: z1};
 var perihelionLine = sceneSync.instantiate('Line',initData,true);
 
-var initData = {ownerUserId: user.userId,text: "Periélio", size: 10,height: 3,color: 0x000000,transparent: false,opacity: 0.5};
+var initData = {ownerUserId: user.userId,text: "Perielio", size: 10,height: 3,color: 0xffffff,transparent: false,opacity: 0.5};
 var perihelionText = sceneSync.instantiate('Text',initData,true);
-perihelionText.position.set(endVector.x - 30,endVector.y,endVector.z);
+perihelionText.position.set(x1 - 30,y1,z1);
 
 //################################################# CENTER #############################################################################
 
-var initData = {ownerUserId: user.userId,radius: 5,color: 0xffffff,transparent: false,opacity: 0.5}
+var initData = {ownerUserId: user.userId,radius: 2,color: 0x00ff00,transparent: false,opacity: 0.5}
 var center = sceneSync.instantiate('Sphere',initData,true);
-center.position.set(earthAphelion.meshplanet.position.center,earthAphelion.meshplanet.position.y,earthAphelion.meshplanet.position.z);
+center.position.set(earthAphelion.center,earthAphelion.meshPlanet.position.y,earthAphelion.meshPlanet.position.z);
 
-var startVectors = new THREE.Vector3(center.position.x,center.position.y,center.position.z);
+var x0 = center.position.x;
+var y0 = center.position.y;
+var z0 = center.position.z;
 
-var endVector = new THREE.Vector3(center.position.x,center.position.y + 100,center.position.);
+var x1 = center.position.x;
+var y1 = center.position.y + 100;
+var z1 = center.position.z;
 
-var initData = {ownerUserId: user.userId,start: startVectors,end: endVector};
+
+var initData = {ownerUserId: user.userId,x0: x0,y0: y0,z0: z0,x1: x1,y1: y1,z1: z1};
 var centerLine = sceneSync.instantiate('Line',initData,true);
 
-var initData = {ownerUserId: user.userId,text: "Centro", size: 10,height: 3,color: 0x000000,transparent: false,opacity: 0.5};
+var initData = {ownerUserId: user.userId,text: "Centro", size: 10,height: 3,color: 0xffffff,transparent: false,opacity: 0.5};
 var centerText = sceneSync.instantiate('Text',initData,true);
-centerText.position.set(endVector.x - 30,endVector.y,endVector.z);
+centerText.position.set(x1 - 30,y1,z1);
 
 //################################################# FOCUS  #############################################################################
 
-var initData = {ownerUserId: user.userId,radius: 5,color: 0xff0000,transparent: false,opacity: 0.5}
+var initData = {ownerUserId: user.userId,radius: 2,color: 0xff0000,transparent: false,opacity: 0.5}
 var focus = sceneSync.instantiate('Sphere',initData,true);
-focus.position.set(earthAphelion.meshplanet.position.center*2,earthAphelion.meshplanet.position.y,earthAphelion.meshplanet.position.z);
+focus.position.set(earthAphelion.center*2,earthAphelion.meshPlanet.position.y,earthAphelion.meshPlanet.position.z);
 
-var startVectors = new THREE.Vector3(focus.position.x,focus.position.y,focus.position.z);
 
-var endVector = new THREE.Vector3(focus.position.x + 60,focus.position.y + 100,focus.position.);
+var x0 = focus.position.x;
+var y0 = focus.position.y;
+var z0 = focus.position.z;
 
-var initData = {ownerUserId: user.userId,start: startVectors,end: endVector};
+var x1 = focus.position.x + 60;
+var y1 = focus.position.y + 100;
+var z1 = focus.position.z;
+
+
+var initData = {ownerUserId: user.userId,x0: x0,y0: y0,z0: z0,x1: x1,y1: y1,z1: z1};
 var focusLine = sceneSync.instantiate('Line',initData,true);
 
-var initData = {ownerUserId: user.userId,text: "Centro", size: 10,height: 3,color: 0x000000,transparent: false,opacity: 0.5};
+var initData = {ownerUserId: user.userId,text: "Foco 2", size: 10,height: 3,color: 0xffffff,transparent: false,opacity: 0.5};
 var focusText = sceneSync.instantiate('Text',initData,true);
-focusText.position.set(endVector.x - 30,endVector.y,endVector.z);
+focusText.position.set(x1 - 30,y1,z1);
+
+
+//################################################# CENTER LINE ###########################################################################
+
+
+var x0 = -earthAphelion.aphelion;
+var y0 = earthAphelion.meshPlanet.position.y;
+var z0 = earthAphelion.meshPlanet.position.z;
+
+var x1 = earthAphelion.perihelion;
+var y1 = earthAphelion.meshPlanet.position.y;
+var z1 = earthAphelion.meshPlanet.position.z;
+
+
+var initData = {ownerUserId: user.userId,x0: x0,y0: y0,z0: z0,x1: x1,y1: y1,z1: z1};
+var centerLine = sceneSync.instantiate('Line',initData,true);
 
 part = 3;
 	
@@ -167,7 +216,8 @@ function render() {
   requestAnimationFrame(render);
 
   if (part == 2){
-  	dynamicEllipse.animate();
+  	//dynamicEllipse.animate();
+  	earthPart2.realTimeOrbit();
   }
 
 
