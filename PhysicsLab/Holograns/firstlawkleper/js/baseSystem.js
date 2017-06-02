@@ -5,6 +5,7 @@
 			var font;
 			var user;
 			var functStart;
+			var vectorsEllipse;
 
 			function initSystem(funct){
 				functStart = funct; 	

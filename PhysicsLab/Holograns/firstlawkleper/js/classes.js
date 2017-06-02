@@ -79,35 +79,29 @@ function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sun
 
 function dynamicEllipseControl(planet){
 this.planet = planet;	
-this.vectorsArray = new Array();
+//this.vectorsArray = new Array();
 this.orbitMesh;
 
 
 this.animate = function animation(){
 
-	if (this.vectorsArray.length <= 1258 ){
-		this.vectorsArray.push(this.planet.realTimeOrbit());
+	if (vectorsEllipse.length <= 1258 ){
+		vectorsEllipse.push(this.planet.realTimeOrbit());
 	}
 
-	if (this.vectorsArray.length > 1258 ){
+	if (vectorsEllipse.length > 1258 ){
 		calculateRealTimeOrbit(this.planet.realTimeOrbit());
 	}
-	//else{
-	//	if(this.vectorsArray.length > 20){
-	//		sceneSync.destroy(this.orbitMesh);
-	//	}
 
-	//}
-
-	if (this.vectorsArray.length > 1 && this.vectorsArray.length <= 1258 ){
-		var initData = {ownerUserId: user.userId,vectors: this.vectorsArray}
-		this.orbitMesh = sceneSync.instantiate('DynEllipse',initData,true);
+	if (vectorsEllipse.length > 1 && vectorsEllipse.length <= 1258 ){
 		sceneSync.destroy(this.orbitMesh);
+		var initData = {ownerUserId: user.userId}
+		this.orbitMesh = sceneSync.instantiate('DynEllipse',initData,true);
 	}
 }
 
-this.clearArray = function clearVectorArray(){
-					this.vectorsArray = new Array();
+this.clearArrayVetors = function clearVectorArray(){
+					vectorsEllipse = new Array();
 				  }	
 
 }

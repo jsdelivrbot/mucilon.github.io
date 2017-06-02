@@ -34,11 +34,11 @@ createButtons();
 var sun = new Sun(0.004,20000,0.0001,0,0,0);
 
 //Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff)
-earthPart2 = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*50,500,0.005);
+var earth = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*50,500,0.005);
 
 
-earthPart2.meshEllipse();
-//dynamicEllipse = new dynamicEllipseControl(earth);
+dynamicEllipse = new dynamicEllipseControl(earth);
+dynamicEllipse.clearArrayVetor();
 
 part = 2;
 
@@ -216,8 +216,7 @@ function render() {
   requestAnimationFrame(render);
 
   if (part == 2){
-  	//dynamicEllipse.animate();
-  	earthPart2.realTimeOrbit();
+  	dynamicEllipse.animate();
   }
 
 
