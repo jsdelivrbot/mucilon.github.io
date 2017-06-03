@@ -6,6 +6,7 @@
 			var user;
 			var functStart;
 			var vectorsEllipse;
+			var orbit;
 
 			function initSystem(funct){
 				functStart = funct; 	
@@ -83,6 +84,8 @@
 				finalMesh.add(textAppName);
 				finalMesh.add(button);
 
+
+
 				sim.scene.add(finalMesh);	
 				return finalMesh;
 				     
@@ -107,22 +110,24 @@
 				  return mesh;
 
 			}
-			//var initData = {ownerUserId: user.userId,name: Earth,radius: 20}
+			//var initData = {ownerUserId: user.userId,name: Earth,radius: 20,speedRotation: this.speedRotation}
 			//sceneSync.instantiate('Planet',initData,true);
 			function createSyncedPlanet(initData) {
 
 				  var mesh = eval("Create"+ initData.name + "(" + initData.radius + ")");
 				  mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
+				  mesh.addBehavior(new altspace.utilities.behaviors.Spin({speed: initData.speedRotation}));			  
 				  sim.scene.add(mesh);
 				  return mesh;
 
 			}
-			//var initData = {ownerUserId: user.userId,radius: 20}
+			//var initData = {ownerUserId: user.userId,radius: 20,speedRotation: this.speedRotation}
 			//sceneSync.instantiate('Sun',initData,true);
 			function createSyncedSun(initData) {
 
 				  var mesh = CreateSun(initData.radius);
 				  mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
+				  mesh.addBehavior(new altspace.utilities.behaviors.Spin({speed: initData.speedRotation}));
 				  sim.scene.add(mesh);
 				  return mesh;
 
@@ -150,7 +155,7 @@
 						eval(initData.funct);
 					}
 				});
-
+				
 				sim.scene.add(button);
 				return button;
 
@@ -180,13 +185,13 @@
 				 var path = new Ellipse(initData.largerRadius,initData.minorRadius);
 
 				 var pathSegments = 64;
-				 var tubeRadius = 0.5;
+				 var tubeRadius = 0.3;
 				 var radiusSegments = 16;
 				 var closed = true;
 
 				 var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
 
-				 var material = new THREE.MeshPhongMaterial( {color: 0xffffff } );
+				 var material = new THREE.MeshPhongMaterial( {color: 0x0055ff } );
 				             // mesh
 				 var mesh = new THREE.Mesh( geometry, material );
 
@@ -203,24 +208,24 @@
 			//var initData = {ownerUserId: user.userId,vectors: vectorsArray}
 			//sceneSync.instantiate('DynEllipse',initData,true);
 			function createSyncedDynamicEllipse(initData){
-
+				sim.scene.remove(orbit);
 				var pathSegments = 32;
-				var tubeRadius = 2;
+				var tubeRadius = 0.3;
 				var radiusSegments = 8;
-				var closed = true; 
+				var closed = false; 
 
 				var path = new THREE.CatmullRomCurve3(vectorsEllipse);
 
-				var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
+				var geo = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
 				             
-				var material = new THREE.MeshPhongMaterial({color: 0xff0000});
+				var material = new THREE.MeshPhongMaterial({color: 0x0055ff});
 				                // mesh
-				var mesh = new THREE.Mesh( geometry, material );
-				mesh.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
+				orbit = new THREE.Mesh( geo, material );
+				orbit.addBehavior(new altspace.utilities.behaviors.Object3DSync({ position: true, rotation: true, scale: true }));
 
-				sim.scene.add(mesh);
+				sim.scene.add(orbit);
 
-				return mesh;
+				return orbit;
 
 			}
 
@@ -228,10 +233,10 @@
 			//sceneSync.instantiate('Line',initData,true);
 			function createSyncedLine(initData){
 
-				var pathSegments = 32;
-				var tubeRadius = 0.5;
-				var radiusSegments = 8;
-				var closed = true; 
+				var pathSegments = 64;
+				var tubeRadius = 0.3;
+				var radiusSegments = 16;
+				var closed = false; 
 	
 
 				var startVector =  new THREE.Vector3(initData.x0,initData.y0,initData.z0); //initData.startVector

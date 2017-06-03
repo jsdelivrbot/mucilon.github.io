@@ -2,9 +2,10 @@ if (!window.altspace || !window.altspace.inClient) {
    document.write('<h3>To view this example, please open this page in <a href="http://altvr.com"> AltspaceVR </a></h3>');
 }
 
-var dynamicEllipse;
+
 var earthPart2;
 var part;
+var teste;
 
 
 initSystem('start()');
@@ -16,10 +17,10 @@ sceneClear();
 createButtons();
 
 //Sun(radius,scale,speedRotation,x,y,z)
-var sun = new Sun(0.004,20000,0.0001,0,0,0);
+var sun = new Sun(0.004,20000,0.001,0,0,0);
 
 //Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff)
-var earth = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*50,500,0.005);
+var earth = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*30,500,0.005);
 
 part = 1;
 
@@ -31,14 +32,14 @@ sceneClear();
 createButtons();
 
 //Sun(radius,scale,speedRotation,x,y,z)
-var sun = new Sun(0.004,20000,0.0001,0,0,0);
+var sun = new Sun(0.004,20000,0.001,0,0,0);
 
 //Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff)
-var earth = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*50,500,0.005);
+earthPart2 = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*30,500,0.005);
 
-
-dynamicEllipse = new dynamicEllipseControl(earth);
-dynamicEllipse.clearEllipseVetors();
+teste = new dynamicEllipseControl(earthPart2);
+teste.clearEllipseVetors();
+//earthPart2.meshEllipse();
 
 part = 2;
 
@@ -52,7 +53,7 @@ createButtons();
 
 //##################################################### SUN #############################################################################
 //Sun(radius,scale,speedRotation,x,y,z)
-var sun = new Sun(0.004,1000,0.0001,0,0,0);
+var sun = new Sun(0.004,500,0.001,0,0,0);
 
 
 var x0 = sun.mesh.position.x;
@@ -75,8 +76,8 @@ sunText.position.set(x1 - 60,y1,z1);
 //################################################# APHELION #############################################################################
 
 //Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff)
-var earthAphelion = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*30,500,0.005);
-earthAphelion.meshPlanet.position.x = -earthAphelion.aphelion;
+var earthAphelion = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*60,500,0.005);
+earthAphelion.meshPlanet.position.x = earthAphelion.aphelion;
 
 
 
@@ -100,9 +101,9 @@ earthAphelion.meshEllipse();
 //################################################# PERIHELION #############################################################################
 
 //Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff)
-var earthPerihelion = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*30,500,0.005);
+var earthPerihelion = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*60,500,0.005);
 
-earthPerihelion.meshPlanet.position.x = earthPerihelion.perihelion;
+earthPerihelion.meshPlanet.position.x = -earthPerihelion.perihelion;
 
 
 var x0 = earthPerihelion.meshPlanet.position.x;
@@ -169,11 +170,11 @@ focusText.position.set(x1 - 30,y1,z1);
 //################################################# CENTER LINE ###########################################################################
 
 
-var x0 = -earthAphelion.aphelion;
+var x0 = -earthAphelion.perihelion;
 var y0 = earthAphelion.meshPlanet.position.y;
 var z0 = earthAphelion.meshPlanet.position.z;
 
-var x1 = earthAphelion.perihelion;
+var x1 = earthAphelion.aphelion;
 var y1 = earthAphelion.meshPlanet.position.y;
 var z1 = earthAphelion.meshPlanet.position.z;
 
@@ -207,8 +208,8 @@ function start(){
 	
 sceneClear();
 createButtons();
-
 render();
+part1();
 }
 
 
@@ -216,7 +217,8 @@ function render() {
   requestAnimationFrame(render);
 
   if (part == 2){
-  	dynamicEllipse.animate();
+  //	earthPart2.calculateRotation();
+  	teste.animate();
   }
 
 

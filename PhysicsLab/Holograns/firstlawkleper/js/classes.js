@@ -7,7 +7,7 @@ function Sun(radius,scale,speedRotation,x,y,z){
 	this.y = y;
 	this.z = z;
 
-	var initData = {ownerUserId: user.userId,radius: this.radius};
+	var initData = {ownerUserId: user.userId,radius: this.radius,speedRotation: this.speedRotation};
 
     this.mesh = sceneSync.instantiate('Sun',initData,true);
 	this.mesh.position.set(x,y,z);
@@ -33,7 +33,7 @@ function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sun
     this.orbitalPosition = 0;
     this.minorRadius = Math.sqrt(Math.pow(this.largerRadius,2) - Math.pow(this.center,2));
 
-    var initData = {ownerUserId: user.userId,name: this.name,radius: this.radius};
+    var initData = {ownerUserId: user.userId,name: this.name,radius: this.radius,speedRotation: this.speedRotation};
     this.meshPlanet = sceneSync.instantiate('Planet',initData,true);
     this.meshPlanet.position.set(this.aphelion,this.sunY,this.sunZ);
 
@@ -62,11 +62,11 @@ function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sun
 		var x = this.largerRadius*Math.sin(this.orbitalPosition);
 		var z = this.minorRadius*Math.cos(this.orbitalPosition);
 
-	//	var v = new THREE.Vector3(x+this.center,this.sunY,z);
+		var v = new THREE.Vector3(x+this.center,this.sunY,z);
 
 		this.meshPlanet.position.set(x+this.center,this.sunY,z);
 
-	//	return v;
+		return v;
 	}
 
 
@@ -85,21 +85,19 @@ this.orbitMesh;
 
 this.animate = function animation(){
 
-	if (vectorsEllipse.length <= 1258 ){
-		vectorsEllipse.push(this.planet.realTimeOrbit());
-	}
-
-	if (vectorsEllipse.length > 1258 ){
-		calculateRealTimeOrbit(this.planet.realTimeOrbit());
-	}
-
-	if (vectorsEllipse.length > 1 && vectorsEllipse.length <= 1258 ){
-		var initData = {ownerUserId: user.userId}
-		this.orbitMesh = sceneSync.instantiate('DynEllipse',initData,true);
-		if (vectorsEllipse.length < 1258){
-			sceneSync.destroy(this.orbitMesh);
+		if (vectorsEllipse.length <= 1256 ){
+			vectorsEllipse.push(this.planet.realTimeOrbit());
 		}
-	}
+
+		if (vectorsEllipse.length > 1256 ){
+			this.planet.realTimeOrbit();
+		}
+
+		if (vectorsEllipse.length > 1 && vectorsEllipse.length <= 1256 ){
+			
+			var initData = {ownerUserId: user.userId};
+			this.orbitMesh = sceneSync.instantiate('DynEllipse',initData,true);
+		}	
 }
 
 this.clearEllipseVetors = function clearVectorArray(){
