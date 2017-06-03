@@ -11,10 +11,6 @@ function Sun(radius,scale,speedRotation,x,y,z){
 
     this.mesh = sceneSync.instantiate('Sun',initData,true);
 	this.mesh.position.set(x,y,z);
-
-	this.rotation = function calculateRotation(){
-						this.mesh.rotation += speedRotation;
-					}
 }
 
 
@@ -69,10 +65,6 @@ function Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sun
 		return v;
 	}
 
-
-	this.rotation = function calculateRotation(){
-						this.mesh.rotation += speedRotation;
-					}
 }
 
 

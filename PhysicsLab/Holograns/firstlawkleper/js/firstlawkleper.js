@@ -37,9 +37,9 @@ var sun = new Sun(0.004,20000,0.001,0,0,0);
 //Planets(name,perihelion,aphelion,radius,speedRotation,orbitalPeriod,sunX,sunY,sunZ,scalePlanet,scaleOrbit,velocityCoeff)
 earthPart2 = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,sun.scale*30,500,0.005);
 
-teste = new dynamicEllipseControl(earthPart2);
-teste.clearEllipseVetors();
-//earthPart2.meshEllipse();
+//teste = new dynamicEllipseControl(earthPart2);
+//teste.clearEllipseVetors();
+earthPart2.meshEllipse();
 
 part = 2;
 
@@ -217,8 +217,8 @@ function render() {
   requestAnimationFrame(render);
 
   if (part == 2){
-  //	earthPart2.calculateRotation();
-  	teste.animate();
+  	earthPart2.realTimeOrbit();
+  	//teste.animate();
   }
 
 
