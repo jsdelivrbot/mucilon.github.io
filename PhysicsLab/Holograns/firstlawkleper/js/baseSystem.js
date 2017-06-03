@@ -209,7 +209,7 @@
 				var radiusSegments = 8;
 				var closed = true; 
 
-				var path = new THREE.CatmullRomCurve3(initData.vectors);
+				var path = new THREE.CatmullRomCurve3(vectorsEllipse);
 
 				var geometry = new THREE.TubeGeometry( path, pathSegments, tubeRadius, radiusSegments, closed );
 				             

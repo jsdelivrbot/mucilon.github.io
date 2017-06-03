@@ -38,7 +38,7 @@ var earth = new Planets("Earth",0.976,1.010,0.0000425,0.01,1,sun.x,sun.y,sun.z,s
 
 
 dynamicEllipse = new dynamicEllipseControl(earth);
-dynamicEllipse.clearArrayVetor();
+dynamicEllipse.clearEllipseVetors();
 
 part = 2;
 

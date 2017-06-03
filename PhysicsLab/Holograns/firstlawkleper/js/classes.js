@@ -94,13 +94,15 @@ this.animate = function animation(){
 	}
 
 	if (vectorsEllipse.length > 1 && vectorsEllipse.length <= 1258 ){
-		sceneSync.destroy(this.orbitMesh);
 		var initData = {ownerUserId: user.userId}
 		this.orbitMesh = sceneSync.instantiate('DynEllipse',initData,true);
+		if (vectorsEllipse.length < 1258){
+			sceneSync.destroy(this.orbitMesh);
+		}
 	}
 }
 
-this.clearArrayVetors = function clearVectorArray(){
+this.clearEllipseVetors = function clearVectorArray(){
 					vectorsEllipse = new Array();
 				  }	
 
